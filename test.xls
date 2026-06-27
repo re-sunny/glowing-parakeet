@@ -1,0 +1,5022 @@
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<title>오늘의 공시(EXCEL)</title>
+</head>
+<body>
+
+<table cellpadding="0" cellspacing="1" class="bbs_tb" border=1>
+	<col width="5%" />
+	<col width="5%" />
+	<col width="20%" />
+	<col width="5%" />
+	<col width="45%" />
+	<col width="10%" />
+	<col width="10%" />
+	<tr>
+		<th bgcolor="#66FF99">번호</th>
+		<th bgcolor="#66FF99">시간</th>
+		<th bgcolor="#66FF99">회사명</th>
+		<th bgcolor="#66FF99">종목코드</th>
+		<th bgcolor="#66FF99">공시제목</th>
+		<th bgcolor="#66FF99">제출인</th>
+		<th bgcolor="#66FF99">접수일자</th>
+	</tr>
+	
+	
+	
+	
+		
+			
+	<tr>
+		<td style="text-align:center;">498</td>
+		<td style="text-align:center;">20:01</td>
+		<td>삼보산업</td>
+		<td style="mso-number-format:'@';text-align:center;">009620</td>
+		<td>공매도 과열종목 연장(공매도 거래 금지 연장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">497</td>
+		<td style="text-align:center;">20:01</td>
+		<td>삼익제약</td>
+		<td style="mso-number-format:'@';text-align:center;">014950</td>
+		<td>공매도 과열종목 지정(공매도 거래 금지 적용)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">496</td>
+		<td style="text-align:center;">20:01</td>
+		<td>디지아이</td>
+		<td style="mso-number-format:'@';text-align:center;">043360</td>
+		<td>공매도 과열종목 지정(공매도 거래 금지 적용)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">495</td>
+		<td style="text-align:center;">20:01</td>
+		<td>피엠티</td>
+		<td style="mso-number-format:'@';text-align:center;">147760</td>
+		<td>공매도 과열종목 지정(공매도 거래 금지 적용)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">494</td>
+		<td style="text-align:center;">20:01</td>
+		<td>아바텍</td>
+		<td style="mso-number-format:'@';text-align:center;">149950</td>
+		<td>공매도 과열종목 지정(공매도 거래 금지 적용)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">493</td>
+		<td style="text-align:center;">20:01</td>
+		<td>유티아이</td>
+		<td style="mso-number-format:'@';text-align:center;">179900</td>
+		<td>공매도 과열종목 연장(공매도 거래 금지 연장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">492</td>
+		<td style="text-align:center;">20:01</td>
+		<td>유진테크놀로지</td>
+		<td style="mso-number-format:'@';text-align:center;">240600</td>
+		<td>공매도 과열종목 연장(공매도 거래 금지 연장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">491</td>
+		<td style="text-align:center;">20:01</td>
+		<td>브이원텍</td>
+		<td style="mso-number-format:'@';text-align:center;">251630</td>
+		<td>공매도 과열종목 지정(공매도 거래 금지 적용)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">490</td>
+		<td style="text-align:center;">20:01</td>
+		<td>카카오게임즈</td>
+		<td style="mso-number-format:'@';text-align:center;">293490</td>
+		<td>공매도 과열종목 연장(공매도 거래 금지 연장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">489</td>
+		<td style="text-align:center;">20:00</td>
+		<td>화승알앤에이</td>
+		<td style="mso-number-format:'@';text-align:center;">378850</td>
+		<td>공매도 과열종목 지정(공매도 거래 금지 적용)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">488</td>
+		<td style="text-align:center;">20:00</td>
+		<td>디와이씨</td>
+		<td style="mso-number-format:'@';text-align:center;">310870</td>
+		<td>공매도 과열종목 지정(공매도 거래 금지 적용)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">487</td>
+		<td style="text-align:center;">20:00</td>
+		<td>키스트론</td>
+		<td style="mso-number-format:'@';text-align:center;">475430</td>
+		<td>공매도 과열종목 지정(공매도 거래 금지 적용)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">486</td>
+		<td style="text-align:center;">20:00</td>
+		<td>삼화전자공업</td>
+		<td style="mso-number-format:'@';text-align:center;">011230</td>
+		<td>공매도 과열종목 연장(공매도 거래 금지 연장)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">485</td>
+		<td style="text-align:center;">20:00</td>
+		<td>대원화성</td>
+		<td style="mso-number-format:'@';text-align:center;">024890</td>
+		<td>공매도 과열종목 지정(공매도 거래 금지 적용)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">484</td>
+		<td style="text-align:center;">20:00</td>
+		<td>SHD</td>
+		<td style="mso-number-format:'@';text-align:center;">001770</td>
+		<td>공매도 과열종목 연장(공매도 거래 금지 연장)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">483</td>
+		<td style="text-align:center;">20:00</td>
+		<td>삼성전기</td>
+		<td style="mso-number-format:'@';text-align:center;">009150</td>
+		<td>공매도 과열종목 지정(공매도 거래 금지 적용)(삼성전기우)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">482</td>
+		<td style="text-align:center;">20:00</td>
+		<td>대상홀딩스</td>
+		<td style="mso-number-format:'@';text-align:center;">084690</td>
+		<td>단기과열종목(가격괴리율, 3거래일 단일가매매) 지정 연장(대상홀딩스우)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">481</td>
+		<td style="text-align:center;">20:00</td>
+		<td>신풍제약</td>
+		<td style="mso-number-format:'@';text-align:center;">019170</td>
+		<td>단기과열종목(가격괴리율, 3거래일 단일가매매) 지정 연장(신풍제약우)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">480</td>
+		<td style="text-align:center;">20:00</td>
+		<td>SHD</td>
+		<td style="mso-number-format:'@';text-align:center;">001770</td>
+		<td>[투자주의]소수계좌 거래집중 종목</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">479</td>
+		<td style="text-align:center;">20:00</td>
+		<td>부국철강</td>
+		<td style="mso-number-format:'@';text-align:center;">026940</td>
+		<td>[투자주의]투자경고종목 지정예고</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">478</td>
+		<td style="text-align:center;">20:00</td>
+		<td>보해양조</td>
+		<td style="mso-number-format:'@';text-align:center;">000890</td>
+		<td>투자경고종목 지정</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">477</td>
+		<td style="text-align:center;">20:00</td>
+		<td>빌리언스</td>
+		<td style="mso-number-format:'@';text-align:center;">044480</td>
+		<td>[투자주의]소수계좌 거래집중 종목</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">476</td>
+		<td style="text-align:center;">20:00</td>
+		<td>오늘이엔엠</td>
+		<td style="mso-number-format:'@';text-align:center;">192410</td>
+		<td>[투자주의]소수계좌 거래집중 종목</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">475</td>
+		<td style="text-align:center;">20:00</td>
+		<td>아티스트스튜디오</td>
+		<td style="mso-number-format:'@';text-align:center;">200350</td>
+		<td>[투자주의]소수계좌 거래집중 종목</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">474</td>
+		<td style="text-align:center;">20:00</td>
+		<td>푸드나무</td>
+		<td style="mso-number-format:'@';text-align:center;">290720</td>
+		<td>[투자주의]소수계좌 거래집중 종목</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">473</td>
+		<td style="text-align:center;">20:00</td>
+		<td>비트맥스</td>
+		<td style="mso-number-format:'@';text-align:center;">377030</td>
+		<td>[투자주의]소수계좌 거래집중 종목</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">472</td>
+		<td style="text-align:center;">20:00</td>
+		<td>레이저쎌</td>
+		<td style="mso-number-format:'@';text-align:center;">412350</td>
+		<td>[투자주의]소수계좌 거래집중 종목</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">471</td>
+		<td style="text-align:center;">20:00</td>
+		<td>백금T&A</td>
+		<td style="mso-number-format:'@';text-align:center;">046310</td>
+		<td>[투자주의]종가급변종목</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">470</td>
+		<td style="text-align:center;">20:00</td>
+		<td>에프알텍</td>
+		<td style="mso-number-format:'@';text-align:center;">073540</td>
+		<td>[투자주의]종가급변종목</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">469</td>
+		<td style="text-align:center;">20:00</td>
+		<td>그리티</td>
+		<td style="mso-number-format:'@';text-align:center;">204020</td>
+		<td>[투자주의]종가급변종목</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">468</td>
+		<td style="text-align:center;">20:00</td>
+		<td>코퍼스코리아</td>
+		<td style="mso-number-format:'@';text-align:center;">322780</td>
+		<td>[투자주의]종가급변종목</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">467</td>
+		<td style="text-align:center;">20:00</td>
+		<td>누보</td>
+		<td style="mso-number-format:'@';text-align:center;">332290</td>
+		<td>[투자주의]종가급변종목</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">466</td>
+		<td style="text-align:center;">20:00</td>
+		<td>SM C&C</td>
+		<td style="mso-number-format:'@';text-align:center;">048550</td>
+		<td>[투자주의]15일간 상승종목의 당일 소수계좌 매수관여 과다종목</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">465</td>
+		<td style="text-align:center;">20:00</td>
+		<td>JW신약</td>
+		<td style="mso-number-format:'@';text-align:center;">067290</td>
+		<td>투자경고종목지정</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">464</td>
+		<td style="text-align:center;">20:00</td>
+		<td>한울반도체</td>
+		<td style="mso-number-format:'@';text-align:center;">320000</td>
+		<td>투자경고종목지정</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">463</td>
+		<td style="text-align:center;">20:00</td>
+		<td>크레오에스지</td>
+		<td style="mso-number-format:'@';text-align:center;">040350</td>
+		<td>[투자주의]투자경고종목 지정해제 및 재지정 예고</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">462</td>
+		<td style="text-align:center;">20:00</td>
+		<td>서산</td>
+		<td style="mso-number-format:'@';text-align:center;">079650</td>
+		<td>투자위험종목 지정</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">461</td>
+		<td style="text-align:center;">20:00</td>
+		<td>서산</td>
+		<td style="mso-number-format:'@';text-align:center;">079650</td>
+		<td>매매거래 정지 및 재개(투자위험종목 최초지정)</td>
+		<td>시장감시위원회</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">460</td>
+		<td style="text-align:center;">19:36</td>
+		<td>앱토크롬</td>
+		<td style="mso-number-format:'@';text-align:center;">109960</td>
+		<td><font color='#FF8040'>[정정]</font>주권 관련 사채권의 취득결정</td>
+		<td>앱토크롬</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">459</td>
+		<td style="text-align:center;">19:31</td>
+		<td>에이프로젠</td>
+		<td style="mso-number-format:'@';text-align:center;">007460</td>
+		<td><font color='#FF8040'>[정정]</font>전환사채권발행결정(자회사의 주요경영사항)</td>
+		<td>에이프로젠</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">458</td>
+		<td style="text-align:center;">19:30</td>
+		<td>에이프로젠바이오로직스</td>
+		<td style="mso-number-format:'@';text-align:center;">003060</td>
+		<td><font color='#FF8040'>[정정]</font>전환사채권발행결정</td>
+		<td>에이프로젠바이오로직스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">457</td>
+		<td style="text-align:center;">18:23</td>
+		<td>에이루트</td>
+		<td style="mso-number-format:'@';text-align:center;">096690</td>
+		<td>증권 발행결과(자율공시)(제18회차 CB)</td>
+		<td>에이루트</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">456</td>
+		<td style="text-align:center;">18:23</td>
+		<td>고려아연</td>
+		<td style="mso-number-format:'@';text-align:center;">010130</td>
+		<td>풍문 또는 보도에 대한 해명</td>
+		<td>고려아연</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">455</td>
+		<td style="text-align:center;">18:20</td>
+		<td>케이옥션</td>
+		<td style="mso-number-format:'@';text-align:center;">102370</td>
+		<td><font color='#FF8040'>[정정]</font>전환사채권발행결정(제1회차)</td>
+		<td>케이옥션</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">454</td>
+		<td style="text-align:center;">18:19</td>
+		<td>엑시큐어하이트론</td>
+		<td style="mso-number-format:'@';text-align:center;">019490</td>
+		<td><font color='#FF8040'>[정정]</font>타법인 주식 및 출자증권 양도결정</td>
+		<td>엑시큐어하이트론</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">453</td>
+		<td style="text-align:center;">18:19</td>
+		<td>넥스턴앤롤코리아</td>
+		<td style="mso-number-format:'@';text-align:center;">089140</td>
+		<td><font color='#FF8040'>[정정]</font>유형자산 양도 결정</td>
+		<td>넥스턴앤롤코리아</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">452</td>
+		<td style="text-align:center;">18:11</td>
+		<td>소프트센</td>
+		<td style="mso-number-format:'@';text-align:center;">032680</td>
+		<td>기타시장안내(관리종목지정우려종목)(소프트센 1우선주(거래량 미달))</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">451</td>
+		<td style="text-align:center;">18:09</td>
+		<td>미코</td>
+		<td style="mso-number-format:'@';text-align:center;">059090</td>
+		<td>최대주주 변경을 수반하는 주식 담보제공 계약 체결</td>
+		<td>미코</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">450</td>
+		<td style="text-align:center;">18:09</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999980</td>
+		<td>자기주식매매신청내역(코스닥시장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">449</td>
+		<td style="text-align:center;">18:09</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999990</td>
+		<td>자기주식매매 신청내역(유가증권시장)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">448</td>
+		<td style="text-align:center;">18:09</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999990</td>
+		<td>대량매매내역(유가증권시장)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">447</td>
+		<td style="text-align:center;">18:08</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999990</td>
+		<td>일일 회전율 상위 20종목-ELW제외(유가증권시장)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">446</td>
+		<td style="text-align:center;">18:08</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999980</td>
+		<td>직전1개월 일평균대비 거래량 증가율 상위 10종목(코스닥시장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">445</td>
+		<td style="text-align:center;">18:08</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999990</td>
+		<td>일일 회전율 상위 20종목-ELW포함(유가증권시장)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">444</td>
+		<td style="text-align:center;">18:08</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999980</td>
+		<td>일중 변동성 상위 10종목(코스닥시장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">443</td>
+		<td style="text-align:center;">18:08</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999990</td>
+		<td>자기주식매매 체결내역(유가증권시장)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">442</td>
+		<td style="text-align:center;">18:08</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999980</td>
+		<td>일일회전율상위20종목(코스닥시장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">441</td>
+		<td style="text-align:center;">18:08</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999980</td>
+		<td>대량매매내역(코스닥시장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">440</td>
+		<td style="text-align:center;">18:08</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999980</td>
+		<td>최근 20일중 최저(최고)가 대비 상승(하락)율 상위 10종목(코스닥시장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">439</td>
+		<td style="text-align:center;">18:08</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999980</td>
+		<td>자기주식매매체결내역(코스닥시장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">438</td>
+		<td style="text-align:center;">18:04</td>
+		<td>에이루트</td>
+		<td style="mso-number-format:'@';text-align:center;">096690</td>
+		<td><font color='#FF8040'>[정정]</font>전환사채권발행결정(제18회차)</td>
+		<td>에이루트</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">437</td>
+		<td style="text-align:center;">17:57</td>
+		<td>퓨쳐메디신</td>
+		<td style="mso-number-format:'@';text-align:center;">341170</td>
+		<td>기업설명회(IR) 개최 결과</td>
+		<td>퓨쳐메디신</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">436</td>
+		<td style="text-align:center;">17:54</td>
+		<td>경남제약</td>
+		<td style="mso-number-format:'@';text-align:center;">053950</td>
+		<td>유상증자결정(제3자배정)</td>
+		<td>경남제약</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">435</td>
+		<td style="text-align:center;">17:52</td>
+		<td>제노코</td>
+		<td style="mso-number-format:'@';text-align:center;">361390</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>허성재</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">434</td>
+		<td style="text-align:center;">17:52</td>
+		<td>경남제약</td>
+		<td style="mso-number-format:'@';text-align:center;">053950</td>
+		<td><font color='#FF8040'>[정정]</font>주주명부폐쇄기간 또는 기준일 설정</td>
+		<td>경남제약</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">433</td>
+		<td style="text-align:center;">17:51</td>
+		<td>경남제약</td>
+		<td style="mso-number-format:'@';text-align:center;">053950</td>
+		<td><font color='#FF8040'>[정정]</font>유상증자결정(주주배정후 실권주 일반공모)</td>
+		<td>경남제약</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">432</td>
+		<td style="text-align:center;">17:48</td>
+		<td>아센디오</td>
+		<td style="mso-number-format:'@';text-align:center;">012170</td>
+		<td>주주총회소집공고</td>
+		<td>아센디오</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">431</td>
+		<td style="text-align:center;">17:43</td>
+		<td>아센디오</td>
+		<td style="mso-number-format:'@';text-align:center;">012170</td>
+		<td><font color='#FF8040'>[정정]</font>주주총회소집결의</td>
+		<td>아센디오</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">430</td>
+		<td style="text-align:center;">17:43</td>
+		<td>아센디오</td>
+		<td style="mso-number-format:'@';text-align:center;">012170</td>
+		<td>주식병합 결정</td>
+		<td>아센디오</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">429</td>
+		<td style="text-align:center;">17:41</td>
+		<td>파이버프로</td>
+		<td style="mso-number-format:'@';text-align:center;">368770</td>
+		<td><font color='#FF8040'>[정정]</font>단일판매ㆍ공급계약체결</td>
+		<td>파이버프로</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">428</td>
+		<td style="text-align:center;">17:41</td>
+		<td>GS</td>
+		<td style="mso-number-format:'@';text-align:center;">078930</td>
+		<td>타인에대한채무보증결정(자회사의 주요경영사항)</td>
+		<td>GS</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">427</td>
+		<td style="text-align:center;">17:40</td>
+		<td>티와이홀딩스</td>
+		<td style="mso-number-format:'@';text-align:center;">363280</td>
+		<td><font color='#FF8040'>[정정]</font>단일판매ㆍ공급계약체결(자회사의 주요경영사항)</td>
+		<td>티와이홀딩스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">426</td>
+		<td style="text-align:center;">17:37</td>
+		<td>KBI메탈</td>
+		<td style="mso-number-format:'@';text-align:center;">024840</td>
+		<td>불성실공시법인미지정(지정유예)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">425</td>
+		<td style="text-align:center;">17:37</td>
+		<td>HLB바이오스텝</td>
+		<td style="mso-number-format:'@';text-align:center;">278650</td>
+		<td>불성실공시법인미지정(공시번복)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">424</td>
+		<td style="text-align:center;">17:37</td>
+		<td>아이윈</td>
+		<td style="mso-number-format:'@';text-align:center;">090150</td>
+		<td>임시주주총회결과</td>
+		<td>아이윈</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">423</td>
+		<td style="text-align:center;">17:36</td>
+		<td>보로노이</td>
+		<td style="mso-number-format:'@';text-align:center;">310210</td>
+		<td><font color='#FF8040'>[정정]</font>투자판단 관련 주요경영사항(임상시험계획 변경승인신청)(VRN110755의 제 1/2상 임상시험)</td>
+		<td>보로노이</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">422</td>
+		<td style="text-align:center;">17:36</td>
+		<td>탑머티리얼</td>
+		<td style="mso-number-format:'@';text-align:center;">360070</td>
+		<td>추가상장(주식매수선택권행사)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">421</td>
+		<td style="text-align:center;">17:35</td>
+		<td>케이피엠테크</td>
+		<td style="mso-number-format:'@';text-align:center;">042040</td>
+		<td>주권매매거래정지해제(감자 주권 변경상장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">420</td>
+		<td style="text-align:center;">17:35</td>
+		<td>미래아이앤지</td>
+		<td style="mso-number-format:'@';text-align:center;">007120</td>
+		<td>타법인주식및출자증권취득결정</td>
+		<td>미래아이앤지</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">419</td>
+		<td style="text-align:center;">17:35</td>
+		<td>인콘</td>
+		<td style="mso-number-format:'@';text-align:center;">083640</td>
+		<td>주주총회소집결의(임시주주총회)</td>
+		<td>인콘</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">418</td>
+		<td style="text-align:center;">17:35</td>
+		<td>케이피엠테크</td>
+		<td style="mso-number-format:'@';text-align:center;">042040</td>
+		<td>변경상장(감자(무상))</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">417</td>
+		<td style="text-align:center;">17:35</td>
+		<td>태영건설</td>
+		<td style="mso-number-format:'@';text-align:center;">009410</td>
+		<td><font color='#FF8040'>[정정]</font>단일판매ㆍ공급계약체결</td>
+		<td>태영건설</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">416</td>
+		<td style="text-align:center;">17:34</td>
+		<td>동원금속</td>
+		<td style="mso-number-format:'@';text-align:center;">018500</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>이승재</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">415</td>
+		<td style="text-align:center;">17:34</td>
+		<td>인콘</td>
+		<td style="mso-number-format:'@';text-align:center;">083640</td>
+		<td>유상증자결정(제3자배정)</td>
+		<td>인콘</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">414</td>
+		<td style="text-align:center;">17:34</td>
+		<td>인콘</td>
+		<td style="mso-number-format:'@';text-align:center;">083640</td>
+		<td>주주명부폐쇄기간 또는 기준일 설정</td>
+		<td>인콘</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">413</td>
+		<td style="text-align:center;">17:33</td>
+		<td>엠투엔</td>
+		<td style="mso-number-format:'@';text-align:center;">033310</td>
+		<td><font color='#FF8040'>[정정]</font>최대주주 변경을 수반하는 주식 담보제공 계약 체결</td>
+		<td>엠투엔</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">412</td>
+		<td style="text-align:center;">17:32</td>
+		<td>진흥기업</td>
+		<td style="mso-number-format:'@';text-align:center;">002780</td>
+		<td>투자판단 관련 주요경영사항</td>
+		<td>진흥기업</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">411</td>
+		<td style="text-align:center;">17:31</td>
+		<td>오가닉티코스메틱</td>
+		<td style="mso-number-format:'@';text-align:center;">900300</td>
+		<td>기준가격안내(주식병합)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">410</td>
+		<td style="text-align:center;">17:30</td>
+		<td>조아제약</td>
+		<td style="mso-number-format:'@';text-align:center;">034940</td>
+		<td>조회공시요구(현저한시황변동)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">409</td>
+		<td style="text-align:center;">17:30</td>
+		<td>진흥기업</td>
+		<td style="mso-number-format:'@';text-align:center;">002780</td>
+		<td>주주명부폐쇄기간 또는 기준일 설정</td>
+		<td>진흥기업</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">408</td>
+		<td style="text-align:center;">17:29</td>
+		<td>남광토건</td>
+		<td style="mso-number-format:'@';text-align:center;">001260</td>
+		<td><font color='#FF8040'>[정정]</font>단일판매ㆍ공급계약체결</td>
+		<td>남광토건</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">407</td>
+		<td style="text-align:center;">17:27</td>
+		<td>현대자산운용</td>
+		<td style="mso-number-format:'@';text-align:center;"></td>
+		<td>ETF 추가 ㆍ 변경상장신청서(수량변경)(일괄공시)</td>
+		<td>현대자산운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">406</td>
+		<td style="text-align:center;">17:27</td>
+		<td>인디에프</td>
+		<td style="mso-number-format:'@';text-align:center;">014990</td>
+		<td>변경상장(액면병합)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">405</td>
+		<td style="text-align:center;">17:27</td>
+		<td>LS</td>
+		<td style="mso-number-format:'@';text-align:center;">006260</td>
+		<td><font color='#FF8040'>[정정]</font>타법인주식및출자증권취득결정(자회사의 주요경영사항)</td>
+		<td>LS</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">404</td>
+		<td style="text-align:center;">17:27</td>
+		<td>심텍홀딩스</td>
+		<td style="mso-number-format:'@';text-align:center;">036710</td>
+		<td><font color='#FF8040'>[정정]</font>주권 관련 사채권의 취득결정</td>
+		<td>심텍홀딩스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">403</td>
+		<td style="text-align:center;">17:27</td>
+		<td>큐라클</td>
+		<td style="mso-number-format:'@';text-align:center;">365270</td>
+		<td>추가상장(주식매수선택권행사)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">402</td>
+		<td style="text-align:center;">17:27</td>
+		<td>오리엔트정공</td>
+		<td style="mso-number-format:'@';text-align:center;">065500</td>
+		<td>유상증자결정(제3자배정)</td>
+		<td>오리엔트정공</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">401</td>
+		<td style="text-align:center;">17:26</td>
+		<td>하이젠알앤엠</td>
+		<td style="mso-number-format:'@';text-align:center;">160190</td>
+		<td><font color='#FF8040'>[정정]</font>임시주주총회결과</td>
+		<td>하이젠알앤엠</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">400</td>
+		<td style="text-align:center;">17:25</td>
+		<td>한화자산운용</td>
+		<td style="mso-number-format:'@';text-align:center;">030680</td>
+		<td>ETF 추가 ㆍ 변경상장신청서(수량변경)(일괄공시)</td>
+		<td>한화자산운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">399</td>
+		<td style="text-align:center;">17:25</td>
+		<td>부국철강</td>
+		<td style="mso-number-format:'@';text-align:center;">026940</td>
+		<td>조회공시 요구(현저한 시황변동)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">398</td>
+		<td style="text-align:center;">17:24</td>
+		<td>한국투자신탁운용</td>
+		<td style="mso-number-format:'@';text-align:center;">047240</td>
+		<td>ETF 추가 ㆍ 변경상장신청서(수량변경)(일괄공시)</td>
+		<td>한국투자신탁운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">397</td>
+		<td style="text-align:center;">17:23</td>
+		<td>NH투자증권</td>
+		<td style="mso-number-format:'@';text-align:center;">005940</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>엔에이치투자증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">396</td>
+		<td style="text-align:center;">17:22</td>
+		<td>하나자산운용</td>
+		<td style="mso-number-format:'@';text-align:center;">047150</td>
+		<td>ETF 추가 ㆍ 변경상장신청서(수량변경)(일괄공시)</td>
+		<td>하나자산운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">395</td>
+		<td style="text-align:center;">17:22</td>
+		<td>클로봇</td>
+		<td style="mso-number-format:'@';text-align:center;">466100</td>
+		<td><font color='#FF8040'>[정정][연결포함]</font>증권신고서(지분증권)</td>
+		<td>클로봇</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">394</td>
+		<td style="text-align:center;">17:21</td>
+		<td>진흥기업</td>
+		<td style="mso-number-format:'@';text-align:center;">002780</td>
+		<td>주주총회소집결의</td>
+		<td>진흥기업</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">393</td>
+		<td style="text-align:center;">17:20</td>
+		<td>키움투자자산운용</td>
+		<td style="mso-number-format:'@';text-align:center;">047230</td>
+		<td>ETF 추가 ㆍ 변경상장신청서(수량변경)(일괄공시)</td>
+		<td>키움투자자산운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">392</td>
+		<td style="text-align:center;">17:20</td>
+		<td>오가닉티코스메틱</td>
+		<td style="mso-number-format:'@';text-align:center;">900300</td>
+		<td>유상증자결정(제3자배정)</td>
+		<td>오가닉티코스메틱스홀딩스컴퍼니리미티드</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">391</td>
+		<td style="text-align:center;">17:18</td>
+		<td>케이비자산운용</td>
+		<td style="mso-number-format:'@';text-align:center;">047210</td>
+		<td>ETF 추가 ㆍ 변경상장신청서(수량변경)(일괄공시)</td>
+		<td>KB자산운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">390</td>
+		<td style="text-align:center;">17:17</td>
+		<td>삼성물산</td>
+		<td style="mso-number-format:'@';text-align:center;">028260</td>
+		<td>기업설명회(IR) 개최(안내공시)</td>
+		<td>삼성물산</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">389</td>
+		<td style="text-align:center;">17:17</td>
+		<td>NH투자증권</td>
+		<td style="mso-number-format:'@';text-align:center;">005940</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(기타파생결합사채)</td>
+		<td>엔에이치투자증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">388</td>
+		<td style="text-align:center;">17:16</td>
+		<td>우리자산운용</td>
+		<td style="mso-number-format:'@';text-align:center;">047160</td>
+		<td>ETF 추가 ㆍ 변경상장신청서(수량변경)(일괄공시)</td>
+		<td>우리자산운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">387</td>
+		<td style="text-align:center;">17:16</td>
+		<td>하나머티리얼즈</td>
+		<td style="mso-number-format:'@';text-align:center;">166090</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>하나마이크론</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">386</td>
+		<td style="text-align:center;">17:16</td>
+		<td>HLB제넥스</td>
+		<td style="mso-number-format:'@';text-align:center;">187420</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>에이치엘비</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">385</td>
+		<td style="text-align:center;">17:15</td>
+		<td>클로봇</td>
+		<td style="mso-number-format:'@';text-align:center;">466100</td>
+		<td>타법인 주식 및 출자증권 양수결정</td>
+		<td>클로봇</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">384</td>
+		<td style="text-align:center;">17:14</td>
+		<td>하이젠알앤엠</td>
+		<td style="mso-number-format:'@';text-align:center;">160190</td>
+		<td><font color='#FF8040'>[정정]</font>신규시설투자등</td>
+		<td>하이젠알앤엠</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">383</td>
+		<td style="text-align:center;">17:13</td>
+		<td>동원금속</td>
+		<td style="mso-number-format:'@';text-align:center;">018500</td>
+		<td>최대주주등소유주식변동신고서</td>
+		<td>동원금속</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">382</td>
+		<td style="text-align:center;">17:13</td>
+		<td>지투파워</td>
+		<td style="mso-number-format:'@';text-align:center;">388050</td>
+		<td>기업설명회(IR) 개최</td>
+		<td>지투파워</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">381</td>
+		<td style="text-align:center;">17:13</td>
+		<td>아이비케이자산운용</td>
+		<td style="mso-number-format:'@';text-align:center;">082990</td>
+		<td>ETF 추가 ㆍ 변경상장신청서(수량변경)(일괄공시)</td>
+		<td>아이비케이자산운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">380</td>
+		<td style="text-align:center;">17:13</td>
+		<td>파두</td>
+		<td style="mso-number-format:'@';text-align:center;">440110</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>이성갑</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">379</td>
+		<td style="text-align:center;">17:13</td>
+		<td>동성제약</td>
+		<td style="mso-number-format:'@';text-align:center;">002210</td>
+		<td>기타시장안내(기업심사위원회 속행 결정 안내)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">378</td>
+		<td style="text-align:center;">17:12</td>
+		<td>신한자산운용</td>
+		<td style="mso-number-format:'@';text-align:center;">047190</td>
+		<td>ETF 추가 ㆍ 변경상장신청서(수량변경)(일괄공시)</td>
+		<td>신한자산운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">377</td>
+		<td style="text-align:center;">17:10</td>
+		<td>삼성자산운용</td>
+		<td style="mso-number-format:'@';text-align:center;">038900</td>
+		<td>ETF 추가 ㆍ 변경상장신청서(수량변경)(일괄공시)</td>
+		<td>삼성자산운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">376</td>
+		<td style="text-align:center;">17:09</td>
+		<td>파두</td>
+		<td style="mso-number-format:'@';text-align:center;">440110</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>박상현</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">375</td>
+		<td style="text-align:center;">17:08</td>
+		<td>미래에셋자산운용</td>
+		<td style="mso-number-format:'@';text-align:center;">036320</td>
+		<td>ETF 추가 ㆍ 변경상장신청서(수량변경)(일괄공시)</td>
+		<td>미래에셋자산운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">374</td>
+		<td style="text-align:center;">17:07</td>
+		<td>HDC</td>
+		<td style="mso-number-format:'@';text-align:center;">012630</td>
+		<td>특수관계인에대한자금대여</td>
+		<td>에이치디씨</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">373</td>
+		<td style="text-align:center;">17:05</td>
+		<td>블루산업개발</td>
+		<td style="mso-number-format:'@';text-align:center;">006740</td>
+		<td>변경상장(액면분할)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">372</td>
+		<td style="text-align:center;">17:04</td>
+		<td>진흥기업</td>
+		<td style="mso-number-format:'@';text-align:center;">002780</td>
+		<td>주식병합 결정</td>
+		<td>진흥기업</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">371</td>
+		<td style="text-align:center;">17:04</td>
+		<td>나우로보틱스</td>
+		<td style="mso-number-format:'@';text-align:center;">459510</td>
+		<td>기업설명회(IR) 개최</td>
+		<td>나우로보틱스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">370</td>
+		<td style="text-align:center;">17:03</td>
+		<td>신한지주</td>
+		<td style="mso-number-format:'@';text-align:center;">055550</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>신한금융지주회사</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">369</td>
+		<td style="text-align:center;">17:03</td>
+		<td>지슨</td>
+		<td style="mso-number-format:'@';text-align:center;">446840</td>
+		<td>주권매매거래정지(주식의 병합, 분할 등 전자등록 변경, 말소)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">368</td>
+		<td style="text-align:center;">17:02</td>
+		<td>아이에이</td>
+		<td style="mso-number-format:'@';text-align:center;">038880</td>
+		<td>주권매매거래정지해제(감자 주권 변경상장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">367</td>
+		<td style="text-align:center;">17:02</td>
+		<td>스피어</td>
+		<td style="mso-number-format:'@';text-align:center;">347700</td>
+		<td><font color='#FF8040'>[정정]</font>단일판매ㆍ공급계약체결</td>
+		<td>스피어코퍼레이션</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">366</td>
+		<td style="text-align:center;">17:02</td>
+		<td>아이에이</td>
+		<td style="mso-number-format:'@';text-align:center;">038880</td>
+		<td>변경상장(감자(무상))</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">365</td>
+		<td style="text-align:center;">17:02</td>
+		<td>스피어</td>
+		<td style="mso-number-format:'@';text-align:center;">347700</td>
+		<td><font color='#FF8040'>[정정]</font>단일판매ㆍ공급계약체결</td>
+		<td>스피어코퍼레이션</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">364</td>
+		<td style="text-align:center;">17:01</td>
+		<td>부국증권</td>
+		<td style="mso-number-format:'@';text-align:center;">001270</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>김중건</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">363</td>
+		<td style="text-align:center;">17:01</td>
+		<td>계룡건설산업</td>
+		<td style="mso-number-format:'@';text-align:center;">013580</td>
+		<td>투자판단 관련 주요경영사항</td>
+		<td>계룡건설산업</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">362</td>
+		<td style="text-align:center;">16:59</td>
+		<td>동부건설</td>
+		<td style="mso-number-format:'@';text-align:center;">005960</td>
+		<td>투자판단 관련 주요경영사항</td>
+		<td>동부건설</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">361</td>
+		<td style="text-align:center;">16:58</td>
+		<td>금양그린파워</td>
+		<td style="mso-number-format:'@';text-align:center;">282720</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>이윤철</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">360</td>
+		<td style="text-align:center;">16:56</td>
+		<td>한전기술</td>
+		<td style="mso-number-format:'@';text-align:center;">052690</td>
+		<td>중대재해 발생</td>
+		<td>한국전력기술</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">359</td>
+		<td style="text-align:center;">16:55</td>
+		<td>다보링크</td>
+		<td style="mso-number-format:'@';text-align:center;">340360</td>
+		<td><font color='#FF8040'>[정정]</font>주주총회소집결의(임시주주총회)</td>
+		<td>다보링크</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">358</td>
+		<td style="text-align:center;">16:54</td>
+		<td>코스모로보틱스</td>
+		<td style="mso-number-format:'@';text-align:center;">439960</td>
+		<td>주식등의대량보유상황보고서(약식)</td>
+		<td>엔비에이치캐피탈</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">357</td>
+		<td style="text-align:center;">16:54</td>
+		<td>대신증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003540</td>
+		<td>증권발행실적보고서</td>
+		<td>대신증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">356</td>
+		<td style="text-align:center;">16:54</td>
+		<td>코어라인소프트</td>
+		<td style="mso-number-format:'@';text-align:center;">384470</td>
+		<td>투자판단 관련 주요경영사항([국책과제 선정] CT기반 폐질환 인공지능 진단보조 소프트웨어 의료기기 2종의 안전성 및 유효성 검증을 위한 임상시험 및 미국 FDA 인허가 획득)</td>
+		<td>코어라인소프트</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">355</td>
+		<td style="text-align:center;">16:53</td>
+		<td>신한지주</td>
+		<td style="mso-number-format:'@';text-align:center;">055550</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(채무증권)</td>
+		<td>신한금융지주회사</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">354</td>
+		<td style="text-align:center;">16:53</td>
+		<td>넵튠</td>
+		<td style="mso-number-format:'@';text-align:center;">217270</td>
+		<td>자기주식 처분 결정</td>
+		<td>넵튠</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">353</td>
+		<td style="text-align:center;">16:52</td>
+		<td>대신증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003540</td>
+		<td>증권발행실적보고서</td>
+		<td>대신증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">352</td>
+		<td style="text-align:center;">16:51</td>
+		<td>소룩스</td>
+		<td style="mso-number-format:'@';text-align:center;">290690</td>
+		<td><font color='#FF8040'>[정정]</font>증권신고서(합병)</td>
+		<td>소룩스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">351</td>
+		<td style="text-align:center;">16:51</td>
+		<td>두산</td>
+		<td style="mso-number-format:'@';text-align:center;">000150</td>
+		<td>특수관계인과의내부거래</td>
+		<td>두산</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">350</td>
+		<td style="text-align:center;">16:51</td>
+		<td>레드우즈</td>
+		<td style="mso-number-format:'@';text-align:center;">266170</td>
+		<td>사채원리금미지급발생</td>
+		<td>레드우즈</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">349</td>
+		<td style="text-align:center;">16:51</td>
+		<td>대신증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003540</td>
+		<td>증권발행실적보고서</td>
+		<td>대신증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">348</td>
+		<td style="text-align:center;">16:50</td>
+		<td>넵튠</td>
+		<td style="mso-number-format:'@';text-align:center;">217270</td>
+		<td><font color='#FF8040'>[정정]</font>주식매수선택권부여에관한신고</td>
+		<td>넵튠</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">347</td>
+		<td style="text-align:center;">16:49</td>
+		<td>3S</td>
+		<td style="mso-number-format:'@';text-align:center;">060310</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>한국웨이퍼홀딩스 유한회사</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">346</td>
+		<td style="text-align:center;">16:49</td>
+		<td>씨엑스아이</td>
+		<td style="mso-number-format:'@';text-align:center;">900120</td>
+		<td>변경상장(액면변경)(액면병합)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">345</td>
+		<td style="text-align:center;">16:48</td>
+		<td>채비</td>
+		<td style="mso-number-format:'@';text-align:center;">0011T0</td>
+		<td>단일판매ㆍ공급계약체결</td>
+		<td>채비</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">344</td>
+		<td style="text-align:center;">16:48</td>
+		<td>대신증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003540</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>대신증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">343</td>
+		<td style="text-align:center;">16:48</td>
+		<td>씨엑스아이</td>
+		<td style="mso-number-format:'@';text-align:center;">900120</td>
+		<td>주권매매거래정지해제(감자 주권 변경상장 등)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">342</td>
+		<td style="text-align:center;">16:48</td>
+		<td>넵튠</td>
+		<td style="mso-number-format:'@';text-align:center;">217270</td>
+		<td><font color='#FF8040'>[정정]</font>주식매수선택권부여에관한신고</td>
+		<td>넵튠</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">341</td>
+		<td style="text-align:center;">16:47</td>
+		<td>현대차증권</td>
+		<td style="mso-number-format:'@';text-align:center;">001500</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>현대차증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">340</td>
+		<td style="text-align:center;">16:47</td>
+		<td>오리엔트바이오</td>
+		<td style="mso-number-format:'@';text-align:center;">002630</td>
+		<td>임원ㆍ주요주주특정증권등거래계획보고서</td>
+		<td>오리엔트</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">339</td>
+		<td style="text-align:center;">16:47</td>
+		<td>KBG</td>
+		<td style="mso-number-format:'@';text-align:center;">318000</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>부삼열</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">338</td>
+		<td style="text-align:center;">16:47</td>
+		<td>티앤엘</td>
+		<td style="mso-number-format:'@';text-align:center;">340570</td>
+		<td>신탁계약에의한 취득 상황보고서</td>
+		<td>티앤엘</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">337</td>
+		<td style="text-align:center;">16:46</td>
+		<td>HDC</td>
+		<td style="mso-number-format:'@';text-align:center;">012630</td>
+		<td>최대주주등소유주식변동신고서</td>
+		<td>에이치디씨</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">336</td>
+		<td style="text-align:center;">16:46</td>
+		<td>HDC</td>
+		<td style="mso-number-format:'@';text-align:center;">012630</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>정몽규</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">335</td>
+		<td style="text-align:center;">16:45</td>
+		<td>코리아써키트</td>
+		<td style="mso-number-format:'@';text-align:center;">007810</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>국민연금공단</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">334</td>
+		<td style="text-align:center;">16:44</td>
+		<td>KBG</td>
+		<td style="mso-number-format:'@';text-align:center;">318000</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>부태웅</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">333</td>
+		<td style="text-align:center;">16:43</td>
+		<td>미래에셋비전스팩8호</td>
+		<td style="mso-number-format:'@';text-align:center;">0093G0</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>미래에셋증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">332</td>
+		<td style="text-align:center;">16:43</td>
+		<td>선바이오</td>
+		<td style="mso-number-format:'@';text-align:center;">067370</td>
+		<td>추가상장(국내사모 CB전환)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">331</td>
+		<td style="text-align:center;">16:43</td>
+		<td>세나테크놀로지</td>
+		<td style="mso-number-format:'@';text-align:center;">061090</td>
+		<td>변경상장(주식소각)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">330</td>
+		<td style="text-align:center;">16:43</td>
+		<td>나노신소재</td>
+		<td style="mso-number-format:'@';text-align:center;">121600</td>
+		<td>추가상장(주식매수선택권행사)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">329</td>
+		<td style="text-align:center;">16:42</td>
+		<td>진성티이씨</td>
+		<td style="mso-number-format:'@';text-align:center;">036890</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>국민연금공단</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">328</td>
+		<td style="text-align:center;">16:42</td>
+		<td>케이씨씨글라스</td>
+		<td style="mso-number-format:'@';text-align:center;">344820</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>정몽익</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">327</td>
+		<td style="text-align:center;">16:41</td>
+		<td>이엠텍</td>
+		<td style="mso-number-format:'@';text-align:center;">091120</td>
+		<td>기타 경영사항(자율공시)(소규모합병 승인 이사회 결의(주주총회 갈음) 결과 보고)</td>
+		<td>이엠텍</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">326</td>
+		<td style="text-align:center;">16:41</td>
+		<td>두산</td>
+		<td style="mso-number-format:'@';text-align:center;">000150</td>
+		<td>특수관계인에대한출자</td>
+		<td>두산</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">325</td>
+		<td style="text-align:center;">16:41</td>
+		<td>에코글로우</td>
+		<td style="mso-number-format:'@';text-align:center;">159910</td>
+		<td>임원ㆍ주요주주특정증권등거래계획보고서</td>
+		<td>더편한</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">324</td>
+		<td style="text-align:center;">16:41</td>
+		<td>CJ제일제당</td>
+		<td style="mso-number-format:'@';text-align:center;">097950</td>
+		<td>주식등의대량보유상황보고서(약식)</td>
+		<td>국민연금공단</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">323</td>
+		<td style="text-align:center;">16:40</td>
+		<td>오리엔트바이오</td>
+		<td style="mso-number-format:'@';text-align:center;">002630</td>
+		<td>주주명부폐쇄기간 또는 기준일 설정</td>
+		<td>오리엔트바이오</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">322</td>
+		<td style="text-align:center;">16:40</td>
+		<td>예선테크</td>
+		<td style="mso-number-format:'@';text-align:center;">250930</td>
+		<td>자기주식 처분 결정</td>
+		<td>예선테크</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">321</td>
+		<td style="text-align:center;">16:40</td>
+		<td>오리엔트바이오</td>
+		<td style="mso-number-format:'@';text-align:center;">002630</td>
+		<td>주주총회소집결의</td>
+		<td>오리엔트바이오</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">320</td>
+		<td style="text-align:center;">16:39</td>
+		<td>야스</td>
+		<td style="mso-number-format:'@';text-align:center;">255440</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>정광호</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">319</td>
+		<td style="text-align:center;">16:39</td>
+		<td>한화오션</td>
+		<td style="mso-number-format:'@';text-align:center;">042660</td>
+		<td>주식등의대량보유상황보고서(약식)</td>
+		<td>국민연금공단</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">318</td>
+		<td style="text-align:center;">16:39</td>
+		<td>씨엑스아이</td>
+		<td style="mso-number-format:'@';text-align:center;">900120</td>
+		<td>변경상장(감자(무상))</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">317</td>
+		<td style="text-align:center;">16:39</td>
+		<td>코오롱</td>
+		<td style="mso-number-format:'@';text-align:center;">002020</td>
+		<td><font color='#FF8040'>[정정]</font>단일판매ㆍ공급계약체결(자회사의 주요경영사항)</td>
+		<td>코오롱</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">316</td>
+		<td style="text-align:center;">16:39</td>
+		<td>한솔테크닉스</td>
+		<td style="mso-number-format:'@';text-align:center;">004710</td>
+		<td>신주인수권증서 신규상장</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">315</td>
+		<td style="text-align:center;">16:39</td>
+		<td>참엔지니어링</td>
+		<td style="mso-number-format:'@';text-align:center;">009310</td>
+		<td>기타시장안내(상장폐지 이의신청서 제출)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">314</td>
+		<td style="text-align:center;">16:39</td>
+		<td>텔코웨어</td>
+		<td style="mso-number-format:'@';text-align:center;">078000</td>
+		<td>단일판매ㆍ공급계약체결</td>
+		<td>텔코웨어</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">313</td>
+		<td style="text-align:center;">16:39</td>
+		<td>이화공영</td>
+		<td style="mso-number-format:'@';text-align:center;">001840</td>
+		<td><font color='#FF8040'>[정정]</font>주주총회소집결의(임시주주총회)</td>
+		<td>이화공영</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">312</td>
+		<td style="text-align:center;">16:38</td>
+		<td>삼기에너지솔루션즈</td>
+		<td style="mso-number-format:'@';text-align:center;">419050</td>
+		<td>타인에대한채무보증결정</td>
+		<td>삼기에너지솔루션즈</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">311</td>
+		<td style="text-align:center;">16:38</td>
+		<td>POSCO홀딩스</td>
+		<td style="mso-number-format:'@';text-align:center;">005490</td>
+		<td>주식등의대량보유상황보고서(약식)</td>
+		<td>국민연금공단</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">310</td>
+		<td style="text-align:center;">16:37</td>
+		<td>노랑풍선</td>
+		<td style="mso-number-format:'@';text-align:center;">104620</td>
+		<td>임시주주총회결과</td>
+		<td>노랑풍선</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">309</td>
+		<td style="text-align:center;">16:37</td>
+		<td>한화투자증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003530</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>한화투자증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">308</td>
+		<td style="text-align:center;">16:37</td>
+		<td>키움증권</td>
+		<td style="mso-number-format:'@';text-align:center;">039490</td>
+		<td>증권발행실적보고서</td>
+		<td>키움증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">307</td>
+		<td style="text-align:center;">16:36</td>
+		<td>알엔티엑스</td>
+		<td style="mso-number-format:'@';text-align:center;">123010</td>
+		<td>추가상장(국내사모 전환사채 전환)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">306</td>
+		<td style="text-align:center;">16:36</td>
+		<td>현대차증권</td>
+		<td style="mso-number-format:'@';text-align:center;">001500</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(기타파생결합사채)</td>
+		<td>현대차증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">305</td>
+		<td style="text-align:center;">16:36</td>
+		<td>코오롱글로벌</td>
+		<td style="mso-number-format:'@';text-align:center;">003070</td>
+		<td><font color='#FF8040'>[정정]</font>단일판매ㆍ공급계약체결</td>
+		<td>코오롱글로벌</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">304</td>
+		<td style="text-align:center;">16:36</td>
+		<td>아우토크립트</td>
+		<td style="mso-number-format:'@';text-align:center;">331740</td>
+		<td>추가상장(주식매수선택권행사)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">303</td>
+		<td style="text-align:center;">16:36</td>
+		<td>핸즈코퍼레이션</td>
+		<td style="mso-number-format:'@';text-align:center;">143210</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>승현창</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">302</td>
+		<td style="text-align:center;">16:36</td>
+		<td>코오롱티슈진</td>
+		<td style="mso-number-format:'@';text-align:center;">950160</td>
+		<td><font color='#FF8040'>[정정]</font>소송등의제기ㆍ신청(일정금액 이상의 청구)</td>
+		<td>코오롱티슈진</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">301</td>
+		<td style="text-align:center;">16:35</td>
+		<td>파워넷</td>
+		<td style="mso-number-format:'@';text-align:center;">037030</td>
+		<td>주주총회소집공고</td>
+		<td>파워넷</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">300</td>
+		<td style="text-align:center;">16:35</td>
+		<td>하이텍팜</td>
+		<td style="mso-number-format:'@';text-align:center;">106190</td>
+		<td>기업설명회(IR) 개최</td>
+		<td>하이텍팜</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">299</td>
+		<td style="text-align:center;">16:35</td>
+		<td>동양</td>
+		<td style="mso-number-format:'@';text-align:center;">001520</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>김세훈</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">298</td>
+		<td style="text-align:center;">16:35</td>
+		<td>NH투자증권</td>
+		<td style="mso-number-format:'@';text-align:center;">005940</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>엔에이치투자증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">297</td>
+		<td style="text-align:center;">16:32</td>
+		<td>NH투자증권</td>
+		<td style="mso-number-format:'@';text-align:center;">005940</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>엔에이치투자증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">296</td>
+		<td style="text-align:center;">16:31</td>
+		<td>카카오페이</td>
+		<td style="mso-number-format:'@';text-align:center;">377300</td>
+		<td>타법인주식및출자증권취득결정</td>
+		<td>카카오페이</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">295</td>
+		<td style="text-align:center;">16:30</td>
+		<td>티와이홀딩스</td>
+		<td style="mso-number-format:'@';text-align:center;">363280</td>
+		<td>단일판매ㆍ공급계약체결(자회사의 주요경영사항)</td>
+		<td>티와이홀딩스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">294</td>
+		<td style="text-align:center;">16:30</td>
+		<td>CJ CGV</td>
+		<td style="mso-number-format:'@';text-align:center;">079160</td>
+		<td>조회공시 요구(풍문 또는 보도)에 대한 답변(미확정)</td>
+		<td>씨제이씨지브이</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">293</td>
+		<td style="text-align:center;">16:27</td>
+		<td>세화피앤씨</td>
+		<td style="mso-number-format:'@';text-align:center;">252500</td>
+		<td>참고서류</td>
+		<td>세화피앤씨</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">292</td>
+		<td style="text-align:center;">16:27</td>
+		<td>태영건설</td>
+		<td style="mso-number-format:'@';text-align:center;">009410</td>
+		<td>단일판매ㆍ공급계약체결</td>
+		<td>태영건설</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">291</td>
+		<td style="text-align:center;">16:27</td>
+		<td>NH투자증권</td>
+		<td style="mso-number-format:'@';text-align:center;">005940</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(파생결합증권-주가연계증권)</td>
+		<td>엔에이치투자증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">290</td>
+		<td style="text-align:center;">16:27</td>
+		<td>이수앱지스</td>
+		<td style="mso-number-format:'@';text-align:center;">086890</td>
+		<td>전환가액의조정</td>
+		<td>이수앱지스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">289</td>
+		<td style="text-align:center;">16:26</td>
+		<td>효성</td>
+		<td style="mso-number-format:'@';text-align:center;">004800</td>
+		<td>단일판매ㆍ공급계약체결(자회사의 주요경영사항)</td>
+		<td>효성</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">288</td>
+		<td style="text-align:center;">16:26</td>
+		<td>삼화전자공업</td>
+		<td style="mso-number-format:'@';text-align:center;">011230</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>오영주</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">287</td>
+		<td style="text-align:center;">16:26</td>
+		<td>NH투자증권</td>
+		<td style="mso-number-format:'@';text-align:center;">005940</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(파생결합사채-주가연계파생결합사채)</td>
+		<td>엔에이치투자증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">286</td>
+		<td style="text-align:center;">16:25</td>
+		<td>한화투자증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003530</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(파생결합사채-주가연계파생결합사채)</td>
+		<td>한화투자증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">285</td>
+		<td style="text-align:center;">16:24</td>
+		<td>세화피앤씨</td>
+		<td style="mso-number-format:'@';text-align:center;">252500</td>
+		<td>주주총회소집공고</td>
+		<td>세화피앤씨</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">284</td>
+		<td style="text-align:center;">16:24</td>
+		<td>스틱인베스트먼트</td>
+		<td style="mso-number-format:'@';text-align:center;">026890</td>
+		<td>최대주주등소유주식변동신고서</td>
+		<td>스틱인베스트먼트</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">283</td>
+		<td style="text-align:center;">16:21</td>
+		<td>텔코웨어</td>
+		<td style="mso-number-format:'@';text-align:center;">078000</td>
+		<td>단일판매ㆍ공급계약체결</td>
+		<td>텔코웨어</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">282</td>
+		<td style="text-align:center;">16:20</td>
+		<td>온타이드</td>
+		<td style="mso-number-format:'@';text-align:center;">005320</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>약진통상</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">281</td>
+		<td style="text-align:center;">16:19</td>
+		<td>한미사이언스</td>
+		<td style="mso-number-format:'@';text-align:center;">008930</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>송영숙</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">280</td>
+		<td style="text-align:center;">16:18</td>
+		<td>현대바이오</td>
+		<td style="mso-number-format:'@';text-align:center;">048410</td>
+		<td>전환사채매수선택권 행사자 지정</td>
+		<td>현대바이오사이언스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">279</td>
+		<td style="text-align:center;">16:18</td>
+		<td>삼화전자공업</td>
+		<td style="mso-number-format:'@';text-align:center;">011230</td>
+		<td>최대주주등소유주식변동신고서</td>
+		<td>삼화전자공업</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">278</td>
+		<td style="text-align:center;">16:17</td>
+		<td>온타이드</td>
+		<td style="mso-number-format:'@';text-align:center;">005320</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>약진통상</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">277</td>
+		<td style="text-align:center;">16:17</td>
+		<td>HD현대</td>
+		<td style="mso-number-format:'@';text-align:center;">267250</td>
+		<td>중대재해 발생(종속회사의 주요경영사항)</td>
+		<td>에이치디현대</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">276</td>
+		<td style="text-align:center;">16:17</td>
+		<td>오리엔트바이오</td>
+		<td style="mso-number-format:'@';text-align:center;">002630</td>
+		<td>감자결정</td>
+		<td>오리엔트바이오</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">275</td>
+		<td style="text-align:center;">16:16</td>
+		<td>효성중공업</td>
+		<td style="mso-number-format:'@';text-align:center;">298040</td>
+		<td>단일판매ㆍ공급계약체결</td>
+		<td>효성중공업</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">274</td>
+		<td style="text-align:center;">16:15</td>
+		<td>엑사이엔씨</td>
+		<td style="mso-number-format:'@';text-align:center;">054940</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>장성수</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">273</td>
+		<td style="text-align:center;">16:14</td>
+		<td>엘앤씨바이오</td>
+		<td style="mso-number-format:'@';text-align:center;">290650</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>이환철</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">272</td>
+		<td style="text-align:center;">16:14</td>
+		<td>오리엔트바이오</td>
+		<td style="mso-number-format:'@';text-align:center;">002630</td>
+		<td>매매거래정지 및 정지해제(중요내용공시)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">271</td>
+		<td style="text-align:center;">16:14</td>
+		<td>삼화콘덴서공업</td>
+		<td style="mso-number-format:'@';text-align:center;">001820</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>오영주</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">270</td>
+		<td style="text-align:center;">16:14</td>
+		<td>SK바이오사이언스</td>
+		<td style="mso-number-format:'@';text-align:center;">302440</td>
+		<td>단일판매ㆍ공급계약체결</td>
+		<td>에스케이바이오사이언스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">269</td>
+		<td style="text-align:center;">16:13</td>
+		<td>현대바이오</td>
+		<td style="mso-number-format:'@';text-align:center;">048410</td>
+		<td>증권 발행결과(자율공시)</td>
+		<td>현대바이오사이언스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">268</td>
+		<td style="text-align:center;">16:12</td>
+		<td>엣지파운드리</td>
+		<td style="mso-number-format:'@';text-align:center;">105550</td>
+		<td>주식등의대량보유상황보고서(약식)</td>
+		<td>퍼시먼트리홀딩스스타</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">267</td>
+		<td style="text-align:center;">16:11</td>
+		<td>DL</td>
+		<td style="mso-number-format:'@';text-align:center;">000210</td>
+		<td>타인에대한채무보증결정(자회사의 주요경영사항)</td>
+		<td>디엘</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">266</td>
+		<td style="text-align:center;">16:10</td>
+		<td>도이치모터스</td>
+		<td style="mso-number-format:'@';text-align:center;">067990</td>
+		<td><font color='#FF8040'>[정정]</font>타인에대한채무보증결정</td>
+		<td>도이치모터스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">265</td>
+		<td style="text-align:center;">16:09</td>
+		<td>현대차증권</td>
+		<td style="mso-number-format:'@';text-align:center;">001500</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>현대차증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">264</td>
+		<td style="text-align:center;">16:09</td>
+		<td>소룩스</td>
+		<td style="mso-number-format:'@';text-align:center;">290690</td>
+		<td><font color='#FF8040'>[정정]</font>회사합병 결정</td>
+		<td>소룩스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">263</td>
+		<td style="text-align:center;">16:09</td>
+		<td>세기상사</td>
+		<td style="mso-number-format:'@';text-align:center;">002420</td>
+		<td><font color='#FF8040'>[정정]</font>회사합병 결정</td>
+		<td>세기상사</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">262</td>
+		<td style="text-align:center;">16:09</td>
+		<td>효성</td>
+		<td style="mso-number-format:'@';text-align:center;">004800</td>
+		<td>투자판단 관련 주요경영사항(자회사의 주요경영사항)</td>
+		<td>효성</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">261</td>
+		<td style="text-align:center;">16:07</td>
+		<td>키움제11호스팩</td>
+		<td style="mso-number-format:'@';text-align:center;">489480</td>
+		<td>주식등의대량보유상황보고서(약식)</td>
+		<td>더블유자산운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">260</td>
+		<td style="text-align:center;">16:06</td>
+		<td>금강철강</td>
+		<td style="mso-number-format:'@';text-align:center;">053260</td>
+		<td>주주총회소집공고</td>
+		<td>금강철강</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">259</td>
+		<td style="text-align:center;">16:04</td>
+		<td>다산솔루에타</td>
+		<td style="mso-number-format:'@';text-align:center;">154040</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>다산벤처스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">258</td>
+		<td style="text-align:center;">16:04</td>
+		<td>하이젠알앤엠</td>
+		<td style="mso-number-format:'@';text-align:center;">160190</td>
+		<td>임시주주총회결과<font color='#49531'>[정]</font></td>
+		<td>하이젠알앤엠</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">257</td>
+		<td style="text-align:center;">16:04</td>
+		<td>현대차증권</td>
+		<td style="mso-number-format:'@';text-align:center;">001500</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>현대차증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">256</td>
+		<td style="text-align:center;">16:03</td>
+		<td>효성중공업</td>
+		<td style="mso-number-format:'@';text-align:center;">298040</td>
+		<td>투자판단 관련 주요경영사항</td>
+		<td>효성중공업</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">255</td>
+		<td style="text-align:center;">16:02</td>
+		<td>제일파마홀딩스</td>
+		<td style="mso-number-format:'@';text-align:center;">002620</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>한승수</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">254</td>
+		<td style="text-align:center;">16:01</td>
+		<td>세방전지</td>
+		<td style="mso-number-format:'@';text-align:center;">004490</td>
+		<td>지속가능경영보고서 등 관련사항(자율공시)</td>
+		<td>세방전지</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">253</td>
+		<td style="text-align:center;">16:01</td>
+		<td>대덕</td>
+		<td style="mso-number-format:'@';text-align:center;">008060</td>
+		<td>지주회사의 자회사 탈퇴</td>
+		<td>대덕</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">252</td>
+		<td style="text-align:center;">16:00</td>
+		<td>삼화콘덴서공업</td>
+		<td style="mso-number-format:'@';text-align:center;">001820</td>
+		<td>최대주주등소유주식변동신고서</td>
+		<td>삼화콘덴서공업</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">251</td>
+		<td style="text-align:center;">15:59</td>
+		<td>넥써쓰</td>
+		<td style="mso-number-format:'@';text-align:center;">205500</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>링크드</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">250</td>
+		<td style="text-align:center;">15:59</td>
+		<td>KG이니시스</td>
+		<td style="mso-number-format:'@';text-align:center;">035600</td>
+		<td>타인에대한채무보증결정</td>
+		<td>케이지이니시스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">249</td>
+		<td style="text-align:center;">15:59</td>
+		<td>티엠씨</td>
+		<td style="mso-number-format:'@';text-align:center;">217590</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>펙투스-제이비우리 신기술사업투자조합 제1호</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">248</td>
+		<td style="text-align:center;">15:58</td>
+		<td>KG이니시스</td>
+		<td style="mso-number-format:'@';text-align:center;">035600</td>
+		<td>타법인 주식 및 출자증권 취득결정(종속회사의 주요경영사항) </td>
+		<td>케이지이니시스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">247</td>
+		<td style="text-align:center;">15:57</td>
+		<td>동성제약</td>
+		<td style="mso-number-format:'@';text-align:center;">002210</td>
+		<td>불성실공시법인지정예고</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">246</td>
+		<td style="text-align:center;">15:57</td>
+		<td>티엠씨</td>
+		<td style="mso-number-format:'@';text-align:center;">217590</td>
+		<td>주식등의대량보유상황보고서(약식)</td>
+		<td>펙투스-제이비우리 신기술사업투자조합 제1호</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">245</td>
+		<td style="text-align:center;">15:55</td>
+		<td>플루토스</td>
+		<td style="mso-number-format:'@';text-align:center;">019570</td>
+		<td>감자완료</td>
+		<td>플루토스투자</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">244</td>
+		<td style="text-align:center;">15:54</td>
+		<td>KG이니시스</td>
+		<td style="mso-number-format:'@';text-align:center;">035600</td>
+		<td>타법인주식및출자증권취득결정</td>
+		<td>케이지이니시스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">243</td>
+		<td style="text-align:center;">15:54</td>
+		<td>BGF리테일</td>
+		<td style="mso-number-format:'@';text-align:center;">282330</td>
+		<td>최대주주등소유주식변동신고서</td>
+		<td>비지에프리테일</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">242</td>
+		<td style="text-align:center;">15:54</td>
+		<td>엠로</td>
+		<td style="mso-number-format:'@';text-align:center;">058970</td>
+		<td>참고서류</td>
+		<td>엠로</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">241</td>
+		<td style="text-align:center;">15:54</td>
+		<td>KG이니시스</td>
+		<td style="mso-number-format:'@';text-align:center;">035600</td>
+		<td><font color='#FF8040'>[정정]</font>타법인 주식 및 출자증권 양수결정</td>
+		<td>케이지이니시스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">240</td>
+		<td style="text-align:center;">15:54</td>
+		<td>플레이그램</td>
+		<td style="mso-number-format:'@';text-align:center;">009810</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>유한회사 트라이콘홀딩스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">239</td>
+		<td style="text-align:center;">15:53</td>
+		<td>퀀타매트릭스</td>
+		<td style="mso-number-format:'@';text-align:center;">317690</td>
+		<td>대표이사변경</td>
+		<td>퀀타매트릭스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">238</td>
+		<td style="text-align:center;">15:53</td>
+		<td>엠로</td>
+		<td style="mso-number-format:'@';text-align:center;">058970</td>
+		<td>주주총회소집공고</td>
+		<td>엠로</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">237</td>
+		<td style="text-align:center;">15:52</td>
+		<td>아이티아이즈</td>
+		<td style="mso-number-format:'@';text-align:center;">372800</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>이성남</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">236</td>
+		<td style="text-align:center;">15:52</td>
+		<td>유안타증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003470</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>유안타증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">235</td>
+		<td style="text-align:center;">15:51</td>
+		<td>트리니티항공</td>
+		<td style="mso-number-format:'@';text-align:center;">091810</td>
+		<td>특수관계인에대한사모사채발행의결</td>
+		<td>트리니티항공</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">234</td>
+		<td style="text-align:center;">15:51</td>
+		<td>BGF리테일</td>
+		<td style="mso-number-format:'@';text-align:center;">282330</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>비지에프</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">233</td>
+		<td style="text-align:center;">15:50</td>
+		<td>오션인더블유</td>
+		<td style="mso-number-format:'@';text-align:center;">052300</td>
+		<td>신탁계약에의한 취득 상황보고서</td>
+		<td>오션인더블유</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">232</td>
+		<td style="text-align:center;">15:50</td>
+		<td>플레이그램</td>
+		<td style="mso-number-format:'@';text-align:center;">009810</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>트라이콘 1호 투자조합</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">231</td>
+		<td style="text-align:center;">15:50</td>
+		<td>트리니티항공</td>
+		<td style="mso-number-format:'@';text-align:center;">091810</td>
+		<td><font color='#FF8040'>[정정]</font>자본으로 인정되는 채무증권 발행결정</td>
+		<td>트리니티항공</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">230</td>
+		<td style="text-align:center;">15:50</td>
+		<td>아이티아이즈</td>
+		<td style="mso-number-format:'@';text-align:center;">372800</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>이성남</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">229</td>
+		<td style="text-align:center;">15:49</td>
+		<td>화승코퍼레이션</td>
+		<td style="mso-number-format:'@';text-align:center;">013520</td>
+		<td>최대주주등소유주식변동신고서</td>
+		<td>화승코퍼레이션</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">228</td>
+		<td style="text-align:center;">15:47</td>
+		<td>유안타증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003470</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(파생결합사채-주가연계파생결합사채)</td>
+		<td>유안타증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">227</td>
+		<td style="text-align:center;">15:47</td>
+		<td>대양금속</td>
+		<td style="mso-number-format:'@';text-align:center;">009190</td>
+		<td><font color='#FF8040'>[정정]</font>주주총회소집결의</td>
+		<td>대양금속</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">226</td>
+		<td style="text-align:center;">15:47</td>
+		<td>백산</td>
+		<td style="mso-number-format:'@';text-align:center;">035150</td>
+		<td>주식 소각 결정</td>
+		<td>백산</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">225</td>
+		<td style="text-align:center;">15:46</td>
+		<td>브이엠</td>
+		<td style="mso-number-format:'@';text-align:center;">089970</td>
+		<td>전환주식의 전환청구권 행사(상환전환우선주)</td>
+		<td>브이엠</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">224</td>
+		<td style="text-align:center;">15:45</td>
+		<td>제일파마홀딩스</td>
+		<td style="mso-number-format:'@';text-align:center;">002620</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>한상철</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">223</td>
+		<td style="text-align:center;">15:45</td>
+		<td>플레이그램</td>
+		<td style="mso-number-format:'@';text-align:center;">009810</td>
+		<td>최대주주등소유주식변동신고서</td>
+		<td>플레이그램</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">222</td>
+		<td style="text-align:center;">15:45</td>
+		<td>오가닉티코스메틱</td>
+		<td style="mso-number-format:'@';text-align:center;">900300</td>
+		<td>주권매매거래정지해제(주식병합(무액면주식) 주권 변경상장)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">221</td>
+		<td style="text-align:center;">15:45</td>
+		<td>오가닉티코스메틱</td>
+		<td style="mso-number-format:'@';text-align:center;">900300</td>
+		<td>변경상장(주식병합(무액면주식))</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">220</td>
+		<td style="text-align:center;">15:44</td>
+		<td>제이케이시냅스</td>
+		<td style="mso-number-format:'@';text-align:center;">060230</td>
+		<td>전환가액의조정(제34회차)</td>
+		<td>제이케이시냅스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">219</td>
+		<td style="text-align:center;">15:43</td>
+		<td>LF</td>
+		<td style="mso-number-format:'@';text-align:center;">093050</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>구본걸</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">218</td>
+		<td style="text-align:center;">15:42</td>
+		<td>국영지앤엠</td>
+		<td style="mso-number-format:'@';text-align:center;">006050</td>
+		<td>단일판매ㆍ공급계약체결(자율공시)</td>
+		<td>국영지앤엠</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">217</td>
+		<td style="text-align:center;">15:42</td>
+		<td>전진건설로봇</td>
+		<td style="mso-number-format:'@';text-align:center;">079900</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>모트렉스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">216</td>
+		<td style="text-align:center;">15:42</td>
+		<td>셀레믹스</td>
+		<td style="mso-number-format:'@';text-align:center;">331920</td>
+		<td><font color='#FF8040'>[정정]</font>유상증자결정(제3자배정)</td>
+		<td>셀레믹스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">215</td>
+		<td style="text-align:center;">15:39</td>
+		<td>큐리언트</td>
+		<td style="mso-number-format:'@';text-align:center;">115180</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>유암코키스톤구조혁신기업재무안정사모투자 합자회사</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">214</td>
+		<td style="text-align:center;">15:38</td>
+		<td>교보증권</td>
+		<td style="mso-number-format:'@';text-align:center;">030610</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>교보증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">213</td>
+		<td style="text-align:center;">15:38</td>
+		<td>국보디자인</td>
+		<td style="mso-number-format:'@';text-align:center;">066620</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>황선응</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">212</td>
+		<td style="text-align:center;">15:37</td>
+		<td>모아데이타</td>
+		<td style="mso-number-format:'@';text-align:center;">288980</td>
+		<td>주식등의대량보유상황보고서(약식)</td>
+		<td>다이나믹솔루션</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">211</td>
+		<td style="text-align:center;">15:36</td>
+		<td>노루홀딩스</td>
+		<td style="mso-number-format:'@';text-align:center;">000320</td>
+		<td>유동성공급계약의 체결</td>
+		<td>노루홀딩스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">210</td>
+		<td style="text-align:center;">15:35</td>
+		<td>국보디자인</td>
+		<td style="mso-number-format:'@';text-align:center;">066620</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>황창연</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">209</td>
+		<td style="text-align:center;">15:35</td>
+		<td>모아라이프플러스</td>
+		<td style="mso-number-format:'@';text-align:center;">142760</td>
+		<td>주주총회소집공고</td>
+		<td>모아라이프플러스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">208</td>
+		<td style="text-align:center;">15:34</td>
+		<td>더콘텐츠온</td>
+		<td style="mso-number-format:'@';text-align:center;">302920</td>
+		<td>기업설명회(IR) 개최 결과</td>
+		<td>더콘텐츠온</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">207</td>
+		<td style="text-align:center;">15:33</td>
+		<td>유엔젤</td>
+		<td style="mso-number-format:'@';text-align:center;">072130</td>
+		<td>주식등의대량보유상황보고서(약식)</td>
+		<td>동심</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">206</td>
+		<td style="text-align:center;">15:32</td>
+		<td>헝셩그룹</td>
+		<td style="mso-number-format:'@';text-align:center;">900270</td>
+		<td>주주총회소집공고</td>
+		<td>헝셩그룹유한회사</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">205</td>
+		<td style="text-align:center;">15:30</td>
+		<td>대덕</td>
+		<td style="mso-number-format:'@';text-align:center;">008060</td>
+		<td>타법인주식및출자증권취득결정(자회사의 주요경영사항)</td>
+		<td>대덕</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">204</td>
+		<td style="text-align:center;">15:29</td>
+		<td>한솔아이원스</td>
+		<td style="mso-number-format:'@';text-align:center;">114810</td>
+		<td>신탁계약에의한 취득 상황보고서</td>
+		<td>한솔아이원스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">203</td>
+		<td style="text-align:center;">15:28</td>
+		<td>헝셩그룹</td>
+		<td style="mso-number-format:'@';text-align:center;">900270</td>
+		<td><font color='#FF8040'>[정정]</font>주주총회소집결의(임시주주총회)</td>
+		<td>헝셩그룹유한회사</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">202</td>
+		<td style="text-align:center;">15:28</td>
+		<td>유진테크놀로지</td>
+		<td style="mso-number-format:'@';text-align:center;">240600</td>
+		<td>기업설명회(IR) 개최</td>
+		<td>유진테크놀로지</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">201</td>
+		<td style="text-align:center;">15:27</td>
+		<td>BGF리테일</td>
+		<td style="mso-number-format:'@';text-align:center;">282330</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(상승)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">200</td>
+		<td style="text-align:center;">15:27</td>
+		<td>하나34호스팩</td>
+		<td style="mso-number-format:'@';text-align:center;">484130</td>
+		<td>주식등의대량보유상황보고서(약식)</td>
+		<td>더블유자산운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">199</td>
+		<td style="text-align:center;">15:26</td>
+		<td>아이에이</td>
+		<td style="mso-number-format:'@';text-align:center;">038880</td>
+		<td>감자완료</td>
+		<td>아이에이</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">198</td>
+		<td style="text-align:center;">15:26</td>
+		<td>손오공</td>
+		<td style="mso-number-format:'@';text-align:center;">066910</td>
+		<td>자기 전환사채 매도 결정(제13회차)</td>
+		<td>손오공</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">197</td>
+		<td style="text-align:center;">15:26</td>
+		<td>에코프로비엠</td>
+		<td style="mso-number-format:'@';text-align:center;">247540</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">196</td>
+		<td style="text-align:center;">15:26</td>
+		<td>리센스메디컬</td>
+		<td style="mso-number-format:'@';text-align:center;">394420</td>
+		<td>기업설명회(IR) 개최</td>
+		<td>리센스메디컬</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">195</td>
+		<td style="text-align:center;">15:25</td>
+		<td>대신증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003540</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(파생결합사채-주가연계파생결합사채)</td>
+		<td>대신증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">194</td>
+		<td style="text-align:center;">15:25</td>
+		<td>신성델타테크</td>
+		<td style="mso-number-format:'@';text-align:center;">065350</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">193</td>
+		<td style="text-align:center;">15:24</td>
+		<td>현대차증권</td>
+		<td style="mso-number-format:'@';text-align:center;">001500</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(파생결합사채-주가연계파생결합사채)</td>
+		<td>현대차증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">192</td>
+		<td style="text-align:center;">15:24</td>
+		<td>대원화성</td>
+		<td style="mso-number-format:'@';text-align:center;">024890</td>
+		<td><font color='#FF8040'>[정정]</font>주식등의대량보유상황보고서(약식)</td>
+		<td>김병욱</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">191</td>
+		<td style="text-align:center;">15:23</td>
+		<td>와이솔</td>
+		<td style="mso-number-format:'@';text-align:center;">122990</td>
+		<td>타법인주식및출자증권취득결정</td>
+		<td>와이솔</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">190</td>
+		<td style="text-align:center;">15:23</td>
+		<td>한화오션</td>
+		<td style="mso-number-format:'@';text-align:center;">042660</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">189</td>
+		<td style="text-align:center;">15:22</td>
+		<td>에코프로</td>
+		<td style="mso-number-format:'@';text-align:center;">086520</td>
+		<td>주식선물ㆍ주식옵션 3단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">188</td>
+		<td style="text-align:center;">15:22</td>
+		<td>현대차증권</td>
+		<td style="mso-number-format:'@';text-align:center;">001500</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(기타파생결합사채)</td>
+		<td>현대차증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">187</td>
+		<td style="text-align:center;">15:21</td>
+		<td>교보증권</td>
+		<td style="mso-number-format:'@';text-align:center;">030610</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(파생결합사채-주가연계파생결합사채)</td>
+		<td>교보증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">186</td>
+		<td style="text-align:center;">15:21</td>
+		<td>메가터치</td>
+		<td style="mso-number-format:'@';text-align:center;">446540</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>최우용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">185</td>
+		<td style="text-align:center;">15:17</td>
+		<td>에코프로</td>
+		<td style="mso-number-format:'@';text-align:center;">086520</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">184</td>
+		<td style="text-align:center;">15:17</td>
+		<td>GS건설</td>
+		<td style="mso-number-format:'@';text-align:center;">006360</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">183</td>
+		<td style="text-align:center;">15:16</td>
+		<td>엘앤에프</td>
+		<td style="mso-number-format:'@';text-align:center;">066970</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">182</td>
+		<td style="text-align:center;">15:16</td>
+		<td>LG</td>
+		<td style="mso-number-format:'@';text-align:center;">003550</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">181</td>
+		<td style="text-align:center;">15:16</td>
+		<td>DL</td>
+		<td style="mso-number-format:'@';text-align:center;">000210</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">180</td>
+		<td style="text-align:center;">15:15</td>
+		<td>엑사이엔씨</td>
+		<td style="mso-number-format:'@';text-align:center;">054940</td>
+		<td><font color='#FF8040'>[정정]</font>주주총회소집공고</td>
+		<td>엑사이엔씨</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">179</td>
+		<td style="text-align:center;">15:13</td>
+		<td>포스코퓨처엠</td>
+		<td style="mso-number-format:'@';text-align:center;">003670</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">178</td>
+		<td style="text-align:center;">15:13</td>
+		<td>헝셩그룹</td>
+		<td style="mso-number-format:'@';text-align:center;">900270</td>
+		<td>유상증자결정(제3자배정)</td>
+		<td>헝셩그룹유한회사</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">177</td>
+		<td style="text-align:center;">15:12</td>
+		<td>이오테크닉스</td>
+		<td style="mso-number-format:'@';text-align:center;">039030</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">176</td>
+		<td style="text-align:center;">15:12</td>
+		<td>알엔투테크놀로지</td>
+		<td style="mso-number-format:'@';text-align:center;">148250</td>
+		<td><font color='#FF8040'>[정정]</font>주주총회소집결의(임시주주총회)</td>
+		<td>알엔투테크놀로지</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">175</td>
+		<td style="text-align:center;">15:11</td>
+		<td>아스타</td>
+		<td style="mso-number-format:'@';text-align:center;">246720</td>
+		<td><font color='#FF8040'>[정정]</font>주식등의대량보유상황보고서(일반)</td>
+		<td>조응준</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">174</td>
+		<td style="text-align:center;">15:10</td>
+		<td>현대건설</td>
+		<td style="mso-number-format:'@';text-align:center;">000720</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">173</td>
+		<td style="text-align:center;">15:10</td>
+		<td>현대모비스</td>
+		<td style="mso-number-format:'@';text-align:center;">012330</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">172</td>
+		<td style="text-align:center;">15:07</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999970</td>
+		<td>정보기술 섹터지수선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">171</td>
+		<td style="text-align:center;">15:07</td>
+		<td>엑사이엔씨</td>
+		<td style="mso-number-format:'@';text-align:center;">054940</td>
+		<td>참고서류</td>
+		<td>엑사이엔씨</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">170</td>
+		<td style="text-align:center;">15:07</td>
+		<td>LG화학</td>
+		<td style="mso-number-format:'@';text-align:center;">051910</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">169</td>
+		<td style="text-align:center;">15:07</td>
+		<td>심텍</td>
+		<td style="mso-number-format:'@';text-align:center;">222800</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">168</td>
+		<td style="text-align:center;">15:06</td>
+		<td>에코프로머티</td>
+		<td style="mso-number-format:'@';text-align:center;">450080</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">167</td>
+		<td style="text-align:center;">15:06</td>
+		<td>하나머티리얼즈</td>
+		<td style="mso-number-format:'@';text-align:center;">166090</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">166</td>
+		<td style="text-align:center;">15:06</td>
+		<td>삼성전자</td>
+		<td style="mso-number-format:'@';text-align:center;">005930</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">165</td>
+		<td style="text-align:center;">15:06</td>
+		<td>누리플렉스</td>
+		<td style="mso-number-format:'@';text-align:center;">040160</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>NuriFlex Holdings INC</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">164</td>
+		<td style="text-align:center;">15:05</td>
+		<td>삼성증권</td>
+		<td style="mso-number-format:'@';text-align:center;">016360</td>
+		<td>증권발행실적보고서</td>
+		<td>삼성증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">163</td>
+		<td style="text-align:center;">15:03</td>
+		<td>LG씨엔에스</td>
+		<td style="mso-number-format:'@';text-align:center;">064400</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">162</td>
+		<td style="text-align:center;">15:03</td>
+		<td>한화솔루션</td>
+		<td style="mso-number-format:'@';text-align:center;">009830</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">161</td>
+		<td style="text-align:center;">15:03</td>
+		<td>대우건설</td>
+		<td style="mso-number-format:'@';text-align:center;">047040</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">160</td>
+		<td style="text-align:center;">15:02</td>
+		<td>삼성증권</td>
+		<td style="mso-number-format:'@';text-align:center;">016360</td>
+		<td>증권발행실적보고서</td>
+		<td>삼성증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">159</td>
+		<td style="text-align:center;">14:56</td>
+		<td>아스타</td>
+		<td style="mso-number-format:'@';text-align:center;">246720</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>에스디바이오센서</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">158</td>
+		<td style="text-align:center;">14:53</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999990</td>
+		<td>유가증권시장 매매거래재개 (CB 해제)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">157</td>
+		<td style="text-align:center;">14:53</td>
+		<td>대웅</td>
+		<td style="mso-number-format:'@';text-align:center;">003090</td>
+		<td>투자판단 관련 주요경영사항(펙수클루정(Fexuclue)의 적응증 추가 3상 임상시험계획(IND) 승인(위궤양의 치료 요법))(자회사의 주요경영사항)</td>
+		<td>대웅</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">156</td>
+		<td style="text-align:center;">14:51</td>
+		<td>대웅제약</td>
+		<td style="mso-number-format:'@';text-align:center;">069620</td>
+		<td>투자판단 관련 주요경영사항(펙수클루정(Fexuclue)의 적응증 추가 3상 임상시험계획(IND) 승인(위궤양의 치료 요법))</td>
+		<td>대웅제약</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">155</td>
+		<td style="text-align:center;">14:49</td>
+		<td>유안타증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003470</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>유안타증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">154</td>
+		<td style="text-align:center;">14:47</td>
+		<td>AK홀딩스</td>
+		<td style="mso-number-format:'@';text-align:center;">006840</td>
+		<td>지주회사의 자회사 탈퇴</td>
+		<td>AK홀딩스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">153</td>
+		<td style="text-align:center;">14:46</td>
+		<td>유티아이</td>
+		<td style="mso-number-format:'@';text-align:center;">179900</td>
+		<td>금전대여결정(대여기간 연장)</td>
+		<td>유티아이</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">152</td>
+		<td style="text-align:center;">14:45</td>
+		<td>유안타증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003470</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(파생결합사채-주가연계파생결합사채)</td>
+		<td>유안타증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">151</td>
+		<td style="text-align:center;">14:45</td>
+		<td>엑사이엔씨</td>
+		<td style="mso-number-format:'@';text-align:center;">054940</td>
+		<td>주주총회소집공고<font color='#49531'>[정]</font></td>
+		<td>엑사이엔씨</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">150</td>
+		<td style="text-align:center;">14:44</td>
+		<td>피엔티</td>
+		<td style="mso-number-format:'@';text-align:center;">137400</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">149</td>
+		<td style="text-align:center;">14:44</td>
+		<td>동진쎄미켐</td>
+		<td style="mso-number-format:'@';text-align:center;">005290</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">148</td>
+		<td style="text-align:center;">14:42</td>
+		<td>미래에셋증권</td>
+		<td style="mso-number-format:'@';text-align:center;">006800</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>미래에셋증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">147</td>
+		<td style="text-align:center;">14:39</td>
+		<td>네이처셀</td>
+		<td style="mso-number-format:'@';text-align:center;">007390</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">146</td>
+		<td style="text-align:center;">14:38</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999970</td>
+		<td>코스닥150선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">145</td>
+		<td style="text-align:center;">14:36</td>
+		<td>보로노이</td>
+		<td style="mso-number-format:'@';text-align:center;">310210</td>
+		<td>기업설명회(IR) 개최</td>
+		<td>보로노이</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">144</td>
+		<td style="text-align:center;">14:34</td>
+		<td>대한제분</td>
+		<td style="mso-number-format:'@';text-align:center;">001130</td>
+		<td>기업가치 제고 계획(자율공시)</td>
+		<td>대한제분</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">143</td>
+		<td style="text-align:center;">14:33</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999970</td>
+		<td>파생상품시장거래 중단ㆍ재개 및 가격제한폭 확대(유가증권시장 CB발동)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">142</td>
+		<td style="text-align:center;">14:33</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999990</td>
+		<td>유가증권시장 매매거래 일시중단(1단계 CB 발동)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">141</td>
+		<td style="text-align:center;">14:33</td>
+		<td>우정바이오</td>
+		<td style="mso-number-format:'@';text-align:center;">215380</td>
+		<td>참고서류</td>
+		<td>우정바이오</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">140</td>
+		<td style="text-align:center;">14:32</td>
+		<td>피에스케이</td>
+		<td style="mso-number-format:'@';text-align:center;">319660</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">139</td>
+		<td style="text-align:center;">14:32</td>
+		<td>원익IPS</td>
+		<td style="mso-number-format:'@';text-align:center;">240810</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">138</td>
+		<td style="text-align:center;">14:32</td>
+		<td>삼성SDI</td>
+		<td style="mso-number-format:'@';text-align:center;">006400</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">137</td>
+		<td style="text-align:center;">14:32</td>
+		<td>SKC</td>
+		<td style="mso-number-format:'@';text-align:center;">011790</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">136</td>
+		<td style="text-align:center;">14:32</td>
+		<td>원일티엔아이</td>
+		<td style="mso-number-format:'@';text-align:center;">136150</td>
+		<td>주주총회소집공고</td>
+		<td>원일티엔아이</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">135</td>
+		<td style="text-align:center;">14:32</td>
+		<td>DL이앤씨</td>
+		<td style="mso-number-format:'@';text-align:center;">375500</td>
+		<td>주식선물 3단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">134</td>
+		<td style="text-align:center;">14:31</td>
+		<td>모아데이타</td>
+		<td style="mso-number-format:'@';text-align:center;">288980</td>
+		<td>주식등의대량보유상황보고서(약식)</td>
+		<td>아너스2호투자조합</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">133</td>
+		<td style="text-align:center;">14:31</td>
+		<td>디앤디파마텍</td>
+		<td style="mso-number-format:'@';text-align:center;">347850</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">132</td>
+		<td style="text-align:center;">14:30</td>
+		<td>우정바이오</td>
+		<td style="mso-number-format:'@';text-align:center;">215380</td>
+		<td>주주총회소집공고</td>
+		<td>우정바이오</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">131</td>
+		<td style="text-align:center;">14:29</td>
+		<td>감성코퍼레이션</td>
+		<td style="mso-number-format:'@';text-align:center;">036620</td>
+		<td>자기주식 취득 결정</td>
+		<td>감성코퍼레이션</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">130</td>
+		<td style="text-align:center;">14:28</td>
+		<td>한주라이트메탈</td>
+		<td style="mso-number-format:'@';text-align:center;">198940</td>
+		<td>기타 경영사항(자율공시)(산업통상자원부 「글로벌우수기업연구소육성사업(G-ATC)」 국책과제 주관기관 선정)</td>
+		<td>한주라이트메탈</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">129</td>
+		<td style="text-align:center;">14:27</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999970</td>
+		<td>코스피200선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">128</td>
+		<td style="text-align:center;">14:25</td>
+		<td>이오플로우</td>
+		<td style="mso-number-format:'@';text-align:center;">294090</td>
+		<td>소송등의판결ㆍ결정(영업비밀보호법(“DTSA”)에 따른 영업비밀 침해 및 특허 침해 소송)</td>
+		<td>이오플로우</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">127</td>
+		<td style="text-align:center;">14:24</td>
+		<td>유일에너테크</td>
+		<td style="mso-number-format:'@';text-align:center;">340930</td>
+		<td><font color='#FF8040'>[정정][연결포함]</font>사업보고서(일반법인)</td>
+		<td>유일에너테크</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">126</td>
+		<td style="text-align:center;">14:22</td>
+		<td>교보증권</td>
+		<td style="mso-number-format:'@';text-align:center;">030610</td>
+		<td>증권발행실적보고서</td>
+		<td>교보증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">125</td>
+		<td style="text-align:center;">14:21</td>
+		<td>인베니아</td>
+		<td style="mso-number-format:'@';text-align:center;">079950</td>
+		<td>단일판매ㆍ공급계약체결</td>
+		<td>인베니아</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">124</td>
+		<td style="text-align:center;">14:21</td>
+		<td>모아라이프플러스</td>
+		<td style="mso-number-format:'@';text-align:center;">142760</td>
+		<td><font color='#FF8040'>[정정]</font>주주총회소집결의(임시주주총회)</td>
+		<td>모아라이프플러스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">123</td>
+		<td style="text-align:center;">14:16</td>
+		<td>선광</td>
+		<td style="mso-number-format:'@';text-align:center;">003100</td>
+		<td><font color='#FF8040'>[정정]</font>신규시설투자등</td>
+		<td>선광</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">122</td>
+		<td style="text-align:center;">14:16</td>
+		<td>미래에셋증권</td>
+		<td style="mso-number-format:'@';text-align:center;">006800</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(파생결합사채-주가연계파생결합사채)</td>
+		<td>미래에셋증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">121</td>
+		<td style="text-align:center;">14:15</td>
+		<td>코스맥스</td>
+		<td style="mso-number-format:'@';text-align:center;">192820</td>
+		<td>기업설명회(IR) 개최(안내공시)</td>
+		<td>코스맥스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">120</td>
+		<td style="text-align:center;">14:15</td>
+		<td>원텍</td>
+		<td style="mso-number-format:'@';text-align:center;">336570</td>
+		<td><font color='#FF8040'>[정정]</font>주주명부폐쇄기간 또는 기준일 설정</td>
+		<td>원텍</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">119</td>
+		<td style="text-align:center;">14:15</td>
+		<td>iM금융지주</td>
+		<td style="mso-number-format:'@';text-align:center;">139130</td>
+		<td>신탁계약해지결과보고서</td>
+		<td>아이엠금융지주</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">118</td>
+		<td style="text-align:center;">14:13</td>
+		<td>포스코DX</td>
+		<td style="mso-number-format:'@';text-align:center;">022100</td>
+		<td>지속가능경영보고서 등 관련사항(자율공시)</td>
+		<td>포스코디엑스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">117</td>
+		<td style="text-align:center;">14:12</td>
+		<td>원텍</td>
+		<td style="mso-number-format:'@';text-align:center;">336570</td>
+		<td><font color='#FF8040'>[정정]</font>주주총회소집결의(임시주주총회)</td>
+		<td>원텍</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">116</td>
+		<td style="text-align:center;">14:12</td>
+		<td>일월지엠엘</td>
+		<td style="mso-number-format:'@';text-align:center;">178780</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>일월</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">115</td>
+		<td style="text-align:center;">14:11</td>
+		<td>테크윙</td>
+		<td style="mso-number-format:'@';text-align:center;">089030</td>
+		<td><font color='#FF8040'>[정정][연결포함]</font>사업보고서(일반법인)</td>
+		<td>테크윙</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">114</td>
+		<td style="text-align:center;">14:10</td>
+		<td>프리티</td>
+		<td style="mso-number-format:'@';text-align:center;">006490</td>
+		<td><font color='#FF8040'>[정정]</font>주주총회소집결의</td>
+		<td>프리티</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">113</td>
+		<td style="text-align:center;">14:08</td>
+		<td>대명에너지</td>
+		<td style="mso-number-format:'@';text-align:center;">389260</td>
+		<td>기업설명회(IR) 개최</td>
+		<td>대명에너지</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">112</td>
+		<td style="text-align:center;">14:08</td>
+		<td>삼성물산</td>
+		<td style="mso-number-format:'@';text-align:center;">028260</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">111</td>
+		<td style="text-align:center;">14:08</td>
+		<td>두산로보틱스</td>
+		<td style="mso-number-format:'@';text-align:center;">454910</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">110</td>
+		<td style="text-align:center;">14:04</td>
+		<td>원익QnC</td>
+		<td style="mso-number-format:'@';text-align:center;">074600</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">109</td>
+		<td style="text-align:center;">14:03</td>
+		<td>iM금융지주</td>
+		<td style="mso-number-format:'@';text-align:center;">139130</td>
+		<td><font color='#FF8040'>[정정]</font>주식 소각 결정</td>
+		<td>아이엠금융지주</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">108</td>
+		<td style="text-align:center;">14:03</td>
+		<td>일월지엠엘</td>
+		<td style="mso-number-format:'@';text-align:center;">178780</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>김영동</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">107</td>
+		<td style="text-align:center;">14:02</td>
+		<td>코미코</td>
+		<td style="mso-number-format:'@';text-align:center;">183300</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">106</td>
+		<td style="text-align:center;">14:00</td>
+		<td>압타머사이언스</td>
+		<td style="mso-number-format:'@';text-align:center;">291650</td>
+		<td><font color='#FF8040'>[정정]</font>주주총회소집공고</td>
+		<td>압타머사이언스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">105</td>
+		<td style="text-align:center;">13:59</td>
+		<td>오픈놀</td>
+		<td style="mso-number-format:'@';text-align:center;">440320</td>
+		<td>주식등의대량보유상황보고서(약식)</td>
+		<td>라이프자산운용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">104</td>
+		<td style="text-align:center;">13:57</td>
+		<td>티에스아이</td>
+		<td style="mso-number-format:'@';text-align:center;">277880</td>
+		<td><font color='#FF8040'>[정정]</font>단일판매ㆍ공급계약체결</td>
+		<td>티에스아이</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">103</td>
+		<td style="text-align:center;">13:56</td>
+		<td>LG전자</td>
+		<td style="mso-number-format:'@';text-align:center;">066570</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">102</td>
+		<td style="text-align:center;">13:54</td>
+		<td>윙스풋</td>
+		<td style="mso-number-format:'@';text-align:center;">335870</td>
+		<td>임원ㆍ주요주주특정증권등거래계획보고서</td>
+		<td>KIMYUNGHWAN</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">101</td>
+		<td style="text-align:center;">13:54</td>
+		<td>압타머사이언스</td>
+		<td style="mso-number-format:'@';text-align:center;">291650</td>
+		<td><font color='#FF8040'>[정정]</font>주주총회소집결의</td>
+		<td>압타머사이언스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">100</td>
+		<td style="text-align:center;">13:53</td>
+		<td>SK하이닉스</td>
+		<td style="mso-number-format:'@';text-align:center;">000660</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">99</td>
+		<td style="text-align:center;">13:52</td>
+		<td>아스타</td>
+		<td style="mso-number-format:'@';text-align:center;">246720</td>
+		<td><font color='#FF8040'>[정정]</font>최대주주 변경을 수반하는 주식 담보제공 계약 체결</td>
+		<td>아스타</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">98</td>
+		<td style="text-align:center;">13:52</td>
+		<td>로보티즈</td>
+		<td style="mso-number-format:'@';text-align:center;">108490</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">97</td>
+		<td style="text-align:center;">13:50</td>
+		<td>iM금융지주</td>
+		<td style="mso-number-format:'@';text-align:center;">139130</td>
+		<td>자기주식취득 신탁계약 해지 결정</td>
+		<td>아이엠금융지주</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">96</td>
+		<td style="text-align:center;">13:47</td>
+		<td>스틱인베스트먼트</td>
+		<td style="mso-number-format:'@';text-align:center;">026890</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>곽동걸</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">95</td>
+		<td style="text-align:center;">13:42</td>
+		<td>HPSP</td>
+		<td style="mso-number-format:'@';text-align:center;">403870</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">94</td>
+		<td style="text-align:center;">13:41</td>
+		<td>디알텍</td>
+		<td style="mso-number-format:'@';text-align:center;">214680</td>
+		<td>증권 발행결과(자율공시)</td>
+		<td>디알텍</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">93</td>
+		<td style="text-align:center;">13:41</td>
+		<td>솔브레인</td>
+		<td style="mso-number-format:'@';text-align:center;">357780</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">92</td>
+		<td style="text-align:center;">13:39</td>
+		<td>한미반도체</td>
+		<td style="mso-number-format:'@';text-align:center;">042700</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">91</td>
+		<td style="text-align:center;">13:39</td>
+		<td>와이바이오로직스</td>
+		<td style="mso-number-format:'@';text-align:center;">338840</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>박영우</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">90</td>
+		<td style="text-align:center;">13:37</td>
+		<td>한화투자증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003530</td>
+		<td>증권발행실적보고서</td>
+		<td>한화투자증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">89</td>
+		<td style="text-align:center;">13:36</td>
+		<td>선익시스템</td>
+		<td style="mso-number-format:'@';text-align:center;">171090</td>
+		<td>기업설명회(IR) 개최</td>
+		<td>선익시스템</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">88</td>
+		<td style="text-align:center;">13:35</td>
+		<td>HLB</td>
+		<td style="mso-number-format:'@';text-align:center;">028300</td>
+		<td>기업설명회(IR) 개최</td>
+		<td>에이치엘비</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">87</td>
+		<td style="text-align:center;">13:34</td>
+		<td>대림통상</td>
+		<td style="mso-number-format:'@';text-align:center;">006570</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>디앤디파트너스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">86</td>
+		<td style="text-align:center;">13:34</td>
+		<td>압타머사이언스</td>
+		<td style="mso-number-format:'@';text-align:center;">291650</td>
+		<td>주식병합결정</td>
+		<td>압타머사이언스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">85</td>
+		<td style="text-align:center;">13:32</td>
+		<td>대림통상</td>
+		<td style="mso-number-format:'@';text-align:center;">006570</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>디앤디파트너스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">84</td>
+		<td style="text-align:center;">13:31</td>
+		<td>아스타</td>
+		<td style="mso-number-format:'@';text-align:center;">246720</td>
+		<td><font color='#FF8040'>[정정]</font>최대주주 변경을 수반하는 주식양수도 계약 체결</td>
+		<td>아스타</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">83</td>
+		<td style="text-align:center;">13:31</td>
+		<td>시너지이노베이션</td>
+		<td style="mso-number-format:'@';text-align:center;">048870</td>
+		<td>전환사채(해외전환사채포함)발행후만기전사채취득</td>
+		<td>시너지이노베이션</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">82</td>
+		<td style="text-align:center;">13:31</td>
+		<td>미래산업</td>
+		<td style="mso-number-format:'@';text-align:center;">025560</td>
+		<td>단일판매ㆍ공급계약체결</td>
+		<td>미래산업</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">81</td>
+		<td style="text-align:center;">13:31</td>
+		<td>대림통상</td>
+		<td style="mso-number-format:'@';text-align:center;">006570</td>
+		<td>최대주주등소유주식변동신고서</td>
+		<td>대림통상</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">80</td>
+		<td style="text-align:center;">13:23</td>
+		<td>미원상사</td>
+		<td style="mso-number-format:'@';text-align:center;">002840</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>미원상사우리사주</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">79</td>
+		<td style="text-align:center;">13:12</td>
+		<td>대원화성</td>
+		<td style="mso-number-format:'@';text-align:center;">024890</td>
+		<td>주식등의대량보유상황보고서(약식)<font color='#49531'>[정]</font></td>
+		<td>김병욱</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">78</td>
+		<td style="text-align:center;">12:51</td>
+		<td>세아베스틸지주</td>
+		<td style="mso-number-format:'@';text-align:center;">001430</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">77</td>
+		<td style="text-align:center;">12:44</td>
+		<td>포스코DX</td>
+		<td style="mso-number-format:'@';text-align:center;">022100</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">76</td>
+		<td style="text-align:center;">12:38</td>
+		<td>현대자동차</td>
+		<td style="mso-number-format:'@';text-align:center;">005380</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">75</td>
+		<td style="text-align:center;">12:37</td>
+		<td>현대오토에버</td>
+		<td style="mso-number-format:'@';text-align:center;">307950</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">74</td>
+		<td style="text-align:center;">12:34</td>
+		<td>SFA반도체</td>
+		<td style="mso-number-format:'@';text-align:center;">036540</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">73</td>
+		<td style="text-align:center;">11:50</td>
+		<td>영화금속</td>
+		<td style="mso-number-format:'@';text-align:center;">012280</td>
+		<td>자기주식취득 신탁계약 체결 결정</td>
+		<td>영화금속</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">72</td>
+		<td style="text-align:center;">11:50</td>
+		<td>미창석유공업</td>
+		<td style="mso-number-format:'@';text-align:center;">003650</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>유재순</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">71</td>
+		<td style="text-align:center;">11:40</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999990</td>
+		<td>유가증권시장 매도 사이드카(Side car) 발동</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">70</td>
+		<td style="text-align:center;">11:37</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999980</td>
+		<td>코스닥시장 프로그램매도호가 일시효력정지(Sidecar 발동)</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">69</td>
+		<td style="text-align:center;">11:35</td>
+		<td>나라엠앤디</td>
+		<td style="mso-number-format:'@';text-align:center;">051490</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>김정훈</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">68</td>
+		<td style="text-align:center;">11:26</td>
+		<td>동성제약</td>
+		<td style="mso-number-format:'@';text-align:center;">002210</td>
+		<td>횡령ㆍ배임혐의발생</td>
+		<td>동성제약</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">67</td>
+		<td style="text-align:center;">11:24</td>
+		<td>나라엠앤디</td>
+		<td style="mso-number-format:'@';text-align:center;">051490</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>김영주</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">66</td>
+		<td style="text-align:center;">11:15</td>
+		<td>모바일어플라이언스</td>
+		<td style="mso-number-format:'@';text-align:center;">087260</td>
+		<td><font color='#FF8040'>[정정]</font>참고서류</td>
+		<td>대광</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">65</td>
+		<td style="text-align:center;">11:15</td>
+		<td>피엠티</td>
+		<td style="mso-number-format:'@';text-align:center;">147760</td>
+		<td>유상증자 또는 주식관련사채 등의 청약결과(자율공시)</td>
+		<td>피엠티</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">64</td>
+		<td style="text-align:center;">11:13</td>
+		<td>선익시스템</td>
+		<td style="mso-number-format:'@';text-align:center;">171090</td>
+		<td>기업설명회(IR) 개최</td>
+		<td>선익시스템</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">63</td>
+		<td style="text-align:center;">11:09</td>
+		<td>브이엠</td>
+		<td style="mso-number-format:'@';text-align:center;">089970</td>
+		<td>단일판매ㆍ공급계약체결</td>
+		<td>브이엠</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">62</td>
+		<td style="text-align:center;">11:08</td>
+		<td>HB솔루션</td>
+		<td style="mso-number-format:'@';text-align:center;">297890</td>
+		<td>참고서류</td>
+		<td>에이치비솔루션</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">61</td>
+		<td style="text-align:center;">11:07</td>
+		<td>삼성E&A</td>
+		<td style="mso-number-format:'@';text-align:center;">028050</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">60</td>
+		<td style="text-align:center;">11:05</td>
+		<td>HB솔루션</td>
+		<td style="mso-number-format:'@';text-align:center;">297890</td>
+		<td>주주총회소집공고</td>
+		<td>에이치비솔루션</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">59</td>
+		<td style="text-align:center;">11:02</td>
+		<td>로체시스템즈</td>
+		<td style="mso-number-format:'@';text-align:center;">071280</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>박기환</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">58</td>
+		<td style="text-align:center;">11:01</td>
+		<td>유진테크</td>
+		<td style="mso-number-format:'@';text-align:center;">084370</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">57</td>
+		<td style="text-align:center;">11:00</td>
+		<td>LG이노텍</td>
+		<td style="mso-number-format:'@';text-align:center;">011070</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">56</td>
+		<td style="text-align:center;">10:58</td>
+		<td>두올</td>
+		<td style="mso-number-format:'@';text-align:center;">016740</td>
+		<td>주주명부폐쇄기간 또는 기준일 설정</td>
+		<td>두올</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">55</td>
+		<td style="text-align:center;">10:57</td>
+		<td>삼성전기</td>
+		<td style="mso-number-format:'@';text-align:center;">009150</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">54</td>
+		<td style="text-align:center;">10:56</td>
+		<td>손오공</td>
+		<td style="mso-number-format:'@';text-align:center;">066910</td>
+		<td>자기 전환사채 만기전 취득 결정(제13회차)</td>
+		<td>손오공</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">53</td>
+		<td style="text-align:center;">10:56</td>
+		<td>선익시스템</td>
+		<td style="mso-number-format:'@';text-align:center;">171090</td>
+		<td><font color='#FF8040'>[정정]</font>단일판매ㆍ공급계약체결(자율공시)</td>
+		<td>선익시스템</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">52</td>
+		<td style="text-align:center;">10:54</td>
+		<td>레인보우로보틱스</td>
+		<td style="mso-number-format:'@';text-align:center;">277810</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">51</td>
+		<td style="text-align:center;">10:51</td>
+		<td>두올</td>
+		<td style="mso-number-format:'@';text-align:center;">016740</td>
+		<td>주주총회소집결의</td>
+		<td>두올</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">50</td>
+		<td style="text-align:center;">10:50</td>
+		<td>테크윙</td>
+		<td style="mso-number-format:'@';text-align:center;">089030</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">49</td>
+		<td style="text-align:center;">10:49</td>
+		<td>포스코엠텍</td>
+		<td style="mso-number-format:'@';text-align:center;">009520</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">48</td>
+		<td style="text-align:center;">10:49</td>
+		<td>두산테스나</td>
+		<td style="mso-number-format:'@';text-align:center;">131970</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">47</td>
+		<td style="text-align:center;">10:47</td>
+		<td>펨트론</td>
+		<td style="mso-number-format:'@';text-align:center;">168360</td>
+		<td>단일판매ㆍ공급계약체결(자율공시)</td>
+		<td>펨트론</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">46</td>
+		<td style="text-align:center;">10:47</td>
+		<td>케이엠제약</td>
+		<td style="mso-number-format:'@';text-align:center;">225430</td>
+		<td>임시주주총회결과</td>
+		<td>케이엠제약</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">45</td>
+		<td style="text-align:center;">10:43</td>
+		<td>엑세스바이오</td>
+		<td style="mso-number-format:'@';text-align:center;">950130</td>
+		<td><font color='#FF8040'>[정정]</font>사업보고서(일반법인)</td>
+		<td>엑세스바이오 인코퍼레이션</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">44</td>
+		<td style="text-align:center;">10:40</td>
+		<td>베셀</td>
+		<td style="mso-number-format:'@';text-align:center;">177350</td>
+		<td>임시주주총회결과</td>
+		<td>베셀</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">43</td>
+		<td style="text-align:center;">10:39</td>
+		<td>베셀</td>
+		<td style="mso-number-format:'@';text-align:center;">177350</td>
+		<td><font color='#FF8040'>[정정]</font>전환사채(해외전환사채포함)발행후만기전사채취득(제7회차)</td>
+		<td>베셀</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">42</td>
+		<td style="text-align:center;">10:37</td>
+		<td>HL만도</td>
+		<td style="mso-number-format:'@';text-align:center;">204320</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">41</td>
+		<td style="text-align:center;">10:36</td>
+		<td>베셀</td>
+		<td style="mso-number-format:'@';text-align:center;">177350</td>
+		<td>자기주식취득 신탁계약 체결 결정</td>
+		<td>베셀</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">40</td>
+		<td style="text-align:center;">10:29</td>
+		<td>롯데케미칼</td>
+		<td style="mso-number-format:'@';text-align:center;">011170</td>
+		<td>정보보호 현황(자율공시)</td>
+		<td>롯데케미칼</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">39</td>
+		<td style="text-align:center;">10:27</td>
+		<td>엠엑스로보틱스</td>
+		<td style="mso-number-format:'@';text-align:center;">007820</td>
+		<td><font color='#FF8040'>[정정]</font>단일판매ㆍ공급계약체결</td>
+		<td>엠엑스로보틱스</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">38</td>
+		<td style="text-align:center;">10:26</td>
+		<td>비츠로넥스텍</td>
+		<td style="mso-number-format:'@';text-align:center;">488900</td>
+		<td>투자판단 관련 주요경영사항(국책과제 양수의 건)</td>
+		<td>비츠로넥스텍</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">37</td>
+		<td style="text-align:center;">10:23</td>
+		<td>한화투자증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003530</td>
+		<td>증권발행실적보고서</td>
+		<td>한화투자증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">36</td>
+		<td style="text-align:center;">10:21</td>
+		<td>아미코젠</td>
+		<td style="mso-number-format:'@';text-align:center;">092040</td>
+		<td><font color='#FF8040'>[정정]</font>유상증자결정(제3자배정)</td>
+		<td>아미코젠</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">35</td>
+		<td style="text-align:center;">10:21</td>
+		<td>한화투자증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003530</td>
+		<td>증권발행실적보고서</td>
+		<td>한화투자증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">34</td>
+		<td style="text-align:center;">10:16</td>
+		<td>한화투자증권</td>
+		<td style="mso-number-format:'@';text-align:center;">003530</td>
+		<td>증권발행실적보고서</td>
+		<td>한화투자증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">33</td>
+		<td style="text-align:center;">10:16</td>
+		<td>유진로봇</td>
+		<td style="mso-number-format:'@';text-align:center;">056080</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>IMANTO AG</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">32</td>
+		<td style="text-align:center;">10:13</td>
+		<td>스틱인베스트먼트</td>
+		<td style="mso-number-format:'@';text-align:center;">026890</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>The Miri Strategic Emerging Markets Fund LP</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">31</td>
+		<td style="text-align:center;">10:08</td>
+		<td>케이피에프</td>
+		<td style="mso-number-format:'@';text-align:center;">024880</td>
+		<td>기업설명회(IR) 개최</td>
+		<td>케이피에프</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">30</td>
+		<td style="text-align:center;">10:02</td>
+		<td>에코프로에이치엔</td>
+		<td style="mso-number-format:'@';text-align:center;">383310</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">29</td>
+		<td style="text-align:center;">09:55</td>
+		<td>iM금융지주</td>
+		<td style="mso-number-format:'@';text-align:center;">139130</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>천병규</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">28</td>
+		<td style="text-align:center;">09:49</td>
+		<td>OCI홀딩스</td>
+		<td style="mso-number-format:'@';text-align:center;">010060</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">27</td>
+		<td style="text-align:center;">09:48</td>
+		<td>SK</td>
+		<td style="mso-number-format:'@';text-align:center;">034730</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(상승)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">26</td>
+		<td style="text-align:center;">09:45</td>
+		<td>제이에스링크</td>
+		<td style="mso-number-format:'@';text-align:center;">127120</td>
+		<td><font color='#FF8040'>[정정]</font>전환사채권발행결정(제18회차)</td>
+		<td>제이에스링크</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">25</td>
+		<td style="text-align:center;">09:41</td>
+		<td>제이에스링크</td>
+		<td style="mso-number-format:'@';text-align:center;">127120</td>
+		<td><font color='#FF8040'>[정정]</font>전환사채권발행결정(제17회차)</td>
+		<td>제이에스링크</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">24</td>
+		<td style="text-align:center;">09:35</td>
+		<td>리가켐바이오</td>
+		<td style="mso-number-format:'@';text-align:center;">141080</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(상승)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">23</td>
+		<td style="text-align:center;">09:34</td>
+		<td>카카오게임즈</td>
+		<td style="mso-number-format:'@';text-align:center;">293490</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">22</td>
+		<td style="text-align:center;">09:33</td>
+		<td>교보증권</td>
+		<td style="mso-number-format:'@';text-align:center;">030610</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>교보증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">21</td>
+		<td style="text-align:center;">09:31</td>
+		<td>교보증권</td>
+		<td style="mso-number-format:'@';text-align:center;">030610</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(파생결합사채-주가연계파생결합사채)</td>
+		<td>교보증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">20</td>
+		<td style="text-align:center;">09:27</td>
+		<td>CJ CGV</td>
+		<td style="mso-number-format:'@';text-align:center;">079160</td>
+		<td>조회공시 요구(풍문 또는 보도)</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">19</td>
+		<td style="text-align:center;">09:26</td>
+		<td>HD한국조선해양</td>
+		<td style="mso-number-format:'@';text-align:center;">009540</td>
+		<td>풍문 또는 보도에 대한 해명(미확정)</td>
+		<td>에이치디한국조선해양</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">18</td>
+		<td style="text-align:center;">09:25</td>
+		<td>현대차증권</td>
+		<td style="mso-number-format:'@';text-align:center;">001500</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>현대차증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">17</td>
+		<td style="text-align:center;">09:23</td>
+		<td>디알텍</td>
+		<td style="mso-number-format:'@';text-align:center;">214680</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>이길수</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">16</td>
+		<td style="text-align:center;">09:19</td>
+		<td>교보증권</td>
+		<td style="mso-number-format:'@';text-align:center;">030610</td>
+		<td>투자설명서[일괄신고-사채]</td>
+		<td>교보증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">15</td>
+		<td style="text-align:center;">09:18</td>
+		<td>삼보산업</td>
+		<td style="mso-number-format:'@';text-align:center;">009620</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>이태용</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">14</td>
+		<td style="text-align:center;">09:10</td>
+		<td>현대차증권</td>
+		<td style="mso-number-format:'@';text-align:center;">001500</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(파생결합사채-주가연계파생결합사채)</td>
+		<td>현대차증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">13</td>
+		<td style="text-align:center;">09:09</td>
+		<td>교보증권</td>
+		<td style="mso-number-format:'@';text-align:center;">030610</td>
+		<td><font color='#FF8040'>[연결포함]</font>일괄신고추가서류(파생결합사채-주가연계파생결합사채)</td>
+		<td>교보증권</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">12</td>
+		<td style="text-align:center;">09:08</td>
+		<td>DL이앤씨</td>
+		<td style="mso-number-format:'@';text-align:center;">375500</td>
+		<td>주식선물 2단계 가격제한폭 확대요건 도달(하락)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">11</td>
+		<td style="text-align:center;">09:07</td>
+		<td>삼성생명</td>
+		<td style="mso-number-format:'@';text-align:center;">032830</td>
+		<td>주식선물ㆍ주식옵션 2단계 가격제한폭 확대요건 도달(상승)</td>
+		<td>파생상품시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">10</td>
+		<td style="text-align:center;">09:02</td>
+		<td>현대건설</td>
+		<td style="mso-number-format:'@';text-align:center;">000720</td>
+		<td>단일판매ㆍ공급계약체결</td>
+		<td>현대건설</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">9</td>
+		<td style="text-align:center;">08:02</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999980</td>
+		<td>기타시장안내(금일 NXT 경쟁매매 대상 종목 지정으로 인한 KRX 시간외단일가매매 제외 종목 안내(코스닥시장))</td>
+		<td>코스닥시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">8</td>
+		<td style="text-align:center;">08:01</td>
+		<td></td>
+		<td style="mso-number-format:'@';text-align:center;">999990</td>
+		<td>기타시장안내(금일 NXT 경쟁매매 대상 종목 지정으로 인한 KRX 시간외단일가매매 제외 종목 안내(유가증권시장))</td>
+		<td>유가증권시장본부</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">7</td>
+		<td style="text-align:center;">07:42</td>
+		<td>HD현대</td>
+		<td style="mso-number-format:'@';text-align:center;">267250</td>
+		<td>중대재해 발생(자회사의 주요경영사항)</td>
+		<td>에이치디현대</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">6</td>
+		<td style="text-align:center;">07:40</td>
+		<td>에스투더블유</td>
+		<td style="mso-number-format:'@';text-align:center;">488280</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>서상덕</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">5</td>
+		<td style="text-align:center;">07:36</td>
+		<td>한국전력공사</td>
+		<td style="mso-number-format:'@';text-align:center;">015760</td>
+		<td>소송등의판결ㆍ결정(일정금액 이상의 청구)</td>
+		<td>한국전력공사</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">4</td>
+		<td style="text-align:center;">07:36</td>
+		<td>HD한국조선해양</td>
+		<td style="mso-number-format:'@';text-align:center;">009540</td>
+		<td>중대재해 발생(자회사의 주요경영사항)</td>
+		<td>에이치디한국조선해양</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">3</td>
+		<td style="text-align:center;">07:31</td>
+		<td>핑거</td>
+		<td style="mso-number-format:'@';text-align:center;">163730</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>몬타나41</td>
+		<td style="text-align:center;">2026-06-23</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">2</td>
+		<td style="text-align:center;">07:30</td>
+		<td>유니켐</td>
+		<td style="mso-number-format:'@';text-align:center;">011330</td>
+		<td>임원ㆍ주요주주특정증권등소유상황보고서</td>
+		<td>김재권</td>
+		<td style="text-align:center;">2026-06-22</td>
+	</tr>
+			
+	<tr>
+		<td style="text-align:center;">1</td>
+		<td style="text-align:center;">07:30</td>
+		<td>핑거</td>
+		<td style="mso-number-format:'@';text-align:center;">163730</td>
+		<td>주식등의대량보유상황보고서(일반)</td>
+		<td>서룡전자</td>
+		<td style="text-align:center;">2026-06-22</td>
+	</tr>
+			
+		
+		
+	
+</table>
+
+</body>
+</html>
