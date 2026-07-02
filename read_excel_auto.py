@@ -1,119 +1,40 @@
+# -*- coding: utf-8 -*-
 import os
 import sys
-import glob
-import argparse
 import datetime
+import argparse
 import pandas as pd
 from langchain_ollama import OllamaLLM
 from langchain_community.llms import Ollama
 
-def get_latest_excel_in_current_dir():
-    current_dir = os.path.dirname(os.path.abspath(__file__)) if '__file__' in locals() else os.getcwd()
-    excel_files = []
-    for ext in ["*.xlsx", "*.xls"]:
-        excel_files.extend(glob.glob(os.path.join(current_dir, ext)))
-    if not excel_files:
-        print(f"❌ 현재 위치에 엑셀 파일(.xlsx, .xls)이 존재하지 않습니다.")
-        return None
-    latest_file = max(excel_files, key=os.path.getmtime)
-    print(f"📂 인식된 엑셀 파일: {os.path.basename(latest_file)}")
-    return latest_file
+# Windows CP949 console encoding fix
+if sys.platform.startswith('win'):
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8')
+    if hasattr(sys.stderr, 'reconfigure'):
+        sys.stderr.reconfigure(encoding='utf-8')
+
+# excel_utils.py 및 template.py 모듈로부터 도우미 함수 및 HTML 레이아웃 임포트
+from excel_utils import (
+    get_latest_excel_in_current_dir,
+    try_read_excel,
+    md_to_html,
+    get_html2canvas_script,
+    extract_hour_from_time_value
+)
+from template import (
+    HTML_HEADER,
+    HTML_CARD_START,
+    HTML_EMPTY_STATE,
+    HTML_TABLE_START,
+    HTML_TABLE_ROW,
+    HTML_TABLE_END,
+    HTML_CARD_END,
+    HTML_FOOTER
+)
 
 
-def try_read_excel(file_path):
-    """
-    엑셀 상단의 공백이나 깨진 헤더를 우회하여 
-    실제 표 데이터가 시작하는 지점을 자동으로 찾아 로드합니다.
-    """
-    df = None
-    try:
-        if file_path.endswith('.xls'):
-            df = pd.read_excel(file_path, engine='xlrd')
-        else:
-            df = pd.read_excel(file_path)
-    except Exception:
-        pass
-
-    # 만약 위에서 못 읽었거나 HTML 형식이 의심될 때
-    if df is None or df.empty:
-        try:
-            # HTML 형식으로 저장된 .xls 파일 처리 (한글 깨짐 방지를 위해 encoding='cp949' 추가)
-            dfs = pd.read_html(file_path, encoding='cp949')
-            if dfs:
-                df = dfs[0]
-        except Exception:
-            try:
-                df = pd.read_csv(file_path, sep='\t', encoding='utf-8')
-            except Exception:
-                try:
-                    df = pd.read_csv(file_path, sep='\t', encoding='cp949')
-                except Exception as e:
-                    raise ValueError(f"파일을 읽을 수 없습니다: {e}")
-
-    # 1. 원본 컬럼 중 '회사명' 이나 '공시제목' 이 들어있는 경우 바로 헤더로 사용
-    cols_str = "".join([str(c) for c in df.columns])
-    if any(k in cols_str for k in ["회사명", "공시제목", "종목코드"]):
-        df.columns = [str(c).replace('\n', '').replace(' ', '').strip() for c in df.columns]
-        return df
-
-    # 2. 첫 번째 행부터 돌며 헤더 매칭 탐색 (헤더가 데이터 행 중간에 박힌 경우 대비)
-    actual_header_idx = None
-    for idx, row in df.iterrows():
-        row_str = "".join(row.dropna().astype(str))
-        # 단순 '종목'만 매칭하면 위험하므로, 주요 컬럼 중 최소 2개 이상이 매칭되는 행 탐색
-        matches = sum(1 for k in ["회사명", "공시제목", "종목코드", "접수일자", "시간"] if k in row_str)
-        if matches >= 2:
-            actual_header_idx = idx
-            break
-            
-    # 발견한 헤더 위치를 기준으로 데이터프레임 재정의
-    if actual_header_idx is not None:
-        raw_cols = df.iloc[actual_header_idx].tolist()
-        df.columns = [str(c).replace('\n', '').replace(' ', '').strip() for c in raw_cols]
-        df = df.iloc[actual_header_idx + 1:].reset_index(drop=True)
-    
-    return df
-
-def md_to_html(md_text):
-    """
-    간단한 마크다운을 HTML 태그로 변환합니다. (굵은 글씨, 목록형 목록 지원)
-    """
-    if not md_text:
-        return ""
-    import re
-    html = str(md_text).strip()
-    # 굵은 글씨 **text** -> <strong>text</strong>
-    html = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', html)
-    
-    lines = html.split('\n')
-    in_list = False
-    new_lines = []
-    for line in lines:
-        stripped = line.strip()
-        if stripped.startswith('- ') or stripped.startswith('* '):
-            if not in_list:
-                new_lines.append('<ul style="margin: 8px 0; padding-left: 20px; color: #d1d5db; line-height: 1.6;">')
-                in_list = True
-            new_lines.append(f'<li style="margin-bottom: 6px;">{stripped[2:]}</li>')
-        elif stripped.startswith('> '):
-            if in_list:
-                new_lines.append('</ul>')
-                in_list = False
-            new_lines.append(f'<blockquote style="border-left: 4px solid #8b5cf6; padding-left: 12px; margin: 12px 0; color: #9ca3af; font-style: italic;">{stripped[2:]}</blockquote>')
-        else:
-            if in_list:
-                new_lines.append('</ul>')
-                in_list = False
-            if stripped:
-                new_lines.append(f'<p style="margin: 8px 0; line-height: 1.6; color: #e5e7eb;">{stripped}</p>')
-            else:
-                new_lines.append('<div style="height: 8px;"></div>')
-    if in_list:
-        new_lines.append('</ul>')
-    return "\n".join(new_lines)
-
-
-def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="agents_auto.md", bypass_time_filter=False):
+def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="agents_auto.md", bypass_time_filter=False, no_ai=False):
     if not os.path.exists(agent_md_path):
         if os.path.exists("agents.md"):
             print("⚠️ 'agents_auto.md'가 없어 'agents.md'를 사용합니다.")
@@ -170,80 +91,108 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
     for idx, row in df.iterrows():
         # 1. 시간 조건 검사 (20:00시부터 포함, bypass_time_filter가 True이면 건너뜀)
         if not bypass_time_filter and time_col is not None and time_col < len(row):
-            time_val = str(row.iloc[time_col]).strip()
-            if ":" in time_val:
-                try:
-                    time_hm = time_val[:5] 
-                    if time_hm < "20:00":  
-                        continue
-                except Exception:
-                    pass
+            time_val = row.iloc[time_col]
+            hour = extract_hour_from_time_value(time_val)
+            if hour is not None:
+                if hour < 20:
+                    continue
 
-        # 2. 키워드 조건 검사 (search_keywords가 제공되지 않거나 비어있으면 모든 행 통과)
-        if not search_keywords:
-            matched_rows.append(row)
-        else:
-            full_row_text = "".join(row.dropna().astype(str)).replace(" ", "").lower()
-            if any(keyword.replace(" ", "").lower() in full_row_text for keyword in search_keywords):
-                matched_rows.append(row)
-            
-    filtered_df = pd.DataFrame(matched_rows)
-    
-    if filtered_df.empty:
-        cond_str = f"키워드 {search_keywords}" if search_keywords else "20:00 이후 데이터"
-        msg = f"\n[안내] 조건에 부합하는 {cond_str} 공시 데이터가 존재하지 않습니다."
-        print(msg)
-        return {"msg": msg, "empty": True}
+        # 2. 키워드 조건 검사 (지정된 키워드가 있을 경우에 필터링 적용)
+        title_val = str(row.iloc[title_col]) if title_col < len(row) else ""
+        if search_keywords:
+            if not any(k in title_val for k in search_keywords):
+                continue
+                
+        matched_rows.append(row)
 
-    # 종류별 분류 데이터 구성 (사용자 요청 커스텀 4대 분야)
+    if not matched_rows:
+        print("💡 조건에 일치하는 공시 데이터가 없습니다.")
+        return {
+            "empty": True,
+            "msg": "✓ 조건에 일치하는 신규 우려/주의성 유의 공시 내역이 조회되지 않았습니다. 당일 시장은 안정세입니다."
+        }
+
+    # 카테고리 정의 (5개 탭 분리)
     categories = {
-        "caution_overheating": {"title": "투자주의 & 단기과열", "icon": "⚠️", "color": "warning", "items": []},
-        "warning_risk_trading": {"title": "투자경고 & 투자위험 & 매매거래", "icon": "🚨", "color": "trading", "items": []},
-        "short_selling": {"title": "공매도", "icon": "📉", "color": "listing", "items": []},
-        "others": {"title": "기타", "icon": "ℹ️", "color": "others", "items": []}
+        "warning_risk_trading": {
+            "title": "투자경고 & 투자위험 & 매매거래정지",
+            "icon": "🚨",
+            "color": "trading",
+            "items": []
+        },
+        "overheating": {
+            "title": "단기과열지정 관련",
+            "icon": "🔥",
+            "color": "overheating",
+            "items": []
+        },
+        "caution": {
+            "title": "투자주의 & 환기종목",
+            "icon": "⚠️",
+            "color": "caution",
+            "items": []
+        },
+        "short_selling": {
+            "title": "공매도 과열종목",
+            "icon": "📉",
+            "color": "short",
+            "items": []
+        },
+        "others": {
+            "title": "기타 유의사항",
+            "icon": "📝",
+            "color": "other",
+            "items": []
+        }
     }
 
-    # LLM 컨텍스트 전송용 간략 데이터 빌드
+    # 데이터 분류 및 정렬
     data_lines = []
-    
-    for _, row in filtered_df.iterrows():
-        time_val = str(row.iloc[time_col]).strip() if time_col < len(row) else ""
-        com_val = str(row.iloc[com_col]).strip() if com_col < len(row) else ""
-        code_val = str(row.iloc[code_col]).strip() if code_col < len(row) else ""
-        title_val = str(row.iloc[title_col]).strip() if title_col < len(row) else ""
-        sub_val = str(row.iloc[submitter_col]).strip() if submitter_col < len(row) else ""
-        
+    for row in matched_rows:
+        time_val = str(row.iloc[time_col]).strip() if time_col < len(row) else "-"
+        com_val = str(row.iloc[com_col]).strip() if com_col < len(row) else "-"
+        code_val = str(row.iloc[code_col]).split(".")[0].strip() if code_col < len(row) else "-"
+        # 종목코드 자릿수 포맷
+        if len(code_val) < 6 and code_val.isdigit():
+            code_val = code_val.zfill(6)
+            
+        title_val = str(row.iloc[title_col]).strip() if title_col < len(row) else "-"
+        submitter_val = str(row.iloc[submitter_col]).strip() if submitter_col < len(row) else "-"
+
         item = {
             "time": time_val,
             "company": com_val,
             "code": code_val,
             "title": title_val,
-            "submitter": sub_val
+            "submitter": submitter_val
         }
-        
-        title_clean = title_val.replace(" ", "").lower()
-        
-        # 분류 작업
-        # 1. 투자경고 & 투자위험 & 매매거래 (경고, 위험, 매매거래, 거래정지, 정지해제, 매매정지 포함)
-        # 중요: "[투자주의]투자경고종목 지정예고"처럼 투자경고 등 상위 리스크 키워드가 포함되어 있다면 투경 쪽에 먼저 분류합니다.
-        if any(kw in title_clean for kw in ["투자경고", "투자위험", "매매거래", "거래정지", "정지해제", "매매정지"]):
+
+        # 분류를 위한 정규화
+        title_clean = title_val.replace(" ", "")
+
+        # 1. 경고/위험/거래 (거래정지, 투자경고, 투자위험 포함시 최우선 권장 배정)
+        if any(kw in title_clean for kw in ["거래정지", "투자경고", "투자위험", "투자주의경고", "매매거래"]):
             categories["warning_risk_trading"]["items"].append(item)
             data_lines.append(f"- [경고/위험/거래] [{time_val}] {com_val}({code_val}) | {title_val}")
-        # 2. 투자주의 & 단기과열 (주의, 단기과열, 환기종목 포함)
-        elif any(kw in title_clean for kw in ["투자주의", "단기과열", "환기종목"]):
-            categories["caution_overheating"]["items"].append(item)
-            data_lines.append(f"- [주의/단기과열] [{time_val}] {com_val}({code_val}) | {title_val}")
-        # 3. 공매도 (공매도, 공매도과열 포함)
+        # 2. 단기과열
+        elif "단기과열" in title_clean:
+            categories["overheating"]["items"].append(item)
+            data_lines.append(f"- [단기과열] [{time_val}] {com_val}({code_val}) | {title_val}")
+        # 3. 투자주의 (주의, 환기종목 포함)
+        elif any(kw in title_clean for kw in ["투자주의", "환기종목"]):
+            categories["caution"]["items"].append(item)
+            data_lines.append(f"- [투자주의] [{time_val}] {com_val}({code_val}) | {title_val}")
+        # 4. 공매도 (공매도, 공매도과열 포함)
         elif any(kw in title_clean for kw in ["공매도", "공매도과열"]):
             categories["short_selling"]["items"].append(item)
             data_lines.append(f"- [공매도] [{time_val}] {com_val}({code_val}) | {title_val}")
-        # 4. 기타
+        # 5. 기타
         else:
             categories["others"]["items"].append(item)
             data_lines.append(f"- [기타] [{time_val}] {com_val}({code_val}) | {title_val}")
-            
+
     excel_context = "\n".join(data_lines)
-    keywords_summary = ", ".join(search_keywords)
+    keywords_summary = ", ".join(search_keywords) if search_keywords else "전체 필터링"
 
     final_prompt = agent_prompt_template.replace("{search_keywords}", keywords_summary)
     final_prompt = final_prompt.replace("{excel_context}", excel_context)
@@ -251,17 +200,21 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
     print("\n--- [키워드 매칭 분석 및 요약 생성 중] ---")
     
     ai_brief = ""
-    try:
+    if no_ai:
+        print("⚡ [Bypass AI] AI 분석을 생략하고 Python 정량 요약만 활용합니다.")
+        ai_brief = ""
+    else:
         try:
-            llm = OllamaLLM(model="gemma4")
-        except ImportError:
-            llm = Ollama(model="gemma4")
-            
-        print(f"🤖 데이터 매칭 완료! [{keywords_summary}] 관련 종합 AI 평론을 작성하고 있습니다...\n")
-        ai_brief = llm.invoke(final_prompt)
-    except Exception as e:
-        print(f"⚠️ Ollama 연동 실패 혹은 모델 부재로 요약 브리핑을 대체합니다: {e}")
-        ai_brief = "당일 공매도 과열종목 지정 및 규제 관련 공매도/경고성 리스크 내역이 수집되었습니다. 투자 지표 검토 시 하단의 세부 공시 내역 표를 면밀히 참조하시기 바랍니다."
+            try:
+                llm = OllamaLLM(model="gemma4")
+            except ImportError:
+                llm = Ollama(model="gemma4")
+                
+            print(f"🤖 데이터 매칭 완료! [{keywords_summary}] 관련 종합 AI 평론을 작성하고 있습니다...\n")
+            ai_brief = llm.invoke(final_prompt)
+        except Exception as e:
+            print(f"⚠️ Ollama 연동 실패 혹은 모델 부재로 요약 브리핑을 대체합니다: {e}")
+            ai_brief = "당일 공매도 과열종목 지정 및 규제 관련 공매도/경고성 리스크 내역이 수집되었습니다. 투자 지표 검토 시 하단의 세부 공시 내역 표를 면밀히 참조하시기 바랍니다."
 
     # 마크다운 표준 리포트 작성
     ai_brief_indented = ai_brief.replace('\n', '\n>')
@@ -279,406 +232,123 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
                 md_content += f"| {item['time']} | **{item['company']}** ({item['code']}) | {item['title']} | {item['submitter']} |\n"
             md_content += "\n"
 
-    # HTML/CSS 대시보드 리포트 생성
-    html_brief = md_to_html(ai_brief)
+    # HTML/CSS 대시보드 리포트 생성 - Python 정량 분석 테이블과 AI 한줄 평론의 하이브리드 블록 구성
+    stats_html = f"""
+    <div class="market-stats" style="margin-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 14px;">
+        <p style="margin: 0 0 10px 0; font-size: 14px; font-weight: 700; color: #f1f5f9;">📊 시장 리스크 속보 (정량 분석)</p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
+            <span style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #f59e0b; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700;">⚠️ 투자주의: {len(categories['caution']['items'])}건</span>
+            <span style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700;">🔥 단기과열: {len(categories['overheating']['items'])}건</span>
+            <span style="background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); color: #a78bfa; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700;">🚨 경고·위험: {len(categories['warning_risk_trading']['items'])}건</span>
+            <span style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); color: #60a5fa; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700;">📉 공매도과열: {len(categories['short_selling']['items'])}건</span>
+        </div>
+    """
+    
+    critical_companies = []
+    for item in categories['warning_risk_trading']['items']:
+        critical_companies.append(f"<strong style='color: #ef4444;'>{item['company']}</strong>(신규/예고)")
+    for item in categories['overheating']['items']:
+        critical_companies.append(f"<strong style='color: #f59e0b;'>{item['company']}</strong>(단기과열)")
+        
+    critical_companies = list(dict.fromkeys(critical_companies))
+    
+    if critical_companies:
+        stats_html += f"""
+        <p style="margin: 0; font-size: 13px; color: #94a3b8; line-height: 1.5;">
+            🔍 <strong>핵심 모니터링 기업:</strong> {', '.join(critical_companies[:6])}{' 외' if len(critical_companies) > 6 else ''}
+        </p>
+        </div>
+        """
+    else:
+        stats_html += """
+        <p style="margin: 0; font-size: 13px; color: #94a3b8; line-height: 1.5;">
+            🔍 <strong>핵심 모니터링 기업:</strong> 당일 특이사항 리스크 기업이 없습니다. (안전)
+        </p>
+        </div>
+        """
+
+    if not ai_brief or ai_brief.strip() == "":
+        ai_commentary_html = """
+        <div class="ai-commentary-box" style="border-left-color: #64748b; margin-top: 10px;">
+            <p>
+                <span style="background: #64748b; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-right: 8px; vertical-align: middle;">INFO</span>
+                당일 수집된 시장 조치 및 경보 내역이 카테고리별로 정비되었습니다. 자세한 공시 사항은 하단의 각 탭 뷰를 확인하세요.
+            </p>
+        </div>
+        """
+    else:
+        import re
+        temp_brief = ai_brief.strip()
+        
+        # 불필요한 마크다운 기획 문자 제거 (*, **, `, - , * )
+        temp_brief = re.sub(r'\*\*|\*|`', '', temp_brief)
+        temp_brief = re.sub(r'^\s*[-*]\s+', '', temp_brief, flags=re.MULTILINE)
+        
+        # Ollama 머리말 서두 문구 제거 (예: "요약:", "AI 분석:")
+        temp_brief = re.sub(r'^(요약|분석|AI 요약|AI 분석|시장 리스크 요약|요약하자면)\s*:\s*', '', temp_brief, flags=re.IGNORECASE)
+        
+        last_dot_idx = max(temp_brief.rfind('.'), temp_brief.rfind('?'), temp_brief.rfind('!'))
+        if last_dot_idx != -1 and last_dot_idx < len(temp_brief) - 1:
+            temp_brief = temp_brief[:last_dot_idx + 1]
+            
+        temp_brief = temp_brief.strip()
+        
+        ai_commentary_html = f"""
+        <div class="ai-commentary-box">
+            <p>
+                <span style="background: #2563eb; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-right: 8px; vertical-align: middle; letter-spacing: 0.5px;">AI BRIEF</span>
+                {temp_brief}
+            </p>
+        </div>
+        """
+
+    html_brief = stats_html + ai_commentary_html
     today_date = datetime.datetime.now().strftime("%Y년 %m월 %d일")
     
-    html_content = f"""<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIND 기업 공시 리스크 감시 보드</title>
-    <style>
-        :root {{
-            --bg-color: #0b0f19;
-            --card-bg: #161d30;
-            --border-color: #243049;
-            --text-primary: #f3f4f6;
-            --text-secondary: #9ca3af;
-            
-            --warning-color: #ffc107;
-            --warning-bg: rgba(255, 193, 7, 0.1);
-            --warning-border: rgba(255, 193, 7, 0.3);
-            
-            --trading-color: #f43f5e;
-            --trading-bg: rgba(244, 63, 94, 0.1);
-            --trading-border: rgba(244, 63, 94, 0.3);
-            
-            --listing-color: #d946ef;
-            --listing-bg: rgba(217, 70, 239, 0.1);
-            --listing-border: rgba(217, 70, 239, 0.3);
-            
-            --others-color: #3b82f6;
-            --others-bg: rgba(59, 130, 246, 0.1);
-            --others-border: rgba(59, 130, 246, 0.3);
-        }}
+    # html2canvas 라이브러리의 오프라인 로컬 인라인 시도
+    html2canvas_js = get_html2canvas_script()
+    if html2canvas_js:
+        html2canvas_script_tag = f"<script>{html2canvas_js}</script>"
+    else:
+        html2canvas_script_tag = '<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>'
         
-        * {{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }}
-        
-        body {{
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-        }}
-        
-        .container {{
-            width: 100%;
-            max-width: 1100px;
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-        }}
-        
-        header {{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-        }}
-        
-        .logo-section h1 {{
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(to right, #3b82f6, #93c5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }}
-        
-        .logo-section p {{
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }}
-        
-        .date-badge {{
-            background-color: #1e293b;
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #60a5fa;
-        }}
-        
-        /* AI 브리핑 배너 */
-        .ai-banner {{
-            background: linear-gradient(135deg, #1e1b4b, #2e1065);
-            border-left: 4px solid #8b5cf6;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 4px 10px -5px rgba(139, 92, 246, 0.2);
-        }}
-        
-        .ai-banner h2 {{
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #c084fc;
-            margin-bottom: 12px;
-            letter-spacing: -0.2px;
-        }}
-        
-        .ai-content {{
-            font-size: 14px;
-        }}
-        
-        /* 메인 리드 대시보드 리스트 */
-        .dashboard-grid {{
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }}
-        
-        .card {{
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.28s ease, border-color 0.28s ease;
-        }}
-        
-        .card:hover {{
-            border-color: #374151;
-            transform: translateY(-2px);
-        }}
-        
-        .card-header {{
-            padding: 16px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-        }}
-        
-        .card-header.warning {{ border-top: 3px solid var(--warning-color); }}
-        .card-header.trading {{ border-top: 3px solid var(--trading-color); }}
-        .card-header.listing {{ border-top: 3px solid var(--listing-color); }}
-        .card-header.others {{ border-top: 3px solid var(--others-color); }}
-        
-        .card-title {{
-            font-size: 15px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }}
-        
-        .badge {{
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 8px;
-            border-radius: 10px;
-        }}
-        
-        .badge.warning {{ background-color: var(--warning-bg); color: var(--warning-color); border: 1px solid var(--warning-border); }}
-        .badge.trading {{ background-color: var(--trading-bg); color: var(--trading-color); border: 1px solid var(--trading-border); }}
-        .badge.listing {{ background-color: var(--listing-bg); color: var(--listing-color); border: 1px solid var(--listing-border); }}
-        .badge.others {{ background-color: var(--others-bg); color: var(--others-color); border: 1px solid var(--others-border); }}
-        
-        /* 리스트 형식 테이블 */
-        .table-container {{
-            width: 100%;
-            overflow-x: auto;
-        }}
-        
-        table {{
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 13.5px;
-        }}
-        
-        th {{
-            background-color: #111827;
-            color: var(--text-secondary);
-            font-weight: 600;
-            padding: 12px 20px;
-            border-bottom: 1px solid var(--border-color);
-        }}
-        
-        td {{
-            padding: 14px 20px;
-            border-bottom: 1px solid var(--border-color);
-            color: #d1d5db;
-        }}
-        
-        tr:last-child td {{
-            border-bottom: none;
-        }}
-        
-        tr:hover td {{
-            background-color: rgba(255, 255, 255, 0.02);
-            color: #ffffff;
-        }}
-        
-        .time-cell {{
-            font-family: 'Courier New', Courier, monospace;
-            color: #a78bfa;
-            font-weight: 600;
-        }}
-        
-        .company-name {{
-            font-weight: 600;
-            color: #f3f4f6;
-        }}
-        
-        .stock-code {{
-            font-size: 11.5px;
-            color: #6b7280;
-            margin-left: 5px;
-        }}
-        
-        .submitter-cell {{
-            font-size: 12.5px;
-            color: var(--text-secondary);
-        }}
-        
-        .empty-state {{
-            padding: 28px;
-            text-align: center;
-            color: #10b981;
-            font-size: 13.5px;
-            font-weight: 600;
-            background-color: rgba(16, 185, 129, 0.02);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-        }}
-        
-        footer {{
-            text-align: center;
-            font-size: 12px;
-            color: #4b5563;
-            margin-top: 20px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
-        }}
-        
-        /* 탭 네비게이션 스타일 추가 */
-        .tabs-nav {{
-            display: flex;
-            gap: 10px;
-            margin-bottom: 24px;
-            overflow-x: auto;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border-color);
-        }}
-        
-        .tab-btn {{
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-size: 13.5px;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.2s ease;
-        }}
-        
-        .tab-btn:hover {{
-            border-color: #3b82f6;
-            color: var(--text-primary);
-        }}
-        
-        .tab-btn.active {{
-            background-color: #2563eb;
-            border-color: #3b82f6;
-            color: #ffffff;
-            box-shadow: 0 0 12px rgba(37, 99, 235, 0.3);
-        }}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo-section">
-                <h1>📊 KIND 기업 공시 리스크 감시 보드</h1>
-                <p>한국거래소 시장 경보 조치사항 및 공매도 과열 규제 종합 대시보드</p>
-            </div>
-            <div class="date-badge">{today_date} 수집분</div>
-        </header>
-
-        <!-- 탭 네비게이션 메뉴 영역 -->
-        <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab(event, 'all')">전체보기</button>
-            <button class="tab-btn" onclick="switchTab(event, 'caution_overheating')">⚠️ 투자주의 & 단기과열</button>
-            <button class="tab-btn" onclick="switchTab(event, 'warning_risk_trading')">🚨 투자경고 & 투자위험 & 매매거래</button>
-            <button class="tab-btn" onclick="switchTab(event, 'short_selling')">📉 공매도</button>
-            <button class="tab-btn" onclick="switchTab(event, 'others')">📝 기타</button>
-        </div>
-        
-        <!-- AI 종합 시장 평론 브리핑 -->
-        <div class="ai-banner">
-            <h2>✍️ 봇 금융 분석관 코멘트 (AI Summary)</h2>
-            <div class="ai-content">
-                {html_brief}
-            </div>
-        </div>
-        
-        <!-- 종류별 공시 정보 카드리스트 -->
-        <main class="dashboard-grid">
-"""
+    # HTML 헤더 렌더링
+    html_content = HTML_HEADER.format(
+        html2canvas_script_tag=html2canvas_script_tag,
+        today_date=today_date,
+        html_brief=html_brief
+    )
     
+    # 카드리스트 루프 렌더링
     for cat_key, cat_val in categories.items():
         badge_class = cat_val["color"]
         length = len(cat_val["items"])
-        html_content += f"""
-            <section class="card" id="card-{cat_key}">
-                <div class="card-header {badge_class}">
-                    <h3 class="card-title">{cat_val['icon']} {cat_val['title']}</h3>
-                    <span class="badge {badge_class}">{length}건 발생</span>
-                </div>
-                <div class="table-container">
-        """
+        html_content += HTML_CARD_START.format(
+            cat_key=cat_key,
+            badge_class=badge_class,
+            icon=cat_val['icon'],
+            title=cat_val['title'],
+            length=length
+        )
         
         if not cat_val["items"]:
-            html_content += f"""
-                    <div class="empty-state">
-                        ✓ 당일 해당 유형의 특이사항 리스크 공시 내역이 없습니다. (안전)
-                    </div>
-            """
+            html_content += HTML_EMPTY_STATE
         else:
-            html_content += """
-                    <table>
-                        <thead>
-                            <tr>
-                                <th width="10%">시간</th>
-                                <th width="25%">회사명</th>
-                                <th width="50%">📢 주요 공시 내용</th>
-                                <th width="15%">제출인</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-            """
+            html_content += HTML_TABLE_START
             for item in cat_val["items"]:
-                html_content += f"""
-                            <tr>
-                                <td class="time-cell">{item['time']}</td>
-                                <td>
-                                    <span class="company-name">{item['company']}</span>
-                                    <span class="stock-code">({item['code']})</span>
-                                </td>
-                                <td>{item['title']}</td>
-                                <td class="submitter-cell">{item['submitter']}</td>
-                            </tr>
-                """
-            html_content += """
-                        </tbody>
-                    </table>
-            """
+                html_content += HTML_TABLE_ROW.format(
+                    time=item['time'],
+                    company=item['company'],
+                    code=item['code'],
+                    title=item['title'],
+                    submitter=item['submitter']
+                )
+            html_content += HTML_TABLE_END
             
-        html_content += """
-                </div>
-            </section>
-        """
-        
-    html_content += """
-        </main>
-        
-        <footer>
-            본 보드는 공시 데이터를 파싱하여 가상 리스크 키워드 필터링 과정을 거쳐 자동 생성된 요약 참고용 리포트입니다.
-        </footer>
-    </div>
-    
-    <!-- 탭 전환 제어 스크립트 -->
-    <script>
-        function switchTab(e, tabId) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            if (e && e.currentTarget) {
-                e.currentTarget.classList.add('active');
-            }
-            const cards = document.querySelectorAll('.card');
-            if (tabId === 'all') {
-                cards.forEach(card => card.style.display = 'block');
-            } else {
-                cards.forEach(card => {
-                    if (card.id === 'card-' + tabId) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            }
-        }
-    </script>
-</body>
-</html>
-"""
+        html_content += HTML_CARD_END
+
+    # HTML 푸터 렌더링
+    html_content += HTML_FOOTER
 
     return {
         "html": html_content,
@@ -777,6 +447,7 @@ if __name__ == "__main__":
     parser.add_argument("--file", type=str, help="분석에 사용할 특정 엑셀 파일 경로")
     parser.add_argument("--keywords", type=str, help="자동 모드 시 필터링할 키워드 목록 (쉼표 구분)")
     parser.add_argument("--bypass-time-filter", action="store_true", help="시간 필터(20:00 이후 조건)를 무시하고 전체 시간 공시 파싱")
+    parser.add_argument("--no-ai", action="store_true", help="Ollama LLM 연동을 생략하고 Python 기반의 통계 정보로 요약 브리핑 대체")
     
     args = parser.parse_args()
     
@@ -797,16 +468,16 @@ if __name__ == "__main__":
         else:
             print(f"🤖 [자동 배치 모드] 전체 공시 모드 (20:00 이후 모든 공시)")
         
-        report_content = generate_report_from_agent_md(file_path, keywords_to_search, bypass_time_filter=args.bypass_time_filter)
+        report_content = generate_report_from_agent_md(file_path, keywords_to_search, bypass_time_filter=args.bypass_time_filter, no_ai=args.no_ai)
         if report_content:
             save_report(report_content, keywords_to_search)
             
     else:
-        # 대화형 일반 모드 -> 대화 형식으로 키워드를 묻지 않고, 바로 최신 엑셀 파일의 전체 공시 리포트 생성
+        # 대화형 일반 모드 -> 최신 엑셀 파일의 전체 공시 리포트 생성
         excel_file = get_latest_excel_in_current_dir()
         if excel_file:
             print(f"✨ [일반 모드] 대상 파일: {os.path.basename(excel_file)}")
             print(f"✨ 키워드 선택을 생략하고 20:00 이후 전체 공시 데이터를 리포팅합니다.")
-            report_content = generate_report_from_agent_md(excel_file, [], bypass_time_filter=args.bypass_time_filter)
+            report_content = generate_report_from_agent_md(excel_file, [], bypass_time_filter=args.bypass_time_filter, no_ai=args.no_ai)
             if report_content:
                 save_report(report_content, [])

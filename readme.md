@@ -71,11 +71,39 @@ python scheduler.py
     python scheduler.py --test
     ```
 
-### 4. 이미 준비된 엑셀 파일로 대시보드 리포트 즉각 직접 수동 빌드
-KIND 등에서 수동 다운로드한 파일이나 동봉된 `test.xls`로 탭 기반 대시보드 리포트를 바로 빌드하려면 아래 명령을 수행합니다:
+### 4. 수동 실행 및 다양한 옵션 활용법
+수동으로 특정 엑셀 파일을 파싱하거나, 시간 필터링 우회, AI 요약 건너뛰기 등의 옵션을 사용해 직접 대시보드 리포트를 빌드할 수 있습니다.
+
+#### ① 일반 대화형/일반 모드 (기본값)
+현재 디렉토리에서 가장 최근에 생성된 엑셀 파일을 자동으로 감지하여 **20:00 이후의 모든 공시**를 리포팅합니다.
 ```bash
-# test.xls 파일을 읽어 리포트 생성
-python read_excel_auto.py --auto --file test.xls
+python read_excel_auto.py
 ```
-*   실행이 성공하면 `/reports` 폴더 하위에 `report_YYYYMMDD_HHMM.html` 파일이 생성됩니다.
-*   **리포트 보기**: 생성된 `.html` 파일을 Chrome/Edge 등의 브라우저로 더블 클릭하여 실행하면 브라우저 상단에서 사용 가능한 각 **리스크 탭 버튼**들이 실시간으로 작용하는 인터랙티브 대시보드를 볼 수 있습니다.
+
+#### ② 자동 배치 모드 (`--auto`)
+지정한 특정 파일을 분석하여 리포팅할 때 유용합니다.
+```bash
+# 특정 엑셀 파일(예: test.xls)을 지정하여 실행
+python read_excel_auto.py --auto --file test.xls
+
+# 자동 모드 실행 시 특정 키워드로 필터링하기 (쉼표 구분)
+python read_excel_auto.py --auto --file test.xls --keywords "투자경고,단기과열"
+```
+
+#### ③ 시간 필터링 무시 모드 (`--bypass-time-filter`)
+기본 적용되는 20:00시 필터링 제약을 해제하고, 해당 엑셀 파일 내에 있는 **모든 시간대의 공시 데이터**를 가공 및 분류합니다.
+```bash
+python read_excel_auto.py --bypass-time-filter
+```
+
+#### ④ AI 생략 정량 전용 모드 (`--no-ai`)
+Ollama LLM 모델 서비스(`gemma4`) 통신을 건너뛰고, 파이썬 분석을 통한 각 탭별 통계 및 정보 메시지만을 사용하여 빠르게 HTML/MD 리포트를 출력합니다.
+```bash
+python read_excel_auto.py --no-ai
+```
+
+---
+
+## 💻 리포트 확인 방법
+* 모든 실행 성공 시 `reports/` 폴더 하위에 날짜 기반 파일명(`report_YYYYMMDD_HHMM.html`, `.md`)으로 생성됩니다.
+* **대시보드 보기**: 생성된 `reports/*.html` 파일을 크롬/엣지 등의 웹 브라우저로 열면 어두운 테마와 반응형 탭이 완벽히 작동하는 최첨단 리스크 리브리핑 대시보드를 직접 사용하실 수 있습니다.
