@@ -44,6 +44,7 @@ def download_today_disclosures(download_dir=None):
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920,1080")
     chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 
     # 자동 다운로드 경로 지정 관련 Preferences 설정
@@ -100,6 +101,13 @@ def download_today_disclosures(download_dir=None):
                 continue
                 
         if not excel_btn:
+            print(f"DEBUG: [진단] 현재 페이지 타이틀: '{driver.title}'")
+            print(f"DEBUG: [진단] 현재 페이지 주소(URL): '{driver.current_url}'")
+            try:
+                page_text = driver.find_element(By.TAG_NAME, "body").text
+                print(f"DEBUG: [진단] Body 텍스트 (앞 300자):\n{page_text[:300]}")
+            except Exception:
+                print(f"DEBUG: [진단] 페이지 소스 요약 (앞 300자):\n{driver.page_source[:300]}")
             raise Exception("❌ EXCEL 다운로드 버튼을 찾을 수 없습니다.")
 
         # 보일 때까지 대기 후 스크롤 & 클릭
