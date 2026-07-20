@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📈 KIND 기업 공시 리스크 히스토리 대시보드</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            /* Deep slate background */
+            --card-bg: #1e293b;
+            /* Slate card background */
+            --border-color: #334155;
+            /* Slate-700 for clear borders */
+            --text-primary: #f8fafc;
+            /* Near pure white for high readability */
+            --text-secondary: #cbd5e1;
+            /* Slate-300 for highly readable labels */
+            --text-muted: #94a3b8;
+            /* Slate-400 for secondary codes */
+            --th-bg: #0f172a;
+            --th-text: #ffffff;
+            --time-color: #a78bfa;
+            /* Purple timestamp */
+            --row-even-bg: rgba(255, 255, 255, 0.015);
+            --hover-row-bg: rgba(255, 255, 255, 0.04);
+
+            --caution-color: #f59e0b;
+            /* Amber Yellow */
+            --caution-bg: rgba(245, 158, 11, 0.12);
+            --caution-border: rgba(245, 158, 11, 0.35);
+
+            --overheating-color: #ff7828;
+            /* Warm Orange red */
+            --overheating-bg: rgba(255, 120, 40, 0.12);
+            --overheating-border: rgba(255, 120, 40, 0.35);
+
+            --trading-color: #f43f5e;
+            /* Bright pinkish-red */
+            --trading-bg: rgba(244, 63, 94, 0.12);
+            --trading-border: rgba(244, 63, 94, 0.35);
+
+            --short-color: #3b82f6;
+            /* Bright blue */
+            --short-bg: rgba(59, 130, 246, 0.12);
+            --short-border: rgba(59, 130, 246, 0.35);
+
+            --other-color: #64748b;
+            /* Muted gray */
+            --other-bg: rgba(100, 116, 139, 0.12);
+            --other-border: rgba(100, 116, 139, 0.35);
+        }
+
+        body.light-mode {
+            --bg-color: #f8fafc;
+            /* Slate-50 soft background */
+            --card-bg: #ffffff;
+            /* Pure white cards */
+            --border-color: #e2e8f0;
+            /* Slate-200 light dividers */
+            --text-primary: #0f172a;
+            /* Slate-900 high contrast dark text */
+            --text-secondary: #334155;
+            /* Slate-700 label text */
+            --text-muted: #576574;
+            /* Darker grey codes */
+            --th-bg: #e2e8f0;
+            /* Slate-200 header background */
+            --th-text: #0f172a;
+            /* Slate-900 header text */
+            --time-color: #5b21b6;
+            /* Deep high-visibility purple */
+            --row-even-bg: #fcfcfc;
+            --hover-row-bg: #f1f5f9;
+
+            --caution-bg: #fffbeb;
+            --caution-border: #fde68a;
+
+            --overheating-bg: #fff7ed;
+            --overheating-border: #ffedd5;
+
+            --trading-bg: #fff5f5;
+            --trading-border: #fed7d7;
+
+            --short-bg: #eff6ff;
+            --short-border: #dbeafe;
+
+            --other-bg: #f8fafc;
+            --other-border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            padding: 24px 16px;
+            min-height: 100vh;
+            line-height: 1.5;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo-section h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .logo-section p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* 컨트롤 패널 패널화 */
+        .controls-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .control-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .input-elem {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-elem:focus {
+            border-color: #3b82f6;
+        }
+
+        .top-action-btn {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .top-action-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* 탭 네비게이션 컨테이너 */
+        .tabs-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .tab-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 9px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13.5px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: var(--row-even-bg);
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background-color: var(--text-primary);
+            color: var(--bg-color);
+        }
+
+        .theme-toggle-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 9px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13.5px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--row-even-bg);
+            border-color: var(--text-primary);
+        }
+
+        .copy-btn {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+            transition: all 0.2s ease;
+            min-width: 160px;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .copy-btn:hover {
+            background-color: #1d4ed8;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+        }
+
+        /* 실시간 리스크 분석 알림 상자 */
+        .system-banner {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid #3b82f6;
+            border-radius: 12px;
+            padding: 16px 20px;
+            color: var(--text-primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .system-banner h2 {
+            font-size: 15px;
+            font-weight: 850;
+            margin-bottom: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: -0.2px;
+        }
+
+        .stats-summary {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .stat-badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-badge.caution {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.3);
+            color: #f59e0b;
+        }
+
+        .stat-badge.overheating {
+            background: rgba(255, 120, 40, 0.15);
+            border-color: rgba(255, 120, 40, 0.3);
+            color: #ff7828;
+        }
+
+        .stat-badge.trading {
+            background: rgba(244, 63, 94, 0.15);
+            border-color: rgba(244, 63, 94, 0.3);
+            color: #f43f5e;
+        }
+
+        .stat-badge.short {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+        }
+
+        .ai-commentary-box {
+            background-color: var(--row-even-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid #3b82f6;
+            border-radius: 8px;
+            padding: 12px 16px;
+            background: rgba(59, 130, 246, 0.04);
+        }
+
+        .ai-commentary-box p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 13.5px;
+            line-height: 1.6;
+        }
+
+        /* 리스크 그리드 레이아웃 */
+        .dashboard-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            width: 100%;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .card-header {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-header.caution {
+            border-left: 5px solid var(--caution-color);
+        }
+
+        .card-header.overheating {
+            border-left: 5px solid var(--overheating-color);
+        }
+
+        .card-header.trading {
+            border-left: 5px solid var(--trading-color);
+        }
+
+        .card-header.short {
+            border-left: 5px solid var(--short-color);
+        }
+
+        .card-header.other {
+            border-left: 5px solid var(--other-color);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .badge {
+            font-size: 12px;
+            font-weight: 750;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            border: 1px solid var(--border-color);
+        }
+
+        .badge.caution {
+            background-color: var(--caution-bg);
+            color: var(--caution-color);
+            border-color: var(--caution-border);
+        }
+
+        .badge.overheating {
+            background-color: var(--overheating-bg);
+            color: var(--overheating-color);
+            border-color: var(--overheating-border);
+        }
+
+        .badge.trading {
+            background-color: var(--trading-bg);
+            color: var(--trading-color);
+            border-color: var(--trading-border);
+        }
+
+        .badge.short {
+            background-color: var(--short-bg);
+            color: var(--short-color);
+            border-color: var(--short-border);
+        }
+
+        .badge.other {
+            background-color: var(--other-bg);
+            color: var(--other-color);
+            border-color: var(--other-border);
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 13.5px;
+        }
+
+        th {
+            background-color: var(--th-bg);
+            color: var(--th-text);
+            font-weight: 750;
+            padding: 12px 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        td {
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            vertical-align: middle;
+        }
+
+        tr:nth-child(even) td {
+            background-color: var(--row-even-bg);
+        }
+
+        tr:hover td {
+            background-color: var(--hover-row-bg);
+        }
+
+        .time-cell {
+            font-family: Monaco, Consolas, monospace;
+            font-weight: 700;
+            color: var(--time-color);
+        }
+
+        .company-name {
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .stock-code {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-left: 4px;
+        }
+
+        .submitter-cell {
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .empty-state {
+            padding: 40px 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13.5px;
+            font-weight: 700;
+        }
+
+        footer {
+            margin-top: 10px;
+            padding: 16px 0;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            font-weight: 700;
+        }
+
+        /* 캡쳐 이미지 다운로드 팝업모달 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(9, 13, 26, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                transform: translateY(15px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .modal-header h3 {
+            font-size: 15.5px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .modal-close-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 24px;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            color: #fafafa;
+        }
+
+        .modal-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .modal-instruction {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-left: 4px solid #a78bfa;
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .modal-image-container {
+            border: 1px solid #334155;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #0f172a;
+            display: flex;
+            justify-content: center;
+        }
+
+        .modal-image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .modal-footer {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            border-top: 1px solid #334155;
+            background-color: #1e293b;
+        }
+
+        .modal-cancel-btn {
+            background-color: #334155;
+            border: 1px solid #475569;
+            color: #cbd5e1;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-cancel-btn:hover {
+            background-color: #475569;
+            color: #ffffff;
+        }
+
+        /* 로딩 바 스피너 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 5px solid rgba(59, 130, 246, 0.2);
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            color: #cbd5e1;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .calendar-card {
+            display: flex;
+            flex-direction: column;
+            gap: 16px !important;
+            align-items: flex-start !important;
+        }
+
+        .month-selector {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .month-btn {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .month-btn:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+            background-color: var(--hover-row-bg);
+        }
+
+        .month-btn.active {
+            background-color: #2563eb;
+            border-color: #1d4ed8;
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+        }
+
+        .day-selector {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .day-btn {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 54px;
+            text-align: center;
+        }
+
+        .day-btn:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+            background-color: var(--hover-row-bg);
+        }
+
+        .day-btn.active {
+            background-color: var(--text-primary);
+            border-color: var(--text-primary);
+            color: var(--bg-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+    <!-- Supabase CDN -->
+    <!-- Supabase CDN removed (Proxied through FastAPI backend) -->
+    <!-- Capture Lib CDN fallback -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <div id="loading" class="loading-overlay">
+        <div class="spinner"></div>
+        <div class="loading-text">Supabase 데이터 베이스 연결 및 조회 중...</div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo-section">
+                <h1>📈 KIND 기업 공시 리스크 히스토리 대시보드</h1>
+                <p>한국거래소 시장 경보 조치사항 및 공매도 과열 규제 종합 아카이브 (Supabase 연동)</p>
+            </div>
+        </header>
+
+        <!-- 필터 컨트롤 카드 -->
+        <div class="controls-card">
+            <div class="control-group">
+                <span class="control-label">📅 공시 조회 날짜</span>
+                <input type="date" id="disclosure-date" class="input-elem" onchange="onDateChanged()">
+            </div>
+            <div class="control-group" style="flex: 2; min-width: 320px;">
+                <span class="control-label">🔍 기업 실시간 필터링 (명칭 또는 종목코드)</span>
+                <div style="display: flex; gap: 12px; align-items: center; width: 100%;">
+                    <input type="text" id="filter-search" class="input-elem" placeholder="검색어 입력..."
+                        oninput="onSearchInput()">
+                    <label
+                        style="display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 750; color: var(--text-secondary); cursor: pointer; user-select: none; white-space: nowrap;">
+                        <input type="checkbox" id="ignore-date-checkbox" onchange="onSearchInput()"
+                            style="width: 17px; height: 17px; cursor: pointer; accent-color: #2563eb;"> 날짜x
+                    </label>
+                    <label
+                        style="display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 750; color: var(--text-secondary); cursor: pointer; user-select: none; white-space: nowrap;">
+                        <input type="checkbox" id="exclude-checkbox" onchange="onSearchInput()"
+                            style="width: 17px; height: 17px; cursor: pointer; accent-color: #f43f5e;"> 제외
+                    </label>
+                </div>
+            </div>
+            <button class="top-action-btn" onclick="initializeWithLatest()">
+                🔄 최신 데이터 불러오기
+            </button>
+        </div>
+
+        <!-- 월/일자별 인터랙티브 달력 네비게이션 -->
+        <div class="controls-card calendar-card" id="date-navigation-panel" style="display: none;">
+            <div class="control-group"
+                style="flex: none; width: 100%; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 4px;">
+                <span class="control-label">📅 아카이브 월 선택</span>
+                <div class="month-selector" id="month-list">
+                    <!-- JS로 동적 생성 -->
+                </div>
+            </div>
+            <div class="control-group" style="flex: none; width: 100%;">
+                <span class="control-label">📆 공시 등록 일자 선택</span>
+                <div class="day-selector" id="day-list">
+                    <!-- JS로 동적 생성 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 탭 네비게이션 및 테마 스위처 -->
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab(event, 'all')">전체보기</button>
+                <button class="tab-btn" onclick="switchTab(event, 'caution')">⚠️ 투자주의</button>
+                <button class="tab-btn" onclick="switchTab(event, 'overheating')">🔥 단기과열</button>
+                <button class="tab-btn" onclick="switchTab(event, 'warning_risk_trading')">🚨 투자경고 & 투자위험 &
+                    매매거래</button>
+                <button class="tab-btn" onclick="switchTab(event, 'short_selling')">📉 공매도</button>
+                <button class="tab-btn" onclick="switchTab(event, 'others')">📝 기타</button>
+            </div>
+            <div class="controls-area" style="display: flex; gap: 8px;">
+                <button class="theme-toggle-btn" onclick="toggleTheme()">
+                    <span id="theme-btn-icon">☀️</span> <span id="theme-btn-text">라이트 모드</span>
+                </button>
+                <button class="copy-btn" onclick="copyCurrentTab()">📋 이미지 복사</button>
+            </div>
+        </div>
+
+        <!-- 실시간 요약 헤더 브리핑 -->
+        <div class="system-banner">
+            <h2>✍️ 시스템 정량 분석 브리핑</h2>
+            <div class="stats-summary" id="stats-area">
+                <!-- JS dynamic -->
+            </div>
+            <div class="ai-commentary-box" id="brief-box">
+                <!-- JS dynamic -->
+            </div>
+        </div>
+
+        <!-- 종류별 공시 정보 카드리스트 -->
+        <main class="dashboard-grid" id="dashboard-sections">
+            <!-- JS dynamic cards insertion -->
+        </main>
+
+        <footer>
+            본 보드는 Supabase 클라우드 데이터베이스와 실시간 동기화되어 조회 날짜별 KIND 기업 공시 내역을 표시합니다.
+        </footer>
+    </div>
+
+    <!-- 이미지 수동 복사 모달 -->
+    <div id="image-modal" class="modal-overlay" onclick="closeImageModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3>📋 이미지 수동 복사 (클립보드 저장)</h3>
+                <button class="modal-close-btn" onclick="closeImageModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-instruction">
+                    💡 <strong>보안 정책으로 인해 클립보드 자동 복사가 차단되었습니다.</strong><br>
+                    아래 이미지를 <strong>우클릭하여 '이미지 복사'</strong>를 누르시면 메신저나 메일에 <strong>바로 붙여넣기(Ctrl+V)</strong>하실 수 있습니다.
+                </div>
+                <div class="modal-image-container">
+                    <img id="modal-preview-image" src="" alt="공시 대시보드 캡쳐본" style="cursor: context-menu;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-cancel-btn" onclick="closeImageModal()"
+                    style="background-color: #2563eb; border: 1px solid #1d4ed8; color: #ffffff; min-width: 100px;">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 비즈니스 제어 스크립트 -->
+    <script>
+        // FastAPI 프록시 백엔드를 이용하므로 Supabase 로컬 접속부가 제거되었습니다.
+
+        let currentActiveTab = 'all';
+        let allDisclosuresData = []; // 서버에서 로드된 전체 날짜 데이터 캐시
+        let filteredDisclosuresData = []; // 검색어 등이 반영된 화면 데이터
+
+        // 카테고리 구성 정의
+        const CATEGORIES = {
+            "warning_risk_trading": { title: "투자경고 & 투자위험 & 매매거래정지", icon: "🚨", color: "trading", items: [] },
+            "overheating": { title: "단기과열지정 관련", icon: "🔥", color: "overheating", items: [] },
+            "caution": { title: "투자주의 & 환기종목", icon: "⚠️", color: "caution", items: [] },
+            "short_selling": { title: "공매도 과열종목", icon: "📉", color: "short", items: [] },
+            "others": { title: "기타 유의사항", icon: "📝", color: "other", items: [] }
+        };
+
+        // 로딩 토글
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'flex' : 'none';
+        }
+
+        // 테마 설정
+        function toggleTheme() {
+            const body = document.body;
+            const btnIcon = document.getElementById('theme-btn-icon');
+            const btnText = document.getElementById('theme-btn-text');
+
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                if (btnIcon && btnText) {
+                    btnIcon.innerText = '☀️';
+                    btnText.innerText = '라이트 모드';
+                }
+            } else {
+                body.classList.add('light-mode');
+                if (btnIcon && btnText) {
+                    btnIcon.innerText = '🌙';
+                    btnText.innerText = '다크 모드';
+                }
+            }
+        }
+
+        // 앱 구동 시 초기화
+        window.addEventListener('DOMContentLoaded', async () => {
+            await initializeWithLatest();
+        });
+
+        // 최고 최근 날짜 탐색 후 초기화
+        // 최고 최근 날짜 탐색 후 초기화
+        let databaseDates = []; // DB에 존재하는 모든 유니크 공시 날짜 리스트
+        let activeMonth = "";
+        let activeDate = "";
+
+        async function fetchAllDatabaseDates() {
+            try {
+                const response = await fetch("/api/dates");
+                if (!response.ok) throw new Error("로드 실패");
+                databaseDates = await response.json();
+            } catch (err) {
+                console.error("데이터베이스 날짜 리스트 로드 실패:", err);
+                databaseDates = [];
+            }
+        }
+
+        function getUniqueMonths(datesList) {
+            const months = datesList.map(d => d.slice(0, 7)); // YYYY-MM
+            return [...new Set(months)];
+        }
+
+        async function setupDateNavigation(defaultDate) {
+            await fetchAllDatabaseDates();
+
+            if (databaseDates.length === 0) {
+                document.getElementById('date-navigation-panel').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('date-navigation-panel').style.display = 'flex';
+
+            activeDate = defaultDate;
+            activeMonth = defaultDate.slice(0, 7); // YYYY-MM
+
+            renderMonthSelector();
+            renderDaySelector();
+        }
+
+        function renderMonthSelector() {
+            const months = getUniqueMonths(databaseDates);
+            const monthListContainer = document.getElementById('month-list');
+            monthListContainer.innerHTML = '';
+
+            months.forEach(m => {
+                const year = m.split('-')[0];
+                const month = m.split('-')[1];
+                const btn = document.createElement('button');
+                btn.className = `month-btn ${m === activeMonth ? 'active' : ''}`;
+                btn.innerText = `${year}년 ${month}월`;
+                btn.onclick = () => {
+                    activeMonth = m;
+                    const daysInMonth = databaseDates.filter(d => d.startsWith(m));
+                    if (daysInMonth.length > 0) {
+                        activeDate = daysInMonth[0];
+                        document.getElementById('disclosure-date').value = activeDate;
+                        loadDisclosuresForDate(activeDate);
+                    }
+                    renderMonthSelector();
+                    renderDaySelector();
+                };
+                monthListContainer.appendChild(btn);
+            });
+        }
+
+        function renderDaySelector() {
+            const dayListContainer = document.getElementById('day-list');
+            dayListContainer.innerHTML = '';
+
+            const activeMonthDates = databaseDates.filter(d => d.startsWith(activeMonth));
+
+            activeMonthDates.forEach(d => {
+                const day = d.split('-')[2];
+                const btn = document.createElement('button');
+                btn.className = `day-btn ${d === activeDate ? 'active' : ''}`;
+                btn.innerText = `${parseInt(day)}일`;
+                btn.onclick = () => {
+                    activeDate = d;
+                    document.getElementById('disclosure-date').value = d;
+                    loadDisclosuresForDate(d);
+                    renderDaySelector();
+                };
+                dayListContainer.appendChild(btn);
+            });
+        }
+
+        async function initializeWithLatest() {
+            showLoading(true);
+            try {
+                await fetchAllDatabaseDates();
+
+                let targetDate = '';
+                if (databaseDates && databaseDates.length > 0) {
+                    targetDate = databaseDates[0];
+                } else {
+                    // 데이터가 하나도 없는 경우 오늘 날짜 기본값 세팅
+                    const today = new Date();
+                    const yyyy = today.getFullYear();
+                    const mm = String(today.getMonth() + 1).padStart(2, '0');
+                    const dd = String(today.getDate()).padStart(2, '0');
+                    targetDate = `${yyyy}-${mm}-${dd}`;
+                }
+
+                document.getElementById('disclosure-date').value = targetDate;
+                await loadDisclosuresForDate(targetDate);
+                await setupDateNavigation(targetDate);
+            } catch (err) {
+                console.error("최신 날짜 확인 중 오류:", err);
+                alert("데이터베이스 정보를 읽어오지 못했습니다. 네트워크를 확인해주세요.");
+                showLoading(false);
+            }
+        }
+
+        // 특정 날짜의 정보 조회
+        async function loadDisclosuresForDate(dateStr) {
+            showLoading(true);
+            try {
+                const response = await fetch(`/api/disclosures?date=${dateStr}`);
+                if (!response.ok) throw new Error("로드 실패");
+                const data = await response.json();
+
+                allDisclosuresData = data || [];
+                filteredDisclosuresData = [...allDisclosuresData];
+
+                renderDashboard();
+            } catch (err) {
+                console.error("공시 데이터 로드 오류:", err);
+                alert("해당 날짜의 데이터를 로드하는 중 오류가 발생했습니다.");
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // 조회 날짜 변경 핸들러
+        async function onDateChanged() {
+            const dateStr = document.getElementById('disclosure-date').value;
+            if (dateStr) {
+                await loadDisclosuresForDate(dateStr);
+                if (!databaseDates.includes(dateStr)) {
+                    await fetchAllDatabaseDates();
+                }
+                activeDate = dateStr;
+                activeMonth = dateStr.slice(0, 7);
+                renderMonthSelector();
+                renderDaySelector();
+            }
+        }
+
+                // 검색 필터 핸들러
+        let searchTimeout = null;
+
+        function onSearchInput() {
+            const query = document.getElementById('filter-search').value.toLowerCase().trim();
+            const ignoreDate = document.getElementById('ignore-date-checkbox').checked;
+            const exclude = document.getElementById('exclude-checkbox').checked;
+
+            if (searchTimeout) clearTimeout(searchTimeout);
+
+            if (!query) {
+                // 검색어가 비었을 때: 로컬 데이터 복원 및 네비게이션 복구
+                filteredDisclosuresData = [...allDisclosuresData];
+                document.getElementById('date-navigation-panel').style.opacity = '1';
+                document.getElementById('date-navigation-panel').style.pointerEvents = 'auto';
+                renderDashboard(false, '', exclude);
+                return;
+            }
+
+            // 1) 날짜 무시가 해제된 상태: 날짜에 맞춰 선택된 날짜 로컬 데이터 필터링
+            if (!ignoreDate) {
+                document.getElementById('date-navigation-panel').style.opacity = '1';
+                document.getElementById('date-navigation-panel').style.pointerEvents = 'auto';
+
+                if (exclude) {
+                    filteredDisclosuresData = allDisclosuresData.filter(item => {
+                        const isMatch = item.company.toLowerCase().includes(query) ||
+                                        item.code.toLowerCase().includes(query) ||
+                                        item.title.toLowerCase().includes(query) ||
+                                        item.submitter.toLowerCase().includes(query);
+                        return !isMatch;
+                    });
+                } else {
+                    filteredDisclosuresData = allDisclosuresData.filter(item => {
+                        return item.company.toLowerCase().includes(query) ||
+                               item.code.toLowerCase().includes(query) ||
+                               item.title.toLowerCase().includes(query) ||
+                               item.submitter.toLowerCase().includes(query);
+                    });
+                }
+                renderDashboard(false, query, exclude);
+            }
+            // 2) 날짜 무시(날짜x) 입력 체크 상태: DB 전체 날짜 검색
+            else {
+                searchTimeout = setTimeout(async () => {
+                    showLoading(true);
+                    try {
+                        const url = `/api/disclosures?ignoreDate=true&query=${encodeURIComponent(query)}&exclude=${exclude}`;
+                        const response = await fetch(url);
+                        if (!response.ok) throw new Error("전역 검색 실패");
+                        const data = await response.json();
+
+                        filteredDisclosuresData = data || [];
+
+                        // 날짜 버튼 네비게이션 비활성화
+                        document.getElementById('date-navigation-panel').style.opacity = '0.4';
+                        document.getElementById('date-navigation-panel').style.pointerEvents = 'none';
+
+                        renderDashboard(true, query, exclude);
+                    } catch (err) {
+                        console.error("전체 날짜 통합 검색 오류:", err);
+                    } finally {
+                        showLoading(false);
+                    }
+                }, 300);
+            }
+        }
+
+        // 화면 대시보드 렌더링
+                function renderDashboard(isGlobalSearch = false, query = '', exclude = false) {
+            // 카테고리 아이템 리스트 청소
+            Object.keys(CATEGORIES).forEach(k => {
+                CATEGORIES[k].items = [];
+            });
+
+            // 데이터 분류 배정
+            filteredDisclosuresData.forEach(item => {
+                const cat = item.category || 'others';
+                if (CATEGORIES[cat]) {
+                    CATEGORIES[cat].items.push(item);
+                } else {
+                    CATEGORIES['others'].items.push(item);
+                }
+            });
+
+            // 1. 브리핑 영역 구성
+            const cautionCount = CATEGORIES['caution'].items.length;
+            const overheatingCount = CATEGORIES['overheating'].items.length;
+            const tradingCount = CATEGORIES['warning_risk_trading'].items.length;
+            const shortCount = CATEGORIES['short_selling'].items.length;
+            const othersCount = CATEGORIES['others'].items.length;
+            const totalCount = filteredDisclosuresData.length;
+
+            const statsHTML = `
+                <span class="stat-badge caution">⚠️ 투자주의: ${cautionCount}건</span>
+                <span class="stat-badge overheating">🔥 단기과열: ${overheatingCount}건</span>
+                <span class="stat-badge trading">🚨 경고·위험: ${tradingCount}건</span>
+                <span class="stat-badge short">📉 공매도과열: ${shortCount}건</span>
+                <span class="stat-badge" style="background: rgba(100, 116, 139, 0.15); color: var(--text-secondary); border-color: rgba(100, 116, 139, 0.3);">📝 기타 유의: ${othersCount}건</span>
+            `;
+            document.getElementById('stats-area').innerHTML = statsHTML;
+
+                        let briefText = "";
+            const modeText = exclude ? "제외 검색" : "포함 검색";
+
+            if (isGlobalSearch) {
+                briefText = `🔍 DB 전체 날짜 검색결과 (${modeText} [키워드: <strong>"${query}"</strong>]): 총 <strong>${totalCount}건</strong>의 공시가 매칭되었습니다.`;
+            } else {
+                const dateInputVal = document.getElementById('disclosure-date').value;
+                const newDateObj = new Date(dateInputVal);
+                const dateKo = `${newDateObj.getFullYear()}년 ${newDateObj.getMonth() + 1}월 ${newDateObj.getDate()}일`;
+                if (query) {
+                    briefText = `📅 선택된 날짜 (<strong>${dateKo}</strong>) 내 ${modeText} [키워드: <strong>"${query}"</strong>] 결과: 총 <strong>${totalCount}건</strong>입니다.`;
+                } else {
+                    briefText = `📅 선택한 <strong>${dateKo}</strong>의 데이터베이스 기준 등록 공시는 총 <strong>${totalCount}건</strong>입니다.`;
+                }
+            }
+
+            const alertBoxHTML = `
+                <p>
+                    <span style="background: #2563eb; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-right: 8px; vertical-align: middle; display: inline-block;">시스템 브리핑</span>
+                    ${briefText} 탭 네비게이션을 선택하여 리스크 종류별 세부 표를 실시간 확인하세요. ${isGlobalSearch ? '(날짜 필터 우회 활성화됨)' : ''}
+                </p>
+            `;
+            document.getElementById('brief-box').innerHTML = alertBoxHTML;
+
+            // 2. 메인 카드리스트 그리기
+            let cardsHTML = '';
+            Object.keys(CATEGORIES).forEach(k => {
+                const cat = CATEGORIES[k];
+                const displayStyle = (currentActiveTab === 'all' || currentActiveTab === k) ? 'flex' : 'none';
+
+                cardsHTML += `
+                    <section class="card" id="card-${k}" style="display: ${displayStyle}">
+                        <div class="card-header ${cat.color}">
+                            <h3 class="card-title">${cat.icon} ${cat.title}</h3>
+                            <span class="badge ${cat.color}">${cat.items.length}건 발생</span>
+                        </div>
+                        <div class="table-container">
+                `;
+
+                if (cat.items.length === 0) {
+                    cardsHTML += `
+                        <div class="empty-state">
+                            ✓ 조건에 매칭되거나 등록된 특이사항 공시 내역이 없습니다. (안전)
+                        </div>
+                    `;
+                } else {
+                    cardsHTML += `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th width="15%">날짜/시간</th>
+                                    <th width="25%">회사명</th>
+                                    <th width="48%">📢 주요 공시 내용</th>
+                                    <th width="12%">제출인</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+
+                    cat.items.forEach(item => {
+                        const dateFormatted = item.disclosure_date ? item.disclosure_date.slice(5).replace('-', '.') + ' ' : '';
+                        cardsHTML += `
+                            <tr>
+                                <td class="time-cell">${dateFormatted}${item.time}</td>
+                                <td>
+                                     <span class="company-name">${item.company}</span>
+                                     <span class="stock-code">(${item.code})</span>
+                                </td>
+                                <td>${item.title}</td>
+                                <td class="submitter-cell">${item.submitter}</td>
+                            </tr>
+                        `;
+                    });
+
+                    cardsHTML += `
+                            </tbody>
+                        </table>
+                    `;
+                }
+
+                cardsHTML += `
+                        </div>
+                    </section>
+                `;
+            });
+
+            document.getElementById('dashboard-sections').innerHTML = cardsHTML;
+        }
+
+        // 탭 전환 제어
+        function switchTab(evt, tabName) {
+            currentActiveTab = tabName;
+
+            // 버튼 액티브 변경
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            evt.currentTarget.classList.add('active');
+
+            // 카드 출력 유무 세팅
+            Object.keys(CATEGORIES).forEach(k => {
+                const el = document.getElementById('card-' + k);
+                if (el) {
+                    if (tabName === 'all' || tabName === k) {
+                        el.style.display = 'flex';
+                    } else {
+                        el.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // 캡쳐 및 이미지 복사
+        function copyCurrentTab() {
+            const copyBtn = document.querySelector('.copy-btn');
+            const originalText = copyBtn.innerHTML;
+
+            let targetEl = null;
+            if (currentActiveTab === 'all') {
+                targetEl = document.getElementById('dashboard-sections');
+            } else {
+                targetEl = document.getElementById('card-' + currentActiveTab);
+            }
+
+            if (!targetEl) {
+                alert("복사할 대상을 찾을 수 없습니다.");
+                return;
+            }
+
+            copyBtn.innerHTML = "⏳ 이미지 캡처 중...";
+
+            try {
+                if (typeof html2canvas === 'undefined') {
+                    throw new Error("html2canvas 라이브러리가 로드되지 않았습니다.");
+                }
+
+                let bgColor = getComputedStyle(document.body).getPropertyValue('--bg-color').trim();
+                if (!bgColor) {
+                    bgColor = document.body.classList.contains('light-mode') ? '#f8fafc' : '#0f172a';
+                }
+
+                const captureScale = (currentActiveTab === 'all') ? 1.0 : 1.5;
+
+                html2canvas(targetEl, {
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: bgColor,
+                    scale: captureScale
+                }).then(canvas => {
+                    if (navigator.clipboard && navigator.clipboard.write) {
+                        canvas.toBlob(blob => {
+                            if (blob) {
+                                const data = [new ClipboardItem({ [blob.type]: blob })];
+                                navigator.clipboard.write(data).then(() => {
+                                    copyBtn.innerHTML = "✅ 복사 완료!";
+                                    copyBtn.style.backgroundColor = "#5bbb2b";
+                                    setTimeout(() => {
+                                        copyBtn.innerHTML = originalText;
+                                        copyBtn.style.backgroundColor = "";
+                                    }, 2000);
+                                }).catch(err => {
+                                    trySelectionCopy(canvas);
+                                });
+                            } else {
+                                trySelectionCopy(canvas);
+                            }
+                        }, 'image/png');
+                    } else {
+                        trySelectionCopy(canvas);
+                    }
+                }).catch(err => {
+                    alert("이미지 생성 오류: " + err.message);
+                    copyBtn.innerHTML = originalText;
+                });
+            } catch (err) {
+                alert("오류: " + err.message);
+                copyBtn.innerHTML = originalText;
+            }
+        }
+
+        function trySelectionCopy(canvas) {
+            const dataUrl = canvas.toDataURL('image/png');
+            const modalImg = document.getElementById('modal-preview-image');
+            modalImg.src = dataUrl;
+
+            document.getElementById('image-modal').classList.add('active');
+            const copyBtn = document.querySelector('.copy-btn');
+            copyBtn.innerHTML = "📋 이미지 복사 대기";
+        }
+
+        function closeImageModal() {
+            document.getElementById('image-modal').classList.remove('active');
+            const copyBtn = document.querySelector('.copy-btn');
+            copyBtn.innerHTML = "📋 이미지 복사";
+        }
+    </script>
+</body>
+
+</html>

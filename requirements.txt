@@ -1,0 +1,9 @@
+pandas
+selenium
+webdriver-manager
+xlrd
+requests
+lxml
+beautifulsoup4
+fastapi
+uvicorn

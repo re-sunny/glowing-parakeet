@@ -79,10 +79,10 @@ if __name__ == "__main__":
         test_now = datetime.datetime.now() + datetime.timedelta(minutes=1)
         
         print(f"🧪 [테스트 모드 활성화] {test_now.strftime('%H:%M')} 에 즉시 구동을 시작하도록 예약합니다.")
-        print(test_now.hour+":"+test_now.minute)
+        print(f"{test_now.hour:02d}:{test_now.minute:02d}")
         run_schedule_loop(target_hour=test_now.hour, target_minute=test_now.minute)
     else:
         # test_now = datetime.datetime.now() + datetime.timedelta(minutes=1)
-        # print(str(test_now.hour)+":"+test_now.minute)
+        # print(f"{test_now.hour:02d}:{test_now.minute:02d}")
         run_schedule_loop(target_hour=20, target_minute=5)
         # 20시 5분에 하기 위해서 수동 조정

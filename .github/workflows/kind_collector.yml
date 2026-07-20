@@ -1,0 +1,36 @@
+name: KIND Disclosure Daily Collector
+
+on:
+  schedule:
+    # 매일 한국 시간(KST) 20:05 실행 (UTC 11:05)
+    - cron: '5 11 * * *'
+  workflow_dispatch:
+    # 깃허브 웹 화면에서 수동 실행 가능하도록 지원
+
+jobs:
+  collect_and_upload:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 저장소 체크아웃
+      uses: actions/checkout@v3
+
+    - name: 파이썬 환경 설정 (3.11)
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: 의존성 패키지 설치
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: '한국거래소(KIND) 오늘의 공시 수집 크롤링'
+      run: |
+        python scraper_krx.py
+
+    - name: '엑셀 파싱 및 Supabase DB 강제 적재'
+      run: |
+        # --auto 모드를 활성화하여 엑셀에서 추출한 주요 5대 카테고리 항목들을 Supabase DB에 밀어 넣습니다.
+        python read_excel_auto.py --auto --file 오늘의공시.xls

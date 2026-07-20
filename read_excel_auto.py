@@ -4,8 +4,6 @@ import sys
 import datetime
 import argparse
 import pandas as pd
-from langchain_ollama import OllamaLLM
-from langchain_community.llms import Ollama
 
 # Windows CP949 console encoding fix
 if sys.platform.startswith('win'):
@@ -34,17 +32,82 @@ from template import (
 )
 
 
-def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="agents_auto.md", bypass_time_filter=False, no_ai=False):
-    if not os.path.exists(agent_md_path):
-        if os.path.exists("agents.md"):
-            print("⚠️ 'agents_auto.md'가 없어 'agents.md'를 사용합니다.")
-            agent_md_path = "agents.md"
-        else:
-            print(f"❌ '{agent_md_path}' 파일을 찾을 수 없습니다.")
-            return None
+def upload_classified_rows_to_supabase(db_items, file_path):
+    """
+    분류/필터링 조건이 성립된 공시 항목들만 Supabase DB의 public.disclosures 테이블로 전송(UPSERT)합니다.
+    """
+    import json
+    import requests
+    
+    # Supabase 접속 정보 설정
+    SUPABASE_URL = "https://uyqmlrivrrjjzcuxbttj.supabase.co"
+    SUPABASE_KEY = "sb_publishable_KkQB5rDmsV7R5ZkPsMt3pw_bgr29KcM"
+    
+    url = f"{SUPABASE_URL}/rest/v1/disclosures?on_conflict=disclosure_date,time,company,code,title"
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "Content-Type": "application/json",
+        "Prefer": "resolution=merge-duplicates"
+    }
+
+    # 파일의 마지막 수정 날짜를 기준으로 disclosure_date(KST) 산출
+    try:
+        file_mtime = os.path.getmtime(file_path)
+        disclosure_date = datetime.datetime.fromtimestamp(file_mtime).strftime("%Y-%m-%d")
+    except Exception:
+        disclosure_date = datetime.datetime.now().strftime("%Y-%m-%d")
         
-    with open(agent_md_path, "r", encoding="utf-8") as f:
-        agent_prompt_template = f.read()
+    # 각 아이템에 disclosure_date 주입
+    payload = []
+    for item in db_items:
+        payload.append({
+            "disclosure_date": disclosure_date,
+            "time": item["time"],
+            "company": item["company"],
+            "code": item["code"],
+            "title": item["title"],
+            "submitter": item["submitter"],
+            "category": item["category"]
+        })
+        
+    if not payload:
+        print("💡 Supabase에 업로드할 조건 일치 데이터가 없습니다.")
+        return
+        
+    # Python-side payload deduplication to prevent PG 21000 multi-upsert target error
+    seen = set()
+    unique_db_items = []
+    for item in payload:
+        key = (item["disclosure_date"], item["time"], item["company"], item["code"], item["title"])
+        if key not in seen:
+            seen.add(key)
+            unique_db_items.append(item)
+            
+    try:
+        print(f"📤 Supabase DB 적재 시도 중... (대상 날짜: {disclosure_date}, 필터링 일치: {len(unique_db_items)}건 (자체 중복 필터링 전: {len(db_items)}건))")
+        response = requests.post(url, headers=headers, json=unique_db_items, timeout=15)
+        if response.status_code in [200, 201]:
+            print(f"✅ Supabase 적재 완료! (성공 코드: {response.status_code})")
+        else:
+            print(f"⚠️ Supabase 업로드 응답 에러 (코드 {response.status_code}): {response.text}")
+    except Exception as e:
+        print(f"⚠️ Supabase 연결에 실패했습니다: {e}")
+
+
+def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="agents_auto.md", bypass_time_filter=False, no_ai=True):
+    agent_prompt_template = ""
+    if not no_ai:
+        if not os.path.exists(agent_md_path):
+            if os.path.exists("agents.md"):
+                print("⚠️ 'agents_auto.md'가 없어 'agents.md'를 사용합니다.")
+                agent_md_path = "agents.md"
+            else:
+                print(f"❌ '{agent_md_path}' 파일을 찾을 수 없습니다.")
+                return None
+            
+        with open(agent_md_path, "r", encoding="utf-8") as f:
+            agent_prompt_template = f.read()
 
     # 안전하게 엑셀 파싱 헤더 정렬 통일
     try:
@@ -191,20 +254,37 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
             categories["others"]["items"].append(item)
             data_lines.append(f"- [기타] [{time_val}] {com_val}({code_val}) | {title_val}")
 
+    # 3. Supabase 데이터 동적 업서트 연동 (처음 분류/필터링 조건 충족 데이터 대상)
+    try:
+        classified_items = []
+        for cat_key, cat_data in categories.items():
+            for item in cat_data["items"]:
+                classified_items.append({
+                    "time": item["time"],
+                    "company": item["company"],
+                    "code": item["code"],
+                    "title": item["title"],
+                    "submitter": item["submitter"],
+                    "category": cat_key
+                })
+        upload_classified_rows_to_supabase(classified_items, file_path)
+    except Exception as se:
+        print(f"⚠️ Supabase 업로드 진행 중 예외 발생 (건너뜀): {se}")
+
     excel_context = "\n".join(data_lines)
     keywords_summary = ", ".join(search_keywords) if search_keywords else "전체 필터링"
 
-    final_prompt = agent_prompt_template.replace("{search_keywords}", keywords_summary)
-    final_prompt = final_prompt.replace("{excel_context}", excel_context)
-    
-    print("\n--- [키워드 매칭 분석 및 요약 생성 중] ---")
-    
     ai_brief = ""
     if no_ai:
         print("⚡ [Bypass AI] AI 분석을 생략하고 Python 정량 요약만 활용합니다.")
         ai_brief = ""
     else:
+        final_prompt = agent_prompt_template.replace("{search_keywords}", keywords_summary)
+        final_prompt = final_prompt.replace("{excel_context}", excel_context)
+        print("\n--- [키워드 매칭 분석 및 요약 생성 중] ---")
         try:
+            from langchain_ollama import OllamaLLM
+            from langchain_community.llms import Ollama
             try:
                 llm = OllamaLLM(model="gemma4")
             except ImportError:
@@ -217,7 +297,17 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
             ai_brief = "당일 공매도 과열종목 지정 및 규제 관련 공매도/경고성 리스크 내역이 수집되었습니다. 투자 지표 검토 시 하단의 세부 공시 내역 표를 면밀히 참조하시기 바랍니다."
 
     # 마크다운 표준 리포트 작성
-    ai_brief_indented = ai_brief.replace('\n', '\n>')
+    if not ai_brief:
+        total_matched = len(matched_rows)
+        caution_count = len(categories['caution']['items'])
+        overheating_count = len(categories['overheating']['items'])
+        warning_count = len(categories['warning_risk_trading']['items'])
+        short_count = len(categories['short_selling']['items'])
+        others_count = len(categories['others']['items'])
+        ai_brief_indented = f"금일 20:00시 이후 감지된 공시는 총 {total_matched}건입니다. (경고/위험/거래정지 {warning_count}건, 단기과열 {overheating_count}건, 투자주의/환기 {caution_count}건, 공매도 {short_count}건, 기타 {others_count}건)\n세부 리스크 항목은 하단 상세 내역을 참고하시기 바랍니다."
+    else:
+        ai_brief_indented = ai_brief.replace('\n', '\n>')
+        
     md_content = f"# 📊 주요 기업 공시 현황 리포트 (조회 키워드: {keywords_summary})\n\n"
     md_content += f"## ✍️ AI 종합 시장 브리핑\n>{ai_brief_indented}\n\n"
     
@@ -268,11 +358,20 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
         """
 
     if not ai_brief or ai_brief.strip() == "":
-        ai_commentary_html = """
-        <div class="ai-commentary-box" style="border-left-color: #64748b; margin-top: 10px;">
-            <p>
-                <span style="background: #64748b; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-right: 8px; vertical-align: middle;">INFO</span>
-                당일 수집된 시장 조치 및 경보 내역이 카테고리별로 정비되었습니다. 자세한 공시 사항은 하단의 각 탭 뷰를 확인하세요.
+        total_matched = len(matched_rows)
+        caution_count = len(categories['caution']['items'])
+        overheating_count = len(categories['overheating']['items'])
+        warning_count = len(categories['warning_risk_trading']['items'])
+        short_count = len(categories['short_selling']['items'])
+        others_count = len(categories['others']['items'])
+        
+        info_message = f"금일 20:00시 이후 감지된 주요 공시는 총 <strong>{total_matched}건</strong>입니다. (경고/위험/거래정지 {warning_count}건, 단기과열 {overheating_count}건, 투자주의/환기 {caution_count}건, 공매도 {short_count}건, 기타 {others_count}건)"
+        
+        ai_commentary_html = f"""
+        <div class="ai-commentary-box" style="border-left-color: #3b82f6; margin-top: 10px; background: rgba(59, 130, 246, 0.05);">
+            <p style="margin: 0; font-size: 13.5px; color: #cbd5e1; line-height: 1.6;">
+                <span style="background: #3b82f6; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-right: 8px; vertical-align: middle; display: inline-block;">시스템 브리핑</span>
+                {info_message} 세부 내역은 하단의 각 탭 뷰를 확인하세요.
             </p>
         </div>
         """
@@ -438,6 +537,30 @@ def save_report(report_data, keywords):
     print(f"💾 생성된 공시 대시보드 리포트가 성공적으로 저장되었습니다:")
     print(f"   ▶ 브라우저용 HTML : [ {filename_html} ]")
     print(f"   ▶ 일반텍스트 뷰 MD : [ {filename_md} ]")
+    
+    # 브라우저 자동 호출 기능 연동 (dashboard.html 오픈)
+    import webbrowser
+    import urllib.request
+    
+    is_server_alive = False
+    try:
+        # 로컬 웹 서버가 포트 8000에 띄워져 있는지 타임아웃 핑으로 확인
+        with urllib.request.urlopen("http://localhost:8000/dashboard.html", timeout=0.1) as response:
+            if response.status == 200:
+                is_server_alive = True
+    except Exception:
+        pass
+        
+    if is_server_alive:
+        webbrowser.open("http://localhost:8000/dashboard.html")
+        print("🚀 [로컬 웹 서버 감지] http://localhost:8000/dashboard.html 경로로 대시보드를 즉시 오픈했습니다.")
+    else:
+        dashboard_path = os.path.abspath("dashboard.html")
+        if os.path.exists(dashboard_path):
+            webbrowser.open(f"file:///{dashboard_path}")
+            print("🚀 [파일 시스템 감지] 브라우저로 로컬 대시보드(file://)를 즉시 오픈했습니다.")
+            print("💡 보다 안정적인 구동 및 캐시 지연 방지를 위해 터미널에서 'python run_server.py'를 실행해 웹 서버 모드로 구동하는 것을 권장합니다.")
+            
     return filename_html
 
 
@@ -447,9 +570,15 @@ if __name__ == "__main__":
     parser.add_argument("--file", type=str, help="분석에 사용할 특정 엑셀 파일 경로")
     parser.add_argument("--keywords", type=str, help="자동 모드 시 필터링할 키워드 목록 (쉼표 구분)")
     parser.add_argument("--bypass-time-filter", action="store_true", help="시간 필터(20:00 이후 조건)를 무시하고 전체 시간 공시 파싱")
-    parser.add_argument("--no-ai", action="store_true", help="Ollama LLM 연동을 생략하고 Python 기반의 통계 정보로 요약 브리핑 대체")
+    parser.add_argument("--no-ai", action="store_true", help="Ollama LLM 연동을 생략하고 Python 기반의 통계 정보로 요약 브리핑 대체 (기본값)")
+    parser.add_argument("--use-ai", action="store_true", help="Ollama LLM 연동을 활성화하여 요약 브리핑 생성")
     
     args = parser.parse_args()
+    
+    # 기본은 AI 비활성화 (no_ai = True)
+    no_ai_val = True
+    if args.use_ai and not args.no_ai:
+        no_ai_val = False
     
     if args.auto:
         # 자동 스케줄러 실행 모드
@@ -468,7 +597,7 @@ if __name__ == "__main__":
         else:
             print(f"🤖 [자동 배치 모드] 전체 공시 모드 (20:00 이후 모든 공시)")
         
-        report_content = generate_report_from_agent_md(file_path, keywords_to_search, bypass_time_filter=args.bypass_time_filter, no_ai=args.no_ai)
+        report_content = generate_report_from_agent_md(file_path, keywords_to_search, bypass_time_filter=args.bypass_time_filter, no_ai=no_ai_val)
         if report_content:
             save_report(report_content, keywords_to_search)
             
@@ -478,6 +607,6 @@ if __name__ == "__main__":
         if excel_file:
             print(f"✨ [일반 모드] 대상 파일: {os.path.basename(excel_file)}")
             print(f"✨ 키워드 선택을 생략하고 20:00 이후 전체 공시 데이터를 리포팅합니다.")
-            report_content = generate_report_from_agent_md(excel_file, [], bypass_time_filter=args.bypass_time_filter, no_ai=args.no_ai)
+            report_content = generate_report_from_agent_md(excel_file, [], bypass_time_filter=args.bypass_time_filter, no_ai=no_ai_val)
             if report_content:
                 save_report(report_content, [])
