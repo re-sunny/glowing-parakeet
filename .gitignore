@@ -21,3 +21,4 @@ reports/
 .vscode/
 .idea/
 .vercel
+VERCEL_DEPLOYMENT_GUIDE.md
