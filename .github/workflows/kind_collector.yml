@@ -2,8 +2,8 @@ name: KIND Disclosure Daily Collector
 
 on:
   schedule:
-    # 매일 한국 시간(KST) 20:05 실행 (UTC 11:05)
-    - cron: '5 11 * * *'
+    # 매주 월~금요일 한국 시간(KST) 20:05 실행 (UTC 11:05, 월~금: 1-5)
+    - cron: '5 11 * * 1-5'
   workflow_dispatch:
     # 깃허브 웹 화면에서 수동 실행 가능하도록 지원
 
