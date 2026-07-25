@@ -13,10 +13,10 @@ jobs:
     
     steps:
     - name: 저장소 체크아웃
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: 파이썬 환경 설정 (3.11)
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.11'
         cache: 'pip'
@@ -32,5 +32,5 @@ jobs:
 
     - name: '엑셀 파싱 및 Supabase DB 강제 적재'
       run: |
-        # --auto 모드를 활성화하여 엑셀에서 추출한 주요 5대 카테고리 항목들을 Supabase DB에 밀어 넣습니다.
-        python read_excel_auto.py --auto --file 오늘의공시.xls
+        # --auto 모드로 다운로드된 최신 엑셀 파일을 자동 탐색하여 Supabase DB에 적재합니다.
+        python read_excel_auto.py --auto

@@ -20,3 +20,4 @@ reports/
 # 6. IDE 설정 파일
 .vscode/
 .idea/
+.vercel
