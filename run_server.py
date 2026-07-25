@@ -107,25 +107,26 @@ async def get_disclosures(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# ----------------- Static File Routing -----------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # 루트 경로 진입 시 dashboard.html 반환
 @app.get("/", response_class=HTMLResponse)
 async def get_dashboard():
-    return FileResponse("dashboard.html")
+    return FileResponse(os.path.join(BASE_DIR, "dashboard.html"))
 
 # 명시적인 dashboard.html 경로 지원
 @app.get("/dashboard.html", response_class=HTMLResponse)
 async def get_dashboard_html():
-    return FileResponse("dashboard.html")
+    return FileResponse(os.path.join(BASE_DIR, "dashboard.html"))
 
 # reports 폴더가 존재할 경우 정적 파일 라우팅 추가
-if os.path.exists("reports"):
-    app.mount("/reports", StaticFiles(directory="reports"), name="reports")
+reports_dir = os.path.join(BASE_DIR, "reports")
+if os.path.exists(reports_dir):
+    app.mount("/reports", StaticFiles(directory=reports_dir), name="reports")
 
 def open_browser():
     time.sleep(1.0)
-    url = "http://localhost:8000/dashboard.html"
+    url = "http://localhost:5000/dashboard.html"
     webbrowser.open(url)
     print(f"\n🚀 [FastAPI 백엔드 프록시] 대시보드 웹 서비스가 성공적으로 연동되었습니다: {url}")
 
@@ -134,4 +135,4 @@ if __name__ == "__main__":
     threading.Thread(target=open_browser, daemon=True).start()
     
     print("📡 FastAPI & Uvicorn 프록시 웹 서버를 구동합니다...")
-    uvicorn.run("run_server:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("run_server:app", host="127.0.0.1", port=5000, reload=True)

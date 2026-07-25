@@ -1,0 +1,13 @@
+      PID    PPID    PGID     WINPID   TTY         UID    STIME COMMAND
+      734       1     734      26844  cons1     197608 10:15:08 /usr/bin/bash
+     3360       1    3360      20520  cons5     197608 13:48:34 /usr/bin/bash
+      870       1     870      18372  cons2     197608 10:15:24 /usr/bin/bash
+     4981    4929    4981      45228  cons9     197608 02:16:07 /usr/bin/PS
+      891       1     891      44852  cons4     197608 10:15:27 /usr/bin/bash
+     4287       1    4287      42092  cons8     197608 20:33:54 /usr/bin/bash
+     4982    4929    4981      44720  cons9     197608 02:16:07 /usr/bin/bash
+      676       1     676      36276  cons0     197608 10:09:42 /usr/bin/bash
+     2762     676    2762      14424  cons0     197608 12:52:52 /c/Users/sunny/AppData/Local/Programs/Python/Python311/python
+     1603       1    1603      51892  cons3     197608 11:40:52 /usr/bin/bash
+     4226       1    4226      50992  cons7     197608 20:23:25 /usr/bin/bash
+     4929       1    4929      50428  cons9     197608 02:16:02 /usr/bin/bash
