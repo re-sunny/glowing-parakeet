@@ -143,7 +143,7 @@ def download_today_disclosures(download_dir=None, max_retries=3, retry_delay=8):
                 time.sleep(1)
 
             print("⚠️ 다운로드 대기 시간이 초과되었습니다.")
-            return None
+            raise Exception("⚠️ 다운로드 대기 시간이 초과되었습니다.")
 
         except Exception as e:
             print(f"❌ 크롤링 중 오류가 발생했습니다: {e}")
