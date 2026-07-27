@@ -34,5 +34,5 @@ jobs:
 
     - name: '엑셀 파싱 및 Supabase DB 강제 적재'
       run: |
-        # --auto 모드로 다운로드된 최신 엑셀 파일을 자동 탐색하여 Supabase DB에 적재합니다.
-        python read_excel_auto.py --auto
+        # --auto 모드를 활성화하여 엑셀에서 추출한 주요 5대 카테고리 항목들을 Supabase DB에 밀어 넣습니다.
+        python read_excel_auto.py --auto --file 오늘의공시.xls
