@@ -582,11 +582,13 @@ if __name__ == "__main__":
     
     if args.auto:
         # 자동 스케줄러 실행 모드
-        if not args.file:
-            print("❌ 자동 모드 실행 시 --file 인수가 필수적입니다.")
-            sys.exit(1)
-            
         file_path = args.file
+        if not file_path:
+            file_path = get_latest_excel_in_current_dir()
+            if not file_path:
+                print("❌ 자동 모드 실행 시 엑셀 파일(.xlsx, .xls)을 찾을 수 없습니다.")
+                sys.exit(1)
+
         keywords_to_search = []
         if args.keywords:
             keywords_to_search = [kw.strip() for kw in args.keywords.split(",") if kw.strip()]
