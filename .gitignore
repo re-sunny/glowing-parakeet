@@ -22,3 +22,5 @@ reports/
 .idea/
 .vercel
 VERCEL_DEPLOYMENT_GUIDE.md
+
+.github/workflows/123.yml
