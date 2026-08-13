@@ -38,18 +38,38 @@ def try_read_excel(file_path):
     # 만약 위에서 못 읽었거나 HTML 형식이 의심될 때
     if df is None or df.empty:
         try:
-            # HTML 형식으로 저장된 .xls 파일 처리 (한글 깨짐 방지를 위해 encoding='cp949' 추가)
-            dfs = pd.read_html(file_path, encoding='cp949')
-            if dfs:
-                df = dfs[0]
+            import io
+            with open(file_path, 'rb') as f:
+                raw_bytes = f.read()
+                
+            # 한글 엑셀(HTML) 바이너리를 EUC-KR / CP949 / UTF-8 순서로 디코딩 후 io.StringIO로 pd.read_html 로드
+            for enc in ['euc-kr', 'cp949', 'utf-8-sig', 'utf-8']:
+                try:
+                    text = raw_bytes.decode(enc, errors='strict')
+                    dfs = pd.read_html(io.StringIO(text))
+                    if dfs and not dfs[0].empty:
+                        df = dfs[0]
+                        break
+                except Exception:
+                    continue
+
+            if df is None or df.empty:
+                # 폴백: errors='replace'로 디코딩 후 로드
+                text = raw_bytes.decode('euc-kr', errors='replace')
+                dfs = pd.read_html(io.StringIO(text))
+                if dfs and not dfs[0].empty:
+                    df = dfs[0]
+        except Exception:
+            pass
+
+    if df is None or df.empty:
+        try:
+            df = pd.read_csv(file_path, sep='\t', encoding='utf-8')
         except Exception:
             try:
-                df = pd.read_csv(file_path, sep='\t', encoding='utf-8')
-            except Exception:
-                try:
-                    df = pd.read_csv(file_path, sep='\t', encoding='cp949')
-                except Exception as e:
-                    raise ValueError(f"파일을 읽을 수 없습니다: {e}")
+                df = pd.read_csv(file_path, sep='\t', encoding='cp949')
+            except Exception as e:
+                raise ValueError(f"파일을 읽을 수 없습니다: {e}")
 
     # 1. 원본 컬럼 중 '회사명' 이나 '공시제목' 이 들어있는 경우 바로 헤더로 사용
     cols_str = "".join([str(c) for c in df.columns])

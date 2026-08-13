@@ -31,9 +31,13 @@ class DisableCacheMiddleware(BaseHTTPMiddleware):
 
 app.add_middleware(DisableCacheMiddleware)
 
-# Supabase 접속 정보 설정 (서버 측 안전 보존)
-SUPABASE_URL = "https://uyqmlrivrrjjzcuxbttj.supabase.co"
-SUPABASE_KEY = "sb_publishable_KkQB5rDmsV7R5ZkPsMt3pw_bgr29KcM"
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Supabase 접속 정보 설정 (환경 변수 우선, 미설정 시 기본값 폴백)
+SUPABASE_URL = (os.getenv("SUPABASE_URL") or "https://uyqmlrivrrjjzcuxbttj.supabase.co").rstrip("/")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY") or "sb_publishable_KkQB5rDmsV7R5ZkPsMt3pw_bgr29KcM"
 
 supabase_headers = {
     "apikey": SUPABASE_KEY,
@@ -46,13 +50,26 @@ supabase_headers = {
 @app.get("/api/dates")
 async def get_dates():
     try:
-        url = f"{SUPABASE_URL}/rest/v1/disclosures?select=disclosure_date"
-        response = requests.get(url, headers=supabase_headers, timeout=5)
-        if response.status_code != 200:
-            raise HTTPException(status_code=500, detail="Supabase fetch failed")
-        
-        data = response.json()
-        dates = sorted(list(set(row["disclosure_date"] for row in data if row.get("disclosure_date"))), reverse=True)
+        # Supabase 1000행 한계를 극복하기 위해 Range 헤더 페이징으로 전체 유니크 날짜 수집
+        url = f"{SUPABASE_URL}/rest/v1/disclosures?select=disclosure_date&order=disclosure_date.desc"
+        dates_set = set()
+        max_pages = 10
+        for page in range(max_pages):
+            headers = dict(supabase_headers)
+            headers["Range"] = f"{page * 1000}-{(page + 1) * 1000 - 1}"
+            response = requests.get(url, headers=headers, timeout=15)
+            if response.status_code not in [200, 206]:
+                break
+            data = response.json()
+            if not isinstance(data, list) or not data:
+                break
+            for row in data:
+                if row.get("disclosure_date"):
+                    dates_set.add(row["disclosure_date"])
+            if len(data) < 1000:
+                break
+
+        dates = sorted(list(dates_set), reverse=True)
         return dates
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -68,7 +85,7 @@ async def get_disclosures(
         url = f"{SUPABASE_URL}/rest/v1/disclosures"
         params = {}
         
-        if query:
+        if query and isinstance(query, str):
             q = query.strip()
             # 1) 날짜 무시 전역 검색 시
             if ignoreDate:
@@ -80,7 +97,7 @@ async def get_disclosures(
                 else:
                     params["or"] = f"(company.ilike.%{q}%,code.ilike.%{q}%,title.ilike.%{q}%,submitter.ilike.%{q}%)"
                 params["order"] = "disclosure_date.desc,time.desc"
-                params["limit"] = "150"
+                params["limit"] = "500"
             # 2) 날짜 지정 내 검색 시
             else:
                 if date:
@@ -93,13 +110,15 @@ async def get_disclosures(
                 else:
                     params["or"] = f"(company.ilike.%{q}%,code.ilike.%{q}%,title.ilike.%{q}%,submitter.ilike.%{q}%)"
                 params["order"] = "time.desc"
+                params["limit"] = "1000"
         else:
             # 3) 검색어가 없을 때 (단순 날짜별 목록 조회)
             if date:
                 params["disclosure_date"] = f"eq.{date}"
             params["order"] = "time.desc"
+            params["limit"] = "1000"
 
-        response = requests.get(url, headers=supabase_headers, params=params, timeout=5)
+        response = requests.get(url, headers=supabase_headers, params=params, timeout=15)
         if response.status_code != 200:
             raise HTTPException(status_code=500, detail="Supabase data query failed")
             
