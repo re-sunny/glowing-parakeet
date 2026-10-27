@@ -1,0 +1,61 @@
+name: KIND Historical Backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      start_date:
+        description: '시작일 (YYYY-MM-DD)'
+        required: true
+        default: '2025-01-01'
+      end_date:
+        description: '종료일 (빈 값이면 한국 시간 어제)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'DB에 저장하지 않고 조회 검증만 실행'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# 정규 20:15 수집을 막지 않도록 별도의 동시 실행 그룹을 사용한다.
+concurrency:
+  group: kind-historical-backfill
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      TZ: Asia/Seoul
+      PYTHONUNBUFFERED: '1'
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+      BACKFILL_START: ${{ inputs.start_date }}
+      BACKFILL_END: ${{ inputs.end_date }}
+      BACKFILL_DRY_RUN: ${{ inputs.dry_run }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+      - name: 날짜별 20시 이후 공시 보충 수집
+        shell: bash
+        run: |
+          args=(--start "$BACKFILL_START")
+          if [ -n "$BACKFILL_END" ]; then args+=(--end "$BACKFILL_END"); fi
+          if [ "$BACKFILL_DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          python backfill_disclosures.py "${args[@]}"
+      - name: 날짜별 완료 기록 보관
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kind-backfill-progress
+          path: reports/backfill_checkpoint.json
+          if-no-files-found: ignore
+          retention-days: 30

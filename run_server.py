@@ -54,13 +54,13 @@ async def get_dates():
         # Supabase 1000행 한계를 극복하기 위해 Range 헤더 페이징으로 전체 유니크 날짜 수집
         url = f"{SUPABASE_URL}/rest/v1/disclosures?select=disclosure_date,title,time&order=disclosure_date.desc"
         dates_set = set()
-        max_pages = 10
-        for page in range(max_pages):
+        page = 0
+        while True:
             headers = dict(supabase_headers)
             headers["Range"] = f"{page * 1000}-{(page + 1) * 1000 - 1}"
             response = requests.get(url, headers=headers, timeout=15)
             if response.status_code not in [200, 206]:
-                break
+                raise RuntimeError(f"공시 날짜 조회 실패: HTTP {response.status_code}")
             data = response.json()
             if not isinstance(data, list) or not data:
                 break
@@ -69,6 +69,7 @@ async def get_dates():
                     dates_set.add(row["disclosure_date"])
             if len(data) < 1000:
                 break
+            page += 1
 
         dates = sorted(list(dates_set), reverse=True)
         return dates

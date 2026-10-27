@@ -41,7 +41,7 @@ from template import (
 )
 
 
-def upload_classified_rows_to_supabase(db_items, file_path):
+def upload_classified_rows_to_supabase(db_items, file_path=None, disclosure_date=None):
     """중복 공시는 건너뛰고 신규 공시를 추가한다. 실패 시 실행을 중단한다."""
     db_items = [item for item in db_items if not is_placeholder_disclosure(item)]
     if not db_items:
@@ -62,7 +62,10 @@ def upload_classified_rows_to_supabase(db_items, file_path):
         "Prefer": f"resolution={'merge-duplicates' if write_key else 'ignore-duplicates'},return=minimal",
     }
     kst = datetime.timezone(datetime.timedelta(hours=9))
-    disclosure_date = datetime.datetime.fromtimestamp(os.path.getmtime(file_path), kst).date().isoformat()
+    if disclosure_date is None:
+        disclosure_date = datetime.datetime.fromtimestamp(os.path.getmtime(file_path), kst).date().isoformat()
+    else:
+        disclosure_date = datetime.date.fromisoformat(str(disclosure_date)).isoformat()
     unique = {}
     for item in db_items:
         row = {**item, "disclosure_date": disclosure_date}
