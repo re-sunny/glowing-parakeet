@@ -819,7 +819,7 @@
                     </label>
                 </div>
             </div>
-            <button class="top-action-btn" onclick="initializeWithLatest()">
+            <button class="top-action-btn" onclick="initializeWithLatest(true)">
                 🔄 최신 데이터 불러오기
             </button>
         </div>
@@ -953,14 +953,13 @@
         });
 
         // 최고 최근 날짜 탐색 후 초기화
-        // 최고 최근 날짜 탐색 후 초기화
         let databaseDates = []; // DB에 존재하는 모든 유니크 공시 날짜 리스트
         let activeMonth = "";
         let activeDate = "";
 
-        async function fetchAllDatabaseDates() {
+        async function fetchAllDatabaseDates(refresh = false) {
             try {
-                const response = await fetch("/api/dates");
+                const response = await fetch(refresh ? "/api/dates?refresh=1" : "/api/dates");
                 if (!response.ok) throw new Error("로드 실패");
                 databaseDates = await response.json();
             } catch (err) {
@@ -974,9 +973,7 @@
             return [...new Set(months)];
         }
 
-        async function setupDateNavigation(defaultDate) {
-            await fetchAllDatabaseDates();
-
+        function setupDateNavigation(defaultDate) {
             if (databaseDates.length === 0) {
                 document.getElementById('date-navigation-panel').style.display = 'none';
                 return;
@@ -1038,10 +1035,10 @@
             });
         }
 
-        async function initializeWithLatest() {
+        async function initializeWithLatest(refresh = false) {
             showLoading(true);
             try {
-                await fetchAllDatabaseDates();
+                await fetchAllDatabaseDates(refresh);
 
                 let targetDate = '';
                 if (databaseDates && databaseDates.length > 0) {
@@ -1056,8 +1053,8 @@
                 }
 
                 document.getElementById('disclosure-date').value = targetDate;
-                await loadDisclosuresForDate(targetDate);
-                await setupDateNavigation(targetDate);
+                setupDateNavigation(targetDate);
+                await loadDisclosuresForDate(targetDate, refresh);
             } catch (err) {
                 console.error("최신 날짜 확인 중 오류:", err);
                 alert("데이터베이스 정보를 읽어오지 못했습니다. 네트워크를 확인해주세요.");
@@ -1066,10 +1063,10 @@
         }
 
         // 특정 날짜의 정보 조회
-        async function loadDisclosuresForDate(dateStr) {
+        async function loadDisclosuresForDate(dateStr, refresh = false) {
             showLoading(true);
             try {
-                const response = await fetch(`/api/disclosures?date=${dateStr}`);
+                const response = await fetch(`/api/disclosures?date=${dateStr}${refresh ? '&refresh=1' : ''}`);
                 if (!response.ok) throw new Error("로드 실패");
                 const data = await response.json();
 

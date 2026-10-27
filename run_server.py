@@ -23,14 +23,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 캐시 방지를 위한 미들웨어 설정 (실시간 데이터 조회 무결성 보장)
-class DisableCacheMiddleware(BaseHTTPMiddleware):
+# 공개 조회는 CDN에서 60초간 재사용한다. 수동 새로고침과 오류는 캐시하지 않는다.
+class QueryCacheMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request, call_next):
         response = await call_next(request)
-        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+        if (response.status_code == 200
+                and request.url.path in {"/api/dates", "/api/disclosures"}
+                and request.query_params.get("refresh") != "1"):
+            response.headers["Cache-Control"] = "public, max-age=0, s-maxage=60"
+        else:
+            response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
         return response
 
-app.add_middleware(DisableCacheMiddleware)
+app.add_middleware(QueryCacheMiddleware)
 
 from dotenv import load_dotenv
 
@@ -51,8 +56,9 @@ supabase_headers = {
 @app.get("/api/dates")
 async def get_dates():
     try:
-        # Supabase 1000행 한계를 극복하기 위해 Range 헤더 페이징으로 전체 유니크 날짜 수집
-        url = f"{SUPABASE_URL}/rest/v1/disclosures?select=disclosure_date,title,time&order=disclosure_date.desc"
+        # DB에서 중복 제거·안내문 제외를 끝내 날짜만 전송한다.
+        # 날짜가 1000개를 넘는 장기 아카이브도 Range로 이어서 읽는다.
+        url = f"{SUPABASE_URL}/rest/v1/rpc/disclosure_archive_dates"
         dates_set = set()
         page = 0
         while True:
@@ -68,7 +74,7 @@ async def get_dates():
             if not isinstance(data, list) or not data:
                 break
             for row in data:
-                if row.get("disclosure_date") and not is_placeholder_disclosure(row):
+                if row.get("disclosure_date"):
                     dates_set.add(row["disclosure_date"])
             if len(data) < 1000:
                 break

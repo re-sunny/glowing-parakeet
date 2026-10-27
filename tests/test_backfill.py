@@ -86,17 +86,20 @@ def test_checkpoint_marks_only_successful_days_and_dry_run_is_separate(monkeypat
     assert json.loads(checkpoint.read_text())['dates'] == {}
 
 
-def test_date_archive_includes_records_beyond_ten_thousand(monkeypatch):
+def test_date_archive_pages_more_than_one_thousand_distinct_dates(monkeypatch):
     import run_server
 
     def get(url, *, headers, timeout):
         page = int(headers['Range'].split('-')[0]) // 1000
-        date = (dt.date(2025, 1, 12) - dt.timedelta(days=page)).isoformat()
-        data = [{'disclosure_date': date, 'title': '투자경고', 'time': '20:00'}] * (1000 if page < 11 else 1)
+        start = page * 1000
+        data = [{'disclosure_date': (dt.date(2026, 10, 26) - dt.timedelta(days=i)).isoformat()}
+                for i in range(start, min(start + 1000, 1001))]
         return type('Response', (), {'status_code': 200, 'json': lambda self: data})()
 
     monkeypatch.setattr(run_server.requests, 'get', get)
-    assert '2025-01-01' in asyncio.run(run_server.get_dates())
+    dates = asyncio.run(run_server.get_dates())
+    assert len(dates) == 1001
+    assert dates[-1] == (dt.date(2026, 10, 26) - dt.timedelta(days=1000)).isoformat()
 
 
 def test_date_archive_accepts_out_of_range_after_full_last_page(monkeypatch):

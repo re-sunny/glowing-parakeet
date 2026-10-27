@@ -210,7 +210,7 @@ def test_uploader_rejects_placeholder_even_when_called_directly(monkeypatch):
     assert pipeline.upload_classified_rows_to_supabase([item(" 결과값이 없습니다. ")], "does-not-exist.xls") == 0
 
 
-def test_placeholder_only_dates_are_hidden(monkeypatch):
+def test_date_archive_uses_database_aggregation(monkeypatch):
     import run_server
 
     class Response:
@@ -218,9 +218,12 @@ def test_placeholder_only_dates_are_hidden(monkeypatch):
 
         def json(self):
             return [
-                {"disclosure_date": "2026-10-27", "title": "결과값이 없습니다."},
-                {"disclosure_date": "2026-10-26", "title": "주주총회 결과"},
+                {"disclosure_date": "2026-10-26"},
             ]
 
-    monkeypatch.setattr(run_server.requests, "get", lambda *args, **kwargs: Response())
+    def get(url, **kwargs):
+        assert url.endswith('/rest/v1/rpc/disclosure_archive_dates')
+        return Response()
+
+    monkeypatch.setattr(run_server.requests, "get", get)
     assert asyncio.run(run_server.get_dates()) == ["2026-10-26"]
