@@ -779,7 +779,6 @@
     <!-- Supabase CDN -->
     <!-- Supabase CDN removed (Proxied through FastAPI backend) -->
     <!-- Capture Lib CDN fallback -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 
 <body>
@@ -1038,12 +1037,13 @@
         async function initializeWithLatest(refresh = false) {
             showLoading(true);
             try {
-                await fetchAllDatabaseDates(refresh);
+                const response = await fetch(refresh ? '/api/bootstrap?refresh=1' : '/api/bootstrap');
+                if (!response.ok) throw new Error('초기 조회 실패');
+                const data = await response.json();
+                databaseDates = data.dates;
 
-                let targetDate = '';
-                if (databaseDates && databaseDates.length > 0) {
-                    targetDate = databaseDates[0];
-                } else {
+                let targetDate = data.date;
+                if (!targetDate) {
                     // 데이터가 하나도 없는 경우 오늘 날짜 기본값 세팅
                     const today = new Date();
                     const yyyy = today.getFullYear();
@@ -1054,10 +1054,13 @@
 
                 document.getElementById('disclosure-date').value = targetDate;
                 setupDateNavigation(targetDate);
-                await loadDisclosuresForDate(targetDate, refresh);
+                allDisclosuresData = data.disclosures;
+                filteredDisclosuresData = [...allDisclosuresData];
+                renderDashboard();
             } catch (err) {
                 console.error("최신 날짜 확인 중 오류:", err);
                 alert("데이터베이스 정보를 읽어오지 못했습니다. 네트워크를 확인해주세요.");
+            } finally {
                 showLoading(false);
             }
         }
@@ -1311,7 +1314,27 @@
         }
 
         // 캡쳐 및 이미지 복사
-        function copyCurrentTab() {
+        let captureLibraryPromise = null;
+
+        function loadCaptureLibrary() {
+            if (typeof html2canvas !== 'undefined') return Promise.resolve();
+            if (!captureLibraryPromise) {
+                captureLibraryPromise = new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                    script.onload = resolve;
+                    script.onerror = () => {
+                        script.remove();
+                        captureLibraryPromise = null;
+                        reject(new Error('이미지 복사 라이브러리를 불러오지 못했습니다. 다시 시도해주세요.'));
+                    };
+                    document.head.appendChild(script);
+                });
+            }
+            return captureLibraryPromise;
+        }
+
+        async function copyCurrentTab() {
             const copyBtn = document.querySelector('.copy-btn');
             const originalText = copyBtn.innerHTML;
 
@@ -1330,9 +1353,7 @@
             copyBtn.innerHTML = "⏳ 이미지 캡처 중...";
 
             try {
-                if (typeof html2canvas === 'undefined') {
-                    throw new Error("html2canvas 라이브러리가 로드되지 않았습니다.");
-                }
+                await loadCaptureLibrary();
 
                 let bgColor = getComputedStyle(document.body).getPropertyValue('--bg-color').trim();
                 if (!bgColor) {

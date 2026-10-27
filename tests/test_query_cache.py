@@ -9,6 +9,8 @@ from run_server import QueryCacheMiddleware, app
 
 @pytest.mark.parametrize('path,params,status,cacheable', [
     ('/api/dates', {}, 200, True),
+    ('/api/bootstrap', {}, 200, True),
+    ('/api/bootstrap', {'refresh': '1'}, 200, False),
     ('/api/disclosures', {'date': '2026-10-26'}, 200, True),
     ('/api/dates', {'refresh': '1'}, 200, False),
     ('/api/disclosures', {'date': '2026-10-26', 'refresh': '1'}, 200, False),

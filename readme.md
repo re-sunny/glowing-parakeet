@@ -136,7 +136,8 @@ GitHub Actions의 **KIND Historical Backfill → Run workflow**에서도 시작�
 ## 홈페이지 조회 속도
 
 - `sql/20261027_archive_dates_rpc.sql`을 Supabase SQL Editor에서 한 번 적용합니다. `disclosure_archive_dates()`는 기존 SELECT/RLS 권한으로 빈 결과 안내문을 제외하고 중복 없는 날짜만 반환합니다. 전체 공시를 내려받아 날짜를 추출하지 않습니다.
-- 홈페이지 초기화는 날짜 목록 1회와 선택 날짜 공시 1회만 요청합니다. 날짜 네비게이션은 같은 목록을 재사용합니다.
-- 성공한 `/api/dates`, `/api/disclosures` 응답은 Vercel CDN에서 60초간 재사용합니다. 따라서 일반 조회는 최신 변경 반영에 최대 60초 차이가 있을 수 있습니다. 오류와 HTML은 저장하지 않습니다.
-- **최신 데이터 불러오기** 버튼은 두 API에 `refresh=1`을 보내 CDN 캐시를 건너뛰고 DB를 다시 확인합니다. DB 수정·수집 후 즉시 반영이 필요할 때 사용하세요.
+- `sql/20261027_dashboard_bootstrap.sql`도 적용하면 홈페이지 초기화는 `/api/bootstrap` 한 번으로 날짜 목록과 최신 공시를 함께 받습니다. 두 데이터는 같은 DB 스냅샷에서 조회하며, 날짜 네비게이션은 받은 목록을 재사용합니다.
+- 홈페이지 HTML은 Vercel CDN의 정적 파일로 제공하며, 이미지 복사 라이브러리는 복사 버튼을 누를 때 처음 로드합니다. 로컬 실행의 HTML 경로도 유지합니다.
+- 성공한 `/api/bootstrap`, `/api/dates`, `/api/disclosures` 응답은 Vercel CDN에서 60초간 재사용합니다. 따라서 일반 조회는 최신 변경 반영에 최대 60초 차이가 있을 수 있습니다. API 오류는 저장하지 않습니다.
+- **최신 데이터 불러오기** 버튼은 `/api/bootstrap?refresh=1`로 CDN 캐시를 건너뛰고 DB를 다시 확인합니다. DB 수정·수집 후 즉시 반영이 필요할 때 사용하세요.
 - 날짜가 1000개를 넘으면 날짜 전용 함수의 결과를 페이지로 이어서 조회하므로 과거 날짜를 잘라내지 않습니다.

@@ -3,11 +3,22 @@
         {
             "src": "run_server.py",
             "use": "@vercel/python"
+        },
+        {
+            "src": "dashboard.html",
+            "use": "@vercel/static"
         }
     ],
     "routes": [
         {
-            "src": "/(.*)",
+            "handle": "filesystem"
+        },
+        {
+            "src": "/",
+            "dest": "/dashboard.html"
+        },
+        {
+            "src": "/api/(.*)",
             "dest": "run_server.py"
         }
     ]

@@ -28,7 +28,7 @@ class QueryCacheMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request, call_next):
         response = await call_next(request)
         if (response.status_code == 200
-                and request.url.path in {"/api/dates", "/api/disclosures"}
+                and request.url.path in {"/api/dates", "/api/disclosures", "/api/bootstrap"}
                 and request.query_params.get("refresh") != "1"):
             response.headers["Cache-Control"] = "public, max-age=0, s-maxage=60"
         else:
@@ -52,6 +52,32 @@ supabase_headers = {
 }
 
 # ----------------- FastAPI API Routes -----------------
+
+def normalize_disclosures(rows):
+    rows = [row for row in rows if not is_placeholder_disclosure(row)]
+    for row in rows:
+        row["company"] = display_company(row.get("company"), row.get("title"), row.get("submitter"))
+        row["code"] = clean_code(row.get("code"))
+        row["title"] = clean_cell(row.get("title"))
+        row["submitter"] = clean_cell(row.get("submitter"))
+        row["category"] = classify_title(row["title"])
+    return rows
+
+
+@app.get("/api/bootstrap")
+def get_bootstrap():
+    """동일한 DB 스냅샷의 날짜 목록과 최신 공시를 한 번에 전달한다."""
+    response = requests.get(
+        f"{SUPABASE_URL}/rest/v1/rpc/disclosure_dashboard_bootstrap",
+        headers=supabase_headers, timeout=15,
+    )
+    if response.status_code != 200:
+        raise HTTPException(status_code=502, detail="초기 공시 조회 실패")
+    data = response.json()
+    if not isinstance(data, dict) or not isinstance(data.get("dates"), list) or not isinstance(data.get("disclosures"), list):
+        raise HTTPException(status_code=502, detail="초기 공시 응답 형식 오류")
+    data["disclosures"] = normalize_disclosures(data["disclosures"])
+    return data
 
 @app.get("/api/dates")
 async def get_dates():
@@ -133,15 +159,7 @@ async def get_disclosures(
         if response.status_code != 200:
             raise HTTPException(status_code=500, detail="Supabase data query failed")
             
-        rows = [row for row in response.json() if not is_placeholder_disclosure(row)]
-        for row in rows:
-            # 과거 저장된 nan 및 잘못된 분류도 조회 시 동일한 규칙으로 보정한다.
-            row["company"] = display_company(row.get("company"), row.get("title"), row.get("submitter"))
-            row["code"] = clean_code(row.get("code"))
-            row["title"] = clean_cell(row.get("title"))
-            row["submitter"] = clean_cell(row.get("submitter"))
-            row["category"] = classify_title(row["title"])
-        return rows
+        return normalize_disclosures(response.json())
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

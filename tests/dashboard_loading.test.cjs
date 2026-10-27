@@ -18,7 +18,7 @@ const context = vm.createContext({
     alert(message) { throw new Error(message); },
     async fetch(url) {
         requests.push(url);
-        return {ok: true, json: async () => url.startsWith('/api/dates') ? ['2026-10-26', '2025-01-06'] : []};
+        return {ok: true, json: async () => ({dates: ['2026-10-26', '2025-01-06'], date: '2026-10-26', disclosures: []})};
     },
 });
 vm.runInContext(source, context);
@@ -26,10 +26,10 @@ vm.runInContext(source, context);
 vm.runInContext('renderDashboard = () => {}; renderMonthSelector = () => {}; renderDaySelector = () => {};', context);
 (async () => {
     await context.initializeWithLatest();
-    assert.deepEqual(requests.splice(0), ['/api/dates', '/api/disclosures?date=2026-10-26']);
+    assert.deepEqual(requests.splice(0), ['/api/bootstrap']);
     assert.equal(elements.get('disclosure-date').value, '2026-10-26');
     assert.equal(elements.get('loading').style.display, 'none');
     await context.initializeWithLatest(true);
-    assert.deepEqual(requests, ['/api/dates?refresh=1', '/api/disclosures?date=2026-10-26&refresh=1']);
+    assert.deepEqual(requests, ['/api/bootstrap?refresh=1']);
     console.log('Dashboard initial load and forced refresh passed');
 })().catch(error => { console.error(error); process.exitCode = 1; });
