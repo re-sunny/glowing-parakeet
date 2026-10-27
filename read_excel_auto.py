@@ -7,7 +7,10 @@ import pandas as pd
 from pathlib import Path
 import requests
 from dotenv import load_dotenv
-from disclosure_rules import clean_cell, clean_code, display_company, classify_title
+from disclosure_rules import (
+    clean_cell, clean_code, display_company, classify_title,
+    storage_company, is_placeholder_disclosure,
+)
 
 load_dotenv(Path(__file__).with_name(".env"))
 
@@ -40,6 +43,7 @@ from template import (
 
 def upload_classified_rows_to_supabase(db_items, file_path):
     """중복 공시는 건너뛰고 신규 공시를 추가한다. 실패 시 실행을 중단한다."""
+    db_items = [item for item in db_items if not is_placeholder_disclosure(item)]
     if not db_items:
         return 0
     supabase_url = os.getenv("SUPABASE_URL", "").rstrip("/")
@@ -62,6 +66,7 @@ def upload_classified_rows_to_supabase(db_items, file_path):
     unique = {}
     for item in db_items:
         row = {**item, "disclosure_date": disclosure_date}
+        row["company"] = storage_company(row.get("company"), row.get("submitter"))
         identity = tuple(row[field] for field in ("disclosure_date", "time", "company", "code", "title"))
         unique[identity] = row
     payload = list(unique.values())
@@ -141,6 +146,10 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
 
     matched_rows = []
     for idx, row in df.iterrows():
+        title_val = clean_cell(row.iloc[title_col]) if title_col < len(row) else "-"
+        time_val = row.iloc[time_col] if time_col < len(row) else None
+        if title_val == "-" or is_placeholder_disclosure({"title": title_val, "time": time_val}):
+            continue
         # 1. 시간 조건 검사 (20:00시부터 포함, bypass_time_filter가 True이면 건너뜀)
         if not bypass_time_filter and time_col is not None and time_col < len(row):
             time_val = row.iloc[time_col]
@@ -152,7 +161,6 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
                 continue
 
         # 2. 키워드 조건 검사 (지정된 키워드가 있을 경우에 필터링 적용)
-        title_val = str(row.iloc[title_col]) if title_col < len(row) else ""
         if search_keywords:
             if not any(k in title_val for k in search_keywords):
                 continue
@@ -209,9 +217,9 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
             print(f"⚠️ 제목 미제공 행 제외: 엑셀 행 {row.name + 2}")
             continue
         company = row.iloc[com_col] if com_col < len(row) else None
-        com_val = display_company(company, title_val)
         code_val = clean_code(row.iloc[code_col]) if code_col < len(row) else "-"
         submitter_val = clean_cell(row.iloc[submitter_col]) if submitter_col < len(row) else "-"
+        com_val = display_company(company, title_val, submitter_val)
 
         item = {
             "time": time_val,
@@ -219,9 +227,8 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
             "code": code_val,
             "title": title_val,
             "submitter": submitter_val,
-            # 기존 DB의 충돌 키를 유지한다. 화면용 이름을 저장 키로 쓰면
-            # 과거 'nan' 공시를 재수집할 때 같은 공시가 새 행으로 중복된다.
-            "_storage_company": clean_cell(company, default="nan"),
+            # 기존 미제공 행도 같은 규칙으로 보정하는 DB 이행 SQL과 함께 적용한다.
+            "_storage_company": storage_company(company, submitter_val),
             "_storage_code": code_val if code_val != "-" else "nan",
         }
 

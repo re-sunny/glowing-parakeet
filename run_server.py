@@ -10,7 +10,7 @@ import threading
 import time
 import os
 import requests
-from disclosure_rules import classify_title, clean_cell, clean_code, display_company
+from disclosure_rules import classify_title, clean_cell, clean_code, display_company, is_placeholder_disclosure
 
 app = FastAPI(title="KIND Disclosure Dashboard Server")
 
@@ -52,7 +52,7 @@ supabase_headers = {
 async def get_dates():
     try:
         # Supabase 1000행 한계를 극복하기 위해 Range 헤더 페이징으로 전체 유니크 날짜 수집
-        url = f"{SUPABASE_URL}/rest/v1/disclosures?select=disclosure_date&order=disclosure_date.desc"
+        url = f"{SUPABASE_URL}/rest/v1/disclosures?select=disclosure_date,title,time&order=disclosure_date.desc"
         dates_set = set()
         max_pages = 10
         for page in range(max_pages):
@@ -65,7 +65,7 @@ async def get_dates():
             if not isinstance(data, list) or not data:
                 break
             for row in data:
-                if row.get("disclosure_date"):
+                if row.get("disclosure_date") and not is_placeholder_disclosure(row):
                     dates_set.add(row["disclosure_date"])
             if len(data) < 1000:
                 break
@@ -123,10 +123,10 @@ async def get_disclosures(
         if response.status_code != 200:
             raise HTTPException(status_code=500, detail="Supabase data query failed")
             
-        rows = response.json()
+        rows = [row for row in response.json() if not is_placeholder_disclosure(row)]
         for row in rows:
             # 과거 저장된 nan 및 잘못된 분류도 조회 시 동일한 규칙으로 보정한다.
-            row["company"] = display_company(row.get("company"), row.get("title"))
+            row["company"] = display_company(row.get("company"), row.get("title"), row.get("submitter"))
             row["code"] = clean_code(row.get("code"))
             row["title"] = clean_cell(row.get("title"))
             row["submitter"] = clean_cell(row.get("submitter"))

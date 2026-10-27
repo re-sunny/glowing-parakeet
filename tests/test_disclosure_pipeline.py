@@ -9,7 +9,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import read_excel_auto as pipeline
-from disclosure_rules import classify_title, clean_code, display_company
+from disclosure_rules import classify_title, clean_code, display_company, storage_company
 
 
 @pytest.fixture
@@ -85,8 +85,8 @@ def test_insert_only_key_skips_existing_rows_without_update_permission(monkeypat
     "자기주식매매 신청내역(유가증권시장)", "대량매매내역(코스닥시장)",
     "일일 회전율 상위 20종목-ELW제외(유가증권시장)",
 ])
-def test_market_statistics_have_a_market_label(title):
-    assert display_company(float("nan"), title) == "시장 전체"
+def test_market_statistics_use_the_confirmed_submitter(title):
+    assert display_company(float("nan"), title, "유가증권시장본부") == "유가증권시장본부"
     assert classify_title(title) == "others"
 
 
@@ -114,11 +114,12 @@ def test_report_keeps_market_statistics_and_filters_unknown_times(monkeypatch, t
     monkeypatch.setattr(pipeline, "get_html2canvas_script", lambda: "/* test */")
     report = pipeline.generate_report_from_agent_md(str(tmp_path / "test.xls"), [])
     assert len(captured) == 2
-    assert captured[0]["company"] == "nan"  # 과거 DB와 같은 충돌 키 유지
+    assert captured[0]["company"] == "유가증권시장본부"
     assert captured[1]["code"] == "001234"
     assert captured[1]["submitter"] == "-"
     assert all(row["category"] == "others" for row in captured)
-    assert "시장 전체" in report["html"]
+    assert "유가증권시장본부" in report["html"]
+    assert "시장 전체" not in report["html"]
 
 
 def test_old_database_rows_are_normalized_when_read(monkeypatch):
@@ -130,13 +131,15 @@ def test_old_database_rows_are_normalized_when_read(monkeypatch):
         def json(self):
             return [
                 {**item("상장폐지에 따른 매매거래정지")},
-                {**item("대량매매내역"), "company": "nan", "code": None},
+                {**item("대량매매내역"), "company": "nan", "code": None, "submitter": "코스닥시장본부"},
+                {**item("결과값이 없습니다."), "time": "결과값이 없습니다."},
             ]
 
     monkeypatch.setattr(run_server.requests, "get", lambda *args, **kwargs: Response())
     rows = asyncio.run(run_server.get_disclosures(date="2026-10-27", query=None, ignoreDate=False, exclude=False))
     assert rows[0]["category"] == "others"
-    assert rows[1]["company"] == "시장 전체"
+    assert len(rows) == 2
+    assert rows[1]["company"] == "코스닥시장본부"
     assert rows[1]["code"] == "-"
 
 
@@ -173,3 +176,51 @@ def test_auto_does_not_reuse_old_files_when_download_fails(monkeypatch):
     monkeypatch.setattr(pipeline, "generate_report_from_agent_md", lambda *args, **kwargs: pytest.fail("오래된 파일 처리"))
     with pytest.raises(SystemExit):
         pipeline.main(["--auto", "--no-report"])
+
+
+@pytest.mark.parametrize("submitter", ["유가증권시장본부", "코스닥시장본부"])
+@pytest.mark.parametrize("company", [None, float("nan"), "N/A", "시장 전체"])
+def test_missing_company_is_stored_as_confirmed_submitter(company, submitter):
+    assert storage_company(company, submitter) == submitter
+    assert display_company(company, "대량매매내역", submitter) == submitter
+    assert storage_company("정상기업", submitter) == "정상기업"
+
+
+def test_unknown_submitter_does_not_invent_a_company():
+    assert display_company(None, "자기주식매매 신청내역", None) == "회사명 미제공"
+
+
+@pytest.mark.parametrize("bypass", [False, True])
+def test_empty_result_message_never_becomes_a_disclosure(monkeypatch, bypass):
+    frame = pd.DataFrame([
+        ["결과값이 없습니다."] * 5,
+        ["20:01", "정상기업", 1, "임시주주총회 결과", "정상기업"],
+        ["20:02", "정상기업", 1, "결과값이 없습니다.", "정상기업"],
+    ], columns=["시간", "회사명", "종목코드", "공시제목", "제출인"])
+    captured = []
+    monkeypatch.setattr(pipeline, "try_read_excel", lambda _: frame)
+    monkeypatch.setattr(pipeline, "upload_classified_rows_to_supabase", lambda rows, _: captured.extend(rows))
+    result = pipeline.generate_report_from_agent_md("unused.xls", [], bypass_time_filter=bypass, build_report=False)
+    assert result["count"] == 1
+    assert [row["title"] for row in captured] == ["임시주주총회 결과"]
+
+
+def test_uploader_rejects_placeholder_even_when_called_directly(monkeypatch):
+    monkeypatch.setattr(pipeline.requests, "post", lambda *args, **kwargs: pytest.fail("안내문을 업로드하면 안 됩니다"))
+    assert pipeline.upload_classified_rows_to_supabase([item(" 결과값이 없습니다. ")], "does-not-exist.xls") == 0
+
+
+def test_placeholder_only_dates_are_hidden(monkeypatch):
+    import run_server
+
+    class Response:
+        status_code = 200
+
+        def json(self):
+            return [
+                {"disclosure_date": "2026-10-27", "title": "결과값이 없습니다."},
+                {"disclosure_date": "2026-10-26", "title": "주주총회 결과"},
+            ]
+
+    monkeypatch.setattr(run_server.requests, "get", lambda *args, **kwargs: Response())
+    assert asyncio.run(run_server.get_dates()) == ["2026-10-26"]
