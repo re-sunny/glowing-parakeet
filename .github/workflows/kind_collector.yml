@@ -1,9 +1,8 @@
 name: KIND Disclosure Daily Collector
 
 on:
-  schedule:
-    # 평일 한국 시간 20:15 (UTC 11:15). GitHub 예약 실행은 지연될 수 있음.
-    - cron: '15 11 * * 1-5'
+  # 평일 20:15 KST에 Supabase Cron이 workflow_dispatch로 호출한다.
+  # GitHub 자체 schedule은 이벤트 전달 지연과 중복 실행을 피하도록 제거한다.
   repository_dispatch:
     types: [trigger_collector]
   workflow_dispatch:

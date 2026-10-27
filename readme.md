@@ -43,8 +43,8 @@ GitHub Actions와 Supabase 클라우드 데이터베이스를 연동함에 따�
 *   **`scheduler.py`**: (로컬 백업용) 일정을 관리하며 매일 20:15에 크롤링 파이프라인을 실행시키는 데몬입니다.
 
 ### 3. 클라우드 자동화 워크플로우
-*   **`.github/workflows/kind_collector.yml`**: **GitHub Actions 스케줄러**.
-    *   평일 한국 시간 저녁 **20:15(UTC 11:15)**에 알아서 깃허브 클라우드 VM 컨테이너가 켜져 크롤러 코드를 수행 후 결과를 Supabase 클라우드 DB에 적재한 뒤 자동 전원 오프를 완수합니다.
+*   **`.github/workflows/kind_collector.yml`**: **GitHub Actions 수집 작업**.
+    *   Supabase Cron이 평일 한국 시간 **20:15(UTC 11:15)**에 실행을 요청합니다. GitHub Actions가 크롤러를 실행하고 Supabase에 결과를 저장합니다. GitHub 자체 예약 트리거는 제거했습니다.
     *   사용자가 자신의 컴퓨터를 상시 켜두지 않아도 클라우드가 무제한 무료로 모든 수집 일정을 대행합니다.
 
 ### 4. 프론트엔드 및 데이터 자원
@@ -113,7 +113,7 @@ python read_excel_auto.py --auto
 - Actions에서는 `--no-report`를 추가하여 DB 적재만 수행합니다. 다운로드·파싱·DB 오류는 실패로 처리합니다.
 - GitHub 저장소의 Settings → Secrets and variables → Actions에 `SUPABASE_URL`과 `SUPABASE_KEY`를 설정하세요. 기본 수집은 SELECT/INSERT 권한으로 중복을 건너뛰고 신규 공시만 추가합니다. 기존 행 갱신이 필요한 서버에서는 선택적으로 `SUPABASE_SERVICE_ROLE_KEY`를 사용할 수 있으며 이 키는 브라우저에 넣지 마세요.
 - 충돌 기준은 `(disclosure_date, time, company, code, title)`이며 DB에 대응하는 UNIQUE 제약조건이 있어야 합니다. DB 설정 오류는 HTTP 상태와 Postgres 오류 코드로 보고됩니다.
-- 예약은 평일 KST 20:15 한 번입니다. 기본 브랜치에 워크플로우가 있어야 하며 Actions가 활성화되어 있어야 합니다. GitHub 예약 실행은 지연될 수 있고, 공개 저장소는 활동이 60일간 없으면 예약이 비활성화될 수 있습니다. 정확한 시각 보장이 필요하면 외부 스케줄러가 필요합니다.
+- 예약은 Supabase Cron의 `kind-collector-2015-kst`가 평일 KST 20:15에 한 번 요청합니다. 기본 브랜치의 워크플로우와 Actions가 활성화되어 있어야 합니다. 실제 시작은 GitHub 러너 대기에 따라 달라질 수 있습니다. 토큰 만료·갱신, 실행 기록과 복구 방법은 [SCHEDULER_SETUP.md](SCHEDULER_SETUP.md)를 참고하세요.
 - 20:15 이후에 올라오는 공시는 이 1회 예약에 포함되지 않습니다. 필요할 때 `--auto`로 재수집하세요.
 - 회사명이 없거나 N/A인 자료는 제출인이 유가증권시장본부·코스닥시장본부인 경우 해당 제출인 이름으로 저장·표시합니다. 실제 회사명은 유지합니다. ‘결과값이 없습니다.’ 같은 빈 조회 안내문은 저장 대상에서 제외하며, 과거 안내문 행도 API 조회에서 제외합니다. 상장폐지 관련 제목은 ‘기타’로 분류하며 과거 DB 행도 API 조회 시 표시를 보정합니다.
 - `.env.example`을 참고해 로컬 `.env`를 설정하세요. `.env`는 Git에서 제외됩니다.
