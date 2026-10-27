@@ -132,3 +132,11 @@ python backfill_disclosures.py --start 2025-01-01 --end 2025-01-03 --dry-run
 완료된 날짜는 `reports/backfill_checkpoint.json`에 기록하며, 같은 체크포인트로 재실행하면 완료한 날짜를 건너뜁니다. 조회·날짜·정렬·DB 오류가 있으면 해당 날짜를 완료로 표시하지 않고 중단합니다. DB의 기존 행도 중복 키로 보호됩니다.
 
 GitHub Actions의 **KIND Historical Backfill → Run workflow**에서도 시작일·종료일을 지정해 실행할 수 있습니다. 정규 20:15 수집과 별도의 작업이며 새 예약을 만들지 않습니다. 실행별 완료 기록은 `kind-backfill-progress` 아티팩트로 30일 보관합니다. 실패 후에는 기록을 확인해 실패 날짜부터 재실행하거나 로컬에서 체크포인트를 사용해 재개할 수 있습니다.
+
+## 홈페이지 조회 속도
+
+- `sql/20261027_archive_dates_rpc.sql`을 Supabase SQL Editor에서 한 번 적용합니다. `disclosure_archive_dates()`는 기존 SELECT/RLS 권한으로 빈 결과 안내문을 제외하고 중복 없는 날짜만 반환합니다. 전체 공시를 내려받아 날짜를 추출하지 않습니다.
+- 홈페이지 초기화는 날짜 목록 1회와 선택 날짜 공시 1회만 요청합니다. 날짜 네비게이션은 같은 목록을 재사용합니다.
+- 성공한 `/api/dates`, `/api/disclosures` 응답은 Vercel CDN에서 60초간 재사용합니다. 따라서 일반 조회는 최신 변경 반영에 최대 60초 차이가 있을 수 있습니다. 오류와 HTML은 저장하지 않습니다.
+- **최신 데이터 불러오기** 버튼은 두 API에 `refresh=1`을 보내 CDN 캐시를 건너뛰고 DB를 다시 확인합니다. DB 수정·수집 후 즉시 반영이 필요할 때 사용하세요.
+- 날짜가 1000개를 넘으면 날짜 전용 함수의 결과를 페이지로 이어서 조회하므로 과거 날짜를 잘라내지 않습니다.
