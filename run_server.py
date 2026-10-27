@@ -59,6 +59,9 @@ async def get_dates():
             headers = dict(supabase_headers)
             headers["Range"] = f"{page * 1000}-{(page + 1) * 1000 - 1}"
             response = requests.get(url, headers=headers, timeout=15)
+            # 전체 행 수가 정확히 1000의 배수면 다음 범위는 416으로 끝날 수 있다.
+            if page > 0 and response.status_code == 416 and response.json().get("code") == "PGRST103":
+                break
             if response.status_code not in [200, 206]:
                 raise RuntimeError(f"공시 날짜 조회 실패: HTTP {response.status_code}")
             data = response.json()

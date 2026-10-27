@@ -97,3 +97,16 @@ def test_date_archive_includes_records_beyond_ten_thousand(monkeypatch):
 
     monkeypatch.setattr(run_server.requests, 'get', get)
     assert '2025-01-01' in asyncio.run(run_server.get_dates())
+
+
+def test_date_archive_accepts_out_of_range_after_full_last_page(monkeypatch):
+    import run_server
+
+    def get(url, *, headers, timeout):
+        first = headers['Range'] == '0-999'
+        data = ([{'disclosure_date': '2025-01-06', 'title': 'ETF 신규상장', 'time': '20:00'}] * 1000
+                if first else {'code': 'PGRST103'})
+        return type('Response', (), {'status_code': 200 if first else 416, 'json': lambda self: data})()
+
+    monkeypatch.setattr(run_server.requests, 'get', get)
+    assert asyncio.run(run_server.get_dates()) == ['2025-01-06']
