@@ -3,6 +3,8 @@ import sys
 import time
 import glob
 import random
+import tempfile
+from pathlib import Path
 
 
 from selenium import webdriver
@@ -68,21 +70,18 @@ def download_today_disclosures(download_dir=None, max_retries=3, retry_delay=8):
 
     print(f"📥 다운로드 경로 설정: {download_dir}")
 
-    old_files = glob.glob(os.path.join(download_dir, "오늘의공시*.xls")) + glob.glob(os.path.join(download_dir, "오늘의공시*.xlsx"))
-    for file_path in old_files:
-        try:
-            os.remove(file_path)
-            print(f"🗑️ 기존 잔여 공시 파일 삭제 완료: {os.path.basename(file_path)}")
-        except Exception as e:
-            print(f"⚠️ 기존 잔여 파일 삭제 중 오류 발생 (스킵): {e}")
+    download_dir = os.path.abspath(download_dir)
+    os.makedirs(download_dir, exist_ok=True)
 
     url = "https://kind.krx.co.kr/disclosure/todaydisclosure.do?method=searchTodayDisclosureMain&marketType=0"
 
     for attempt in range(1, max_retries + 1):
         driver = None
+        staging = tempfile.TemporaryDirectory(prefix="kind-", dir=download_dir)
+        attempt_dir = staging.name
         try:
             print(f"🚗 크롬 브라우저를 초기화하고 있습니다... (시도 {attempt}/{max_retries})")
-            driver = create_chrome_driver(download_dir)
+            driver = create_chrome_driver(attempt_dir)
             print(f"🌐 대상 웹페이지 접속 중: {url}")
             driver.get(url)
             print("⏳ 페이지 로드 완료를 대기 중...")
@@ -129,17 +128,19 @@ def download_today_disclosures(download_dir=None, max_retries=3, retry_delay=8):
 
             timeout = 30
             start_time = time.time()
-            downloaded = False
 
             while time.time() - start_time < timeout:
-                files = glob.glob(os.path.join(download_dir, "*.xls")) + glob.glob(os.path.join(download_dir, "*.xlsx"))
-                temp_files = glob.glob(os.path.join(download_dir, "*.crdownload"))
+                files = glob.glob(os.path.join(attempt_dir, "*.xls")) + glob.glob(os.path.join(attempt_dir, "*.xlsx"))
+                temp_files = glob.glob(os.path.join(attempt_dir, "*.crdownload"))
 
                 if files and not temp_files:
                     latest_file = max(files, key=os.path.getmtime)
                     if time.time() - os.path.getmtime(latest_file) < 60:
                         print(f"🎉 오늘의 공시 다운로드 성공: {os.path.basename(latest_file)}")
-                        return latest_file
+                        # 다운로드 성공 후에만 기존 스냅샷을 원자적으로 교체한다.
+                        destination = os.path.join(download_dir, "오늘의공시" + Path(latest_file).suffix)
+                        os.replace(latest_file, destination)
+                        return destination
                 time.sleep(1)
 
             print("⚠️ 다운로드 대기 시간이 초과되었습니다.")
@@ -154,12 +155,16 @@ def download_today_disclosures(download_dir=None, max_retries=3, retry_delay=8):
                 continue
             return None
         finally:
-            if driver is not None:
-                driver.quit()
-                print("🔒 크롬 브라우저를 닫았습니다.")
+            try:
+                if driver is not None:
+                    driver.quit()
+                    print("🔒 크롬 브라우저를 닫았습니다.")
+            finally:
+                staging.cleanup()
 
     return None
 
 
 if __name__ == "__main__":
-    download_today_disclosures()
+    if not download_today_disclosures():
+        raise SystemExit(1)

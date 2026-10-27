@@ -14,7 +14,7 @@ if sys.platform.startswith('win'):
 from scraper_krx import download_today_disclosures
 
 
-def run_schedule_loop(target_hour=20, target_minute=5):
+def run_schedule_loop(target_hour=20, target_minute=15):
     """
     백그라운드에서 대기하며 매일 지정된 시간(실제 로컬 컴퓨터 시간 기준)에 엑셀 다운로드를 트리거합니다.
     """
@@ -38,7 +38,7 @@ def run_schedule_loop(target_hour=20, target_minute=5):
                     if file_path and os.path.exists(file_path):
                         print(f"✅ 파일 다운로드 완료: {file_path}")
                         
-                        # [선택사항] 20:05 자동 수집 후, 기본 사전 정의 키워드로 바로 보고서 생성 자동화
+                        # [선택사항] 20:15 자동 수집 후, 기본 사전 정의 키워드로 바로 보고서 생성 자동화
                         # 예시로 default_keywords가 있는 경우 리포팅 프로세스 자동 실행
                         print(" [자동화] 20:00시 이후 모든 공시 데이터를 기반으로 리포트를 생성합니다...")
                         
@@ -55,7 +55,7 @@ def run_schedule_loop(target_hour=20, target_minute=5):
                             if "--no-ai" in sys.argv:
                                 args_to_run.append("--no-ai")
                                 
-                            subprocess.run(args_to_run)
+                            subprocess.run(args_to_run, check=True)
                         else:
                             print(" read_excel_auto.py 스크립트를 찾을 수 없어 자동 리포트 작성을 건너뜁니다.")
                                     
@@ -84,5 +84,5 @@ if __name__ == "__main__":
     else:
         # test_now = datetime.datetime.now() + datetime.timedelta(minutes=1)
         # print(f"{test_now.hour:02d}:{test_now.minute:02d}")
-        run_schedule_loop(target_hour=20, target_minute=5)
-        # 20시 5분에 하기 위해서 수동 조정
+        run_schedule_loop(target_hour=20, target_minute=15)
+        # 기본 로컬 수집 시각: 20시 15분

@@ -2,15 +2,29 @@ name: KIND Disclosure Daily Collector
 
 on:
   schedule:
-    # 매주 월~금요일 한국 시간(KST) 20:05 실행 (UTC 11:05)
-    - cron: '5 11 * * 1-5'
+    # 평일 한국 시간 20:15 (UTC 11:15). GitHub 예약 실행은 지연될 수 있음.
+    - cron: '15 11 * * 1-5'
   repository_dispatch:
     types: [trigger_collector]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: kind-collector
+  cancel-in-progress: false
+
 jobs:
   collect_and_upload:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TZ: Asia/Seoul
+      PYTHONUNBUFFERED: '1'
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
     steps:
       - name: 저장소 체크아웃
         uses: actions/checkout@v4
@@ -26,10 +40,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: '한국거래소(KIND) 오늘의 공시 수집 크롤링'
+      - name: DB 환경변수 확인
         run: |
-          python scraper_krx.py
+          test -n "$SUPABASE_URL" || { echo "::error::SUPABASE_URL Secret이 필요합니다"; exit 1; }
+          test -n "$SUPABASE_SERVICE_ROLE_KEY$SUPABASE_KEY" || { echo "::error::Supabase 쓰기 키 Secret이 필요합니다"; exit 1; }
 
-      - name: '엑셀 파싱 및 Supabase DB 강제 적재'
+      - name: KIND 최신 공시 다운로드 및 Supabase 적재
         run: |
-          python read_excel_auto.py --auto --file 오늘의공시.xls
+          python read_excel_auto.py --auto --no-report

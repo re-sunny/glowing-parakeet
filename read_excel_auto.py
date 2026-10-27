@@ -4,6 +4,12 @@ import sys
 import datetime
 import argparse
 import pandas as pd
+from pathlib import Path
+import requests
+from dotenv import load_dotenv
+from disclosure_rules import clean_cell, clean_code, display_company, classify_title
+
+load_dotenv(Path(__file__).with_name(".env"))
 
 # Windows CP949 console encoding fix
 if sys.platform.startswith('win'):
@@ -33,69 +39,54 @@ from template import (
 
 
 def upload_classified_rows_to_supabase(db_items, file_path):
-    """
-    분류/필터링 조건이 성립된 공시 항목들만 Supabase DB의 public.disclosures 테이블로 전송(UPSERT)합니다.
-    """
-    import json
-    import requests
-    
-    # Supabase 접속 정보 설정
-    SUPABASE_URL = "https://uyqmlrivrrjjzcuxbttj.supabase.co"
-    SUPABASE_KEY = "sb_publishable_KkQB5rDmsV7R5ZkPsMt3pw_bgr29KcM"
-    
-    url = f"{SUPABASE_URL}/rest/v1/disclosures?on_conflict=disclosure_date,time,company,code,title"
+    """중복 공시는 건너뛰고 신규 공시를 추가한다. 실패 시 실행을 중단한다."""
+    if not db_items:
+        return 0
+    supabase_url = os.getenv("SUPABASE_URL", "").rstrip("/")
+    # 서버/Actions 전용 쓰기 키를 우선 사용한다. 브라우저에 전달하지 않는다.
+    write_key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
+    key = write_key or os.getenv("SUPABASE_KEY")
+    if not supabase_url or not key:
+        raise RuntimeError("SUPABASE_URL 및 SUPABASE_SERVICE_ROLE_KEY 또는 SUPABASE_KEY를 설정하세요.")
+    url = f"{supabase_url}/rest/v1/disclosures"
     headers = {
-        "apikey": SUPABASE_KEY,
-        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "apikey": key,
+        "Authorization": f"Bearer {key}",
         "Content-Type": "application/json",
-        "Prefer": "resolution=merge-duplicates"
+        # 공개 INSERT 키로 기존 행까지 UPDATE하면 일괄 요청 전체가 RLS에 막힌다.
+        # 관리자 키를 명시한 경우에만 갱신하고 기본 수집은 중복을 건너뛴다.
+        "Prefer": f"resolution={'merge-duplicates' if write_key else 'ignore-duplicates'},return=minimal",
     }
-
-    # 파일의 마지막 수정 날짜를 기준으로 disclosure_date(KST) 산출
-    try:
-        file_mtime = os.path.getmtime(file_path)
-        disclosure_date = datetime.datetime.fromtimestamp(file_mtime).strftime("%Y-%m-%d")
-    except Exception:
-        disclosure_date = datetime.datetime.now().strftime("%Y-%m-%d")
-        
-    # 각 아이템에 disclosure_date 주입
-    payload = []
+    kst = datetime.timezone(datetime.timedelta(hours=9))
+    disclosure_date = datetime.datetime.fromtimestamp(os.path.getmtime(file_path), kst).date().isoformat()
+    unique = {}
     for item in db_items:
-        payload.append({
-            "disclosure_date": disclosure_date,
-            "time": item["time"],
-            "company": item["company"],
-            "code": item["code"],
-            "title": item["title"],
-            "submitter": item["submitter"],
-            "category": item["category"]
-        })
-        
-    if not payload:
-        print("💡 Supabase에 업로드할 조건 일치 데이터가 없습니다.")
-        return
-        
-    # Python-side payload deduplication to prevent PG 21000 multi-upsert target error
-    seen = set()
-    unique_db_items = []
-    for item in payload:
-        key = (item["disclosure_date"], item["time"], item["company"], item["code"], item["title"])
-        if key not in seen:
-            seen.add(key)
-            unique_db_items.append(item)
-            
-    try:
-        print(f"📤 Supabase DB 적재 시도 중... (대상 날짜: {disclosure_date}, 필터링 일치: {len(unique_db_items)}건 (자체 중복 필터링 전: {len(db_items)}건))")
-        response = requests.post(url, headers=headers, json=unique_db_items, timeout=15)
-        if response.status_code in [200, 201]:
-            print(f"✅ Supabase 적재 완료! (성공 코드: {response.status_code})")
-        else:
-            print(f"⚠️ Supabase 업로드 응답 에러 (코드 {response.status_code}): {response.text}")
-    except Exception as e:
-        print(f"⚠️ Supabase 연결에 실패했습니다: {e}")
+        row = {**item, "disclosure_date": disclosure_date}
+        identity = tuple(row[field] for field in ("disclosure_date", "time", "company", "code", "title"))
+        unique[identity] = row
+    payload = list(unique.values())
+    for offset in range(0, len(payload), 500):
+        response = requests.post(
+            url, params={"on_conflict": "disclosure_date,time,company,code,title"},
+            headers=headers, json=payload[offset:offset + 500], timeout=30,
+        )
+        if response.status_code not in (200, 201, 204):
+            # 기존 행에 UPDATE 권한이 없으면 기존+신규 행의 일괄 upsert 전체가 실패할 수 있다.
+            try:
+                error = response.json()
+            except ValueError:
+                error = {}
+            code = error.get("code", "unknown") if isinstance(error, dict) else "unknown"
+            raise RuntimeError(
+                f"Supabase 적재 실패: HTTP {response.status_code}, code={code}. "
+                "RLS의 SELECT/INSERT 권한 및 충돌 대상 UNIQUE 제약조건을 확인하세요. "
+                "기존 행 갱신 모드는 서버 전용 쓰기 키가 필요합니다."
+            )
+    print(f"✅ Supabase 적재 완료: {disclosure_date}, {len(payload)}건")
+    return len(payload)
 
 
-def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="agents_auto.md", bypass_time_filter=False, no_ai=True):
+def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="agents_auto.md", bypass_time_filter=False, no_ai=True, build_report=True):
     agent_prompt_template = ""
     if not no_ai:
         if not os.path.exists(agent_md_path):
@@ -113,12 +104,10 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
     try:
         df = try_read_excel(file_path)
     except Exception as e:
-        print(f"❌ 파일을 파싱하는 중 오류가 발생했습니다: {e}")
-        return None
+        raise ValueError(f"공시 파일 파싱 실패: {file_path}") from e
 
     if df is None or df.empty:
-        print("❌ 엑셀 파일에 데이터가 존재하지 않습니다.")
-        return None
+        raise ValueError("엑셀 파일에 데이터가 존재하지 않습니다.")
 
     # 대표적인 칼럼 위치 인덱스 자동 추정
     time_col, com_col, code_col, title_col, submitter_col = None, None, None, None, None
@@ -156,9 +145,11 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
         if not bypass_time_filter and time_col is not None and time_col < len(row):
             time_val = row.iloc[time_col]
             hour = extract_hour_from_time_value(time_val)
-            if hour is not None:
-                if hour < 20:
-                    continue
+            if hour is None or not 0 <= hour <= 23:
+                print(f"⚠️ 시간 미확인 행 제외: 엑셀 행 {idx + 2}")
+                continue
+            if hour < 20:
+                continue
 
         # 2. 키워드 조건 검사 (지정된 키워드가 있을 경우에 필터링 적용)
         title_val = str(row.iloc[title_col]) if title_col < len(row) else ""
@@ -212,64 +203,44 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
     # 데이터 분류 및 정렬
     data_lines = []
     for row in matched_rows:
-        time_val = str(row.iloc[time_col]).strip() if time_col < len(row) else "-"
-        com_val = str(row.iloc[com_col]).strip() if com_col < len(row) else "-"
-        code_val = str(row.iloc[code_col]).split(".")[0].strip() if code_col < len(row) else "-"
-        # 종목코드 자릿수 포맷
-        if len(code_val) < 6 and code_val.isdigit():
-            code_val = code_val.zfill(6)
-            
-        title_val = str(row.iloc[title_col]).strip() if title_col < len(row) else "-"
-        submitter_val = str(row.iloc[submitter_col]).strip() if submitter_col < len(row) else "-"
+        time_val = clean_cell(row.iloc[time_col]) if time_col < len(row) else "-"
+        title_val = clean_cell(row.iloc[title_col]) if title_col < len(row) else "-"
+        if title_val == "-":
+            print(f"⚠️ 제목 미제공 행 제외: 엑셀 행 {row.name + 2}")
+            continue
+        company = row.iloc[com_col] if com_col < len(row) else None
+        com_val = display_company(company, title_val)
+        code_val = clean_code(row.iloc[code_col]) if code_col < len(row) else "-"
+        submitter_val = clean_cell(row.iloc[submitter_col]) if submitter_col < len(row) else "-"
 
         item = {
             "time": time_val,
             "company": com_val,
             "code": code_val,
             "title": title_val,
-            "submitter": submitter_val
+            "submitter": submitter_val,
+            # 기존 DB의 충돌 키를 유지한다. 화면용 이름을 저장 키로 쓰면
+            # 과거 'nan' 공시를 재수집할 때 같은 공시가 새 행으로 중복된다.
+            "_storage_company": clean_cell(company, default="nan"),
+            "_storage_code": code_val if code_val != "-" else "nan",
         }
 
-        # 분류를 위한 정규화
-        title_clean = title_val.replace(" ", "")
+        category = classify_title(title_val)
+        categories[category]["items"].append(item)
+        data_lines.append(f"- [{categories[category]['title']}] [{time_val}] {com_val}({code_val}) | {title_val}")
 
-        # 1. 경고/위험/거래 (거래정지, 투자경고, 투자위험 포함시 최우선 권장 배정)
-        if any(kw in title_clean for kw in ["거래정지", "투자경고", "투자위험", "투자주의경고", "매매거래"]):
-            categories["warning_risk_trading"]["items"].append(item)
-            data_lines.append(f"- [경고/위험/거래] [{time_val}] {com_val}({code_val}) | {title_val}")
-        # 2. 단기과열
-        elif "단기과열" in title_clean:
-            categories["overheating"]["items"].append(item)
-            data_lines.append(f"- [단기과열] [{time_val}] {com_val}({code_val}) | {title_val}")
-        # 3. 투자주의 (주의, 환기종목 포함)
-        elif any(kw in title_clean for kw in ["투자주의", "환기종목"]):
-            categories["caution"]["items"].append(item)
-            data_lines.append(f"- [투자주의] [{time_val}] {com_val}({code_val}) | {title_val}")
-        # 4. 공매도 (공매도, 공매도과열 포함)
-        elif any(kw in title_clean for kw in ["공매도", "공매도과열"]):
-            categories["short_selling"]["items"].append(item)
-            data_lines.append(f"- [공매도] [{time_val}] {com_val}({code_val}) | {title_val}")
-        # 5. 기타
-        else:
-            categories["others"]["items"].append(item)
-            data_lines.append(f"- [기타] [{time_val}] {com_val}({code_val}) | {title_val}")
-
-    # 3. Supabase 데이터 동적 업서트 연동 (처음 분류/필터링 조건 충족 데이터 대상)
-    try:
-        classified_items = []
-        for cat_key, cat_data in categories.items():
-            for item in cat_data["items"]:
-                classified_items.append({
-                    "time": item["time"],
-                    "company": item["company"],
-                    "code": item["code"],
-                    "title": item["title"],
-                    "submitter": item["submitter"],
-                    "category": cat_key
-                })
-        upload_classified_rows_to_supabase(classified_items, file_path)
-    except Exception as se:
-        print(f"⚠️ Supabase 업로드 진행 중 예외 발생 (건너뜀): {se}")
+    classified_items = [
+        {
+            "time": item["time"], "company": item["_storage_company"],
+            "code": item["_storage_code"], "title": item["title"],
+            "submitter": item["submitter"], "category": category,
+        }
+        for category, cat_data in categories.items()
+        for item in cat_data["items"]
+    ]
+    upload_classified_rows_to_supabase(classified_items, file_path)
+    if not build_report:
+        return {"count": len(classified_items)}
 
     excel_context = "\n".join(data_lines)
     keywords_summary = ", ".join(search_keywords) if search_keywords else "전체 필터링"
@@ -564,8 +535,9 @@ def save_report(report_data, keywords):
     return filename_html
 
 
-if __name__ == "__main__":
+def main(argv=None):
     parser = argparse.ArgumentParser(description="기업 공시 필터링 및 리포트 자동 생성 툴")
+    parser.add_argument("--no-report", action="store_true", help="DB 저장만 수행하고 보고서 파일·브라우저를 생략")
     parser.add_argument("--auto", action="store_true", help="스케줄러 등을 통한 자동 배치 처리 모드")
     parser.add_argument("--file", type=str, help="분석에 사용할 특정 엑셀 파일 경로")
     parser.add_argument("--keywords", type=str, help="자동 모드 시 필터링할 키워드 목록 (쉼표 구분)")
@@ -573,7 +545,7 @@ if __name__ == "__main__":
     parser.add_argument("--no-ai", action="store_true", help="Ollama LLM 연동을 생략하고 Python 기반의 통계 정보로 요약 브리핑 대체 (기본값)")
     parser.add_argument("--use-ai", action="store_true", help="Ollama LLM 연동을 활성화하여 요약 브리핑 생성")
     
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     
     # 기본은 AI 비활성화 (no_ai = True)
     no_ai_val = True
@@ -584,10 +556,10 @@ if __name__ == "__main__":
         # 자동 스케줄러 실행 모드
         file_path = args.file
         if not file_path:
-            file_path = get_latest_excel_in_current_dir()
+            from scraper_krx import download_today_disclosures
+            file_path = download_today_disclosures()
             if not file_path:
-                print("❌ 자동 모드 실행 시 엑셀 파일(.xlsx, .xls)을 찾을 수 없습니다.")
-                sys.exit(1)
+                raise SystemExit("KIND 다운로드 실패: 기존 파일은 재사용하지 않습니다.")
 
         keywords_to_search = []
         if args.keywords:
@@ -599,9 +571,10 @@ if __name__ == "__main__":
         else:
             print(f"🤖 [자동 배치 모드] 전체 공시 모드 (20:00 이후 모든 공시)")
         
-        report_content = generate_report_from_agent_md(file_path, keywords_to_search, bypass_time_filter=args.bypass_time_filter, no_ai=no_ai_val)
+        report_content = generate_report_from_agent_md(file_path, keywords_to_search, bypass_time_filter=args.bypass_time_filter, no_ai=no_ai_val, build_report=not args.no_report)
         if report_content:
-            save_report(report_content, keywords_to_search)
+            if not args.no_report:
+                save_report(report_content, keywords_to_search)
             
     else:
         # 대화형 일반 모드 -> 최신 엑셀 파일의 전체 공시 리포트 생성
@@ -612,3 +585,6 @@ if __name__ == "__main__":
             report_content = generate_report_from_agent_md(excel_file, [], bypass_time_filter=args.bypass_time_filter, no_ai=no_ai_val)
             if report_content:
                 save_report(report_content, [])
+
+if __name__ == "__main__":
+    main()

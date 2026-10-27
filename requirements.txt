@@ -7,3 +7,5 @@ lxml
 beautifulsoup4
 fastapi
 uvicorn
+python-dotenv
+openpyxl

@@ -10,6 +10,7 @@ import threading
 import time
 import os
 import requests
+from disclosure_rules import classify_title, clean_cell, clean_code, display_company
 
 app = FastAPI(title="KIND Disclosure Dashboard Server")
 
@@ -122,7 +123,15 @@ async def get_disclosures(
         if response.status_code != 200:
             raise HTTPException(status_code=500, detail="Supabase data query failed")
             
-        return response.json()
+        rows = response.json()
+        for row in rows:
+            # 과거 저장된 nan 및 잘못된 분류도 조회 시 동일한 규칙으로 보정한다.
+            row["company"] = display_company(row.get("company"), row.get("title"))
+            row["code"] = clean_code(row.get("code"))
+            row["title"] = clean_cell(row.get("title"))
+            row["submitter"] = clean_cell(row.get("submitter"))
+            row["category"] = classify_title(row["title"])
+        return rows
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

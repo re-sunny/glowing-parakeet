@@ -12,7 +12,7 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 
 
-def test_should_retry_when_access_denied_detected(monkeypatch):
+def test_should_retry_when_access_denied_detected(monkeypatch, tmp_path):
     calls = []
 
     class FakeDriver:
@@ -54,7 +54,51 @@ def test_should_retry_when_access_denied_detected(monkeypatch):
 
     monkeypatch.setattr(module, 'WebDriverWait', FakeWait)
 
-    result = module.download_today_disclosures(download_dir=str(ROOT), max_retries=2, retry_delay=0)
+    original = tmp_path / '오늘의공시.xls'
+    original.write_bytes(b'original data')
+    result = module.download_today_disclosures(download_dir=str(tmp_path), max_retries=2, retry_delay=0)
 
     assert result is None
+    assert original.read_bytes() == b'original data'
     assert calls.count(('get', 'https://kind.krx.co.kr/disclosure/todaydisclosure.do?method=searchTodayDisclosureMain&marketType=0')) >= 2
+
+
+def test_success_uses_new_download_not_an_existing_excel(monkeypatch, tmp_path):
+    unrelated = tmp_path / "other.xls"
+    unrelated.write_bytes(b"unrelated")
+    original = tmp_path / "오늘의공시.xls"
+    original.write_bytes(b"previous snapshot")
+    attempts = []
+
+    class FakeDriver:
+        def __init__(self, download_dir):
+            self.download_dir = Path(download_dir)
+            attempts.append(self)
+
+        def get(self, url):
+            pass
+
+        def execute_script(self, script, *args):
+            if 'click' in script:
+                (self.download_dir / "오늘의공시.xls").write_bytes(f"snapshot {len(attempts)}".encode())
+
+        def quit(self):
+            pass
+
+    class FakeWait:
+        def __init__(self, *args):
+            pass
+
+        def until(self, condition):
+            return object()
+
+    monkeypatch.setattr(module, 'create_chrome_driver', FakeDriver)
+    monkeypatch.setattr(module, 'WebDriverWait', FakeWait)
+    monkeypatch.setattr(module.time, 'sleep', lambda _: None)
+    for number in (1, 2):
+        result = module.download_today_disclosures(str(tmp_path))
+        assert Path(result) == original
+        assert original.read_bytes() == f"snapshot {number}".encode()
+    assert unrelated.read_bytes() == b"unrelated"
+    assert attempts[0].download_dir != attempts[1].download_dir
+    assert not list(tmp_path.glob('kind-*'))
