@@ -210,6 +210,25 @@ def test_uploader_rejects_placeholder_even_when_called_directly(monkeypatch):
     assert pipeline.upload_classified_rows_to_supabase([item(" 결과값이 없습니다. ")], "does-not-exist.xls") == 0
 
 
+def test_source_url_is_attached_only_to_the_matching_disclosure(monkeypatch, tmp_path):
+    from disclosure_links import identity_for_row, VIEWER_URL
+    file = tmp_path / 'today.xls'
+    file.touch()
+    frame = pd.DataFrame([
+        ['20:00', '정상기업', '005930', '공시 제목', '시장감시위원회'],
+        ['20:00', '다른기업', '000010', '공시 제목', '시장감시위원회'],
+    ], columns=['시간','회사명','종목코드','공시제목','제출인'])
+    captured = []
+    monkeypatch.setattr(pipeline, 'try_read_excel', lambda _: frame)
+    monkeypatch.setattr(pipeline, 'upload_classified_rows_to_supabase', lambda rows, _: captured.extend(rows))
+    date = pipeline.datetime.datetime.fromtimestamp(file.stat().st_mtime, pipeline.datetime.timezone(pipeline.datetime.timedelta(hours=9))).date().isoformat()
+    row = dict(time='20:00',company='정상기업',code='005930',title='공시 제목',submitter='시장감시위원회')
+    url = VIEWER_URL + '20261028000801'
+    pipeline.generate_report_from_agent_md(str(file), [], build_report=False, source_links={identity_for_row(row,date):url})
+    assert captured[0]['source_url'] == url
+    assert 'source_url' not in captured[1]
+
+
 def test_date_archive_uses_database_aggregation(monkeypatch):
     import run_server
 

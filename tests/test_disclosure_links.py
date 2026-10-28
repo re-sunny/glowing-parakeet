@@ -46,3 +46,14 @@ def test_historical_parser_preserves_official_viewer_url():
 
 def test_foreign_kind_company_code_can_differ_from_stock_code():
     assert disclosure_identity('2026-10-28','20:00','프레스티지바이오파마','SGP07','투자주의','시장감시위원회') == disclosure_identity('2026-10-28','20:00','프레스티지바이오파마','950210','투자주의','시장감시위원회')
+
+
+def test_multiple_receipts_for_same_identity_are_not_guessed(monkeypatch):
+    import collect_disclosure_links as collector
+    monkeypatch.setattr(collector, '_session', object())
+    monkeypatch.setattr(collector, '_defaults', {})
+    monkeypatch.setattr(collector, 'collect_day', lambda *args: [
+        {'identity':'same','receipt_id':'20261028000801'},
+        {'identity':'same','receipt_id':'20261028000802'},
+    ])
+    assert collector.collect_source_map('2026-10-28') == {}

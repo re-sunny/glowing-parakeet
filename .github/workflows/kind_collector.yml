@@ -52,4 +52,3 @@ jobs:
       - name: KIND 최신 공시 다운로드 및 Supabase 적재
         run: |
           python read_excel_auto.py --auto --no-report
-
