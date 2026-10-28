@@ -412,6 +412,10 @@
             border-left: 5px solid var(--other-color);
         }
 
+        .disclosure-link { color: inherit; text-decoration: underline; text-decoration-color: #94a3b8; text-underline-offset: 3px; }
+        .disclosure-link:hover { color: #60a5fa; }
+        .disclosure-link:focus-visible { outline: 2px solid #60a5fa; outline-offset: 4px; border-radius: 2px; }
+
         .card-title {
             font-size: 16px;
             font-weight: 800;
@@ -912,6 +916,18 @@
         let filteredDisclosuresData = []; // 검색어 등이 반영된 화면 데이터
 
         // 카테고리 구성 정의
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+        }
+
+        function renderDisclosureTitle(item) {
+            const label = escapeHtml(item.title);
+            if (!item.disclosure_date || !item.time || !item.company || !item.title) return label;
+            const params = new URLSearchParams({date: item.disclosure_date, time: item.time,
+                company: item.company, code: item.code ?? '', title: item.title, submitter: item.submitter ?? ''});
+            return `<a class="disclosure-link" href="/api/disclosure-link?${escapeHtml(params.toString())}" target="_blank" rel="noopener noreferrer" title="KIND 공시 원문 보기 (새 탭)">${label}<span aria-hidden="true"> ↗</span></a>`;
+        }
+
         const CATEGORIES = {
             "warning_risk_trading": { title: "투자경고 & 투자위험 & 매매거래정지", icon: "🚨", color: "trading", items: [] },
             "overheating": { title: "단기과열지정 관련", icon: "🔥", color: "overheating", items: [] },
@@ -1270,7 +1286,7 @@
                                      <span class="company-name">${item.company}</span>
                                      <span class="stock-code">(${item.code})</span>
                                 </td>
-                                <td>${item.title}</td>
+                                <td>${renderDisclosureTitle(item)}</td>
                                 <td class="submitter-cell">${item.submitter}</td>
                             </tr>
                         `;

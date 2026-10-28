@@ -10,6 +10,7 @@ const requests = [];
 const context = vm.createContext({
     console,
     Date,
+    URLSearchParams,
     window: {addEventListener() {}},
     document: {getElementById(id) {
         if (!elements.has(id)) elements.set(id, {style: {}, value: ''});
@@ -22,6 +23,15 @@ const context = vm.createContext({
     },
 });
 vm.runInContext(source, context);
+const linkedTitle = context.renderDisclosureTitle({disclosure_date: '2025-01-06', time: '20:00', company: '회사 & 이름', code: '005930', title: '<공시> "안내"', submitter: '시장본부'});
+assert.match(linkedTitle, /target="_blank" rel="noopener noreferrer"/);
+assert.ok(linkedTitle.includes('&lt;공시&gt; &quot;안내&quot;'));
+const encodedHref = linkedTitle.match(/href="([^"]+)"/)[1].replaceAll('&amp;', '&');
+const parsedHref = new URL(encodedHref, 'https://example.invalid');
+assert.equal(parsedHref.pathname, '/api/disclosure-link');
+assert.equal(parsedHref.searchParams.get('company'), '회사 & 이름');
+assert.equal(parsedHref.searchParams.get('date'), '2025-01-06');
+assert.equal(context.renderDisclosureTitle({title: '기존 공시'}), '기존 공시');
 // 표 렌더링은 네트워크 동작과 무관하므로 이 검사에서는 생략한다.
 vm.runInContext('renderDashboard = () => {}; renderMonthSelector = () => {}; renderDaySelector = () => {};', context);
 (async () => {
