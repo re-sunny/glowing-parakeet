@@ -869,9 +869,6 @@
             <div class="stats-summary" id="stats-area">
                 <!-- JS dynamic -->
             </div>
-            <div class="ai-commentary-box" id="brief-box">
-                <!-- JS dynamic -->
-            </div>
         </div>
 
         <!-- 종류별 공시 정보 카드리스트 -->
@@ -1205,7 +1202,6 @@
             const tradingCount = CATEGORIES['warning_risk_trading'].items.length;
             const shortCount = CATEGORIES['short_selling'].items.length;
             const othersCount = CATEGORIES['others'].items.length;
-            const totalCount = filteredDisclosuresData.length;
 
             const statsHTML = `
                 <span class="stat-badge caution">⚠️ 투자주의: ${cautionCount}건</span>
@@ -1215,30 +1211,6 @@
                 <span class="stat-badge" style="background: rgba(100, 116, 139, 0.15); color: var(--text-secondary); border-color: rgba(100, 116, 139, 0.3);">📝 기타 유의: ${othersCount}건</span>
             `;
             document.getElementById('stats-area').innerHTML = statsHTML;
-
-                        let briefText = "";
-            const modeText = exclude ? "제외 검색" : "포함 검색";
-
-            if (isGlobalSearch) {
-                briefText = `🔍 DB 전체 날짜 검색결과 (${modeText} [키워드: <strong>"${query}"</strong>]): 총 <strong>${totalCount}건</strong>의 공시가 매칭되었습니다.`;
-            } else {
-                const dateInputVal = document.getElementById('disclosure-date').value;
-                const newDateObj = new Date(dateInputVal);
-                const dateKo = `${newDateObj.getFullYear()}년 ${newDateObj.getMonth() + 1}월 ${newDateObj.getDate()}일`;
-                if (query) {
-                    briefText = `📅 선택된 날짜 (<strong>${dateKo}</strong>) 내 ${modeText} [키워드: <strong>"${query}"</strong>] 결과: 총 <strong>${totalCount}건</strong>입니다.`;
-                } else {
-                    briefText = `📅 선택한 <strong>${dateKo}</strong>의 데이터베이스 기준 등록 공시는 총 <strong>${totalCount}건</strong>입니다.`;
-                }
-            }
-
-            const alertBoxHTML = `
-                <p>
-                    <span style="background: #2563eb; color: #ffffff; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-right: 8px; vertical-align: middle; display: inline-block;">시스템 브리핑</span>
-                    ${briefText} 탭 네비게이션을 선택하여 리스크 종류별 세부 표를 실시간 확인하세요. ${isGlobalSearch ? '(날짜 필터 우회 활성화됨)' : ''}
-                </p>
-            `;
-            document.getElementById('brief-box').innerHTML = alertBoxHTML;
 
             // 2. 메인 카드리스트 그리기
             let cardsHTML = '';
