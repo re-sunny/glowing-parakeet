@@ -63,8 +63,14 @@ def parse_history_page(html, target_date):
             raise ValueError(f"종목코드를 확인할 수 없습니다: {company}")
         else:
             code = {"유가증권시장본부": "999990", "코스닥시장본부": "999980", "파생상품시장본부": "999970"}.get(submitter, "nan")
-        items.append(dict(time=timestamp.strftime("%H:%M"), company=storage_company(company, submitter),
-                          code=code, title=title, submitter=submitter, category=classify_title(title)))
+        item = dict(time=timestamp.strftime("%H:%M"), company=storage_company(company, submitter),
+                    code=code, title=title, submitter=submitter, category=classify_title(title))
+        source_link = cells[3].find('a')
+        receipt = re.search(r"openDisclsViewer\(['\"]([0-9]{14})['\"]", source_link.get('onclick', '')) if source_link else None
+        if receipt:
+            from disclosure_links import VIEWER_URL
+            item['source_url'] = VIEWER_URL + receipt[1]
+        items.append(item)
     next_page = next((a for a in soup.select("#main-contents a") if a.get_text(strip=True) == "다음 페이지"), None)
     return items, reached_cutoff or next_page is None
 

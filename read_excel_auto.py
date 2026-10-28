@@ -94,7 +94,7 @@ def upload_classified_rows_to_supabase(db_items, file_path=None, disclosure_date
     return len(payload)
 
 
-def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="agents_auto.md", bypass_time_filter=False, no_ai=True, build_report=True):
+def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="agents_auto.md", bypass_time_filter=False, no_ai=True, build_report=True, source_links=None):
     agent_prompt_template = ""
     if not no_ai:
         if not os.path.exists(agent_md_path):
@@ -248,6 +248,13 @@ def generate_report_from_agent_md(file_path, search_keywords, agent_md_path="age
         for category, cat_data in categories.items()
         for item in cat_data["items"]
     ]
+    if source_links:
+        from disclosure_links import identity_for_row
+        source_date = datetime.datetime.fromtimestamp(os.path.getmtime(file_path), datetime.timezone(datetime.timedelta(hours=9))).date().isoformat()
+        for row in classified_items:
+            source_url = source_links.get(identity_for_row(row, source_date))
+            if source_url:
+                row['source_url'] = source_url
     upload_classified_rows_to_supabase(classified_items, file_path)
     if not build_report:
         return {"count": len(classified_items)}
@@ -581,7 +588,11 @@ def main(argv=None):
         else:
             print(f"🤖 [자동 배치 모드] 전체 공시 모드 (20:00 이후 모든 공시)")
         
-        report_content = generate_report_from_agent_md(file_path, keywords_to_search, bypass_time_filter=args.bypass_time_filter, no_ai=no_ai_val, build_report=not args.no_report)
+        import json
+        source_date = datetime.datetime.fromtimestamp(os.path.getmtime(file_path), datetime.timezone(datetime.timedelta(hours=9))).date().isoformat()
+        source_map_path = Path(f'reports/source_links_v2_{source_date}.json')
+        source_links = json.loads(source_map_path.read_text('utf-8')) if source_map_path.exists() else None
+        report_content = generate_report_from_agent_md(file_path, keywords_to_search, bypass_time_filter=args.bypass_time_filter, no_ai=no_ai_val, build_report=not args.no_report, source_links=source_links)
         if report_content:
             if not args.no_report:
                 save_report(report_content, keywords_to_search)

@@ -922,10 +922,8 @@
 
         function renderDisclosureTitle(item) {
             const label = escapeHtml(item.title);
-            if (!item.disclosure_date || !item.time || !item.company || !item.title) return label;
-            const params = new URLSearchParams({date: item.disclosure_date, time: item.time,
-                company: item.company, code: item.code ?? '', title: item.title, submitter: item.submitter ?? ''});
-            return `<a class="disclosure-link" href="/api/disclosure-link?${escapeHtml(params.toString())}" target="_blank" rel="noopener noreferrer" title="KIND 공시 원문 보기 (새 탭)">${label}<span aria-hidden="true"> ↗</span></a>`;
+            if (!/^https:\/\/kind\.krx\.co\.kr\/common\/disclsviewer\.do\?method=search&acptno=\d{14}$/.test(item.source_url ?? '')) return label;
+            return `<a class="disclosure-link" href="${escapeHtml(item.source_url)}" target="_blank" rel="noopener noreferrer" title="KIND 공시 원문 보기 (새 탭)">${label}<span aria-hidden="true"> ↗</span></a>`;
         }
 
         const CATEGORIES = {

@@ -44,6 +44,12 @@ jobs:
           test -n "$SUPABASE_URL" || { echo "::error::SUPABASE_URL Secret이 필요합니다"; exit 1; }
           test -n "$SUPABASE_SERVICE_ROLE_KEY$SUPABASE_KEY" || { echo "::error::Supabase 쓰기 키 Secret이 필요합니다"; exit 1; }
 
+      - name: KIND 원문 접수번호 수집
+        timeout-minutes: 3
+        continue-on-error: true
+        run: python collect_disclosure_links.py
+
       - name: KIND 최신 공시 다운로드 및 Supabase 적재
         run: |
           python read_excel_auto.py --auto --no-report
+

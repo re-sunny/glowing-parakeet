@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from fastapi import FastAPI, Query, HTTPException
-from fastapi.responses import HTMLResponse, FileResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -10,9 +10,6 @@ import threading
 import time
 import os
 import requests
-import datetime
-import html
-from disclosure_links import resolve_disclosure_url, DisclosureLinkError
 from disclosure_rules import classify_title, clean_cell, clean_code, display_company, is_placeholder_disclosure
 
 app = FastAPI(title="KIND Disclosure Dashboard Server")
@@ -55,32 +52,6 @@ supabase_headers = {
 }
 
 # ----------------- FastAPI API Routes -----------------
-
-@app.get("/api/disclosure-link")
-def get_disclosure_link(
-    date: datetime.date,
-    time: str = Query(pattern=r"^(?:[01][0-9]|2[0-3]):[0-5][0-9]$"),
-    company: str = Query(min_length=1, max_length=200),
-    code: str = Query(max_length=20),
-    title: str = Query(min_length=1, max_length=500),
-    submitter: str = Query(max_length=200),
-):
-    try:
-        url = resolve_disclosure_url(date.isoformat(), time, company, code, title, submitter)
-        return RedirectResponse(url, status_code=302)
-    except DisclosureLinkError as error:
-        return HTMLResponse(
-            '<!doctype html><html lang="ko"><meta charset="utf-8">'
-            '<meta name="viewport" content="width=device-width,initial-scale=1">'
-            '<title>공시 원문 연결 안내</title>'
-            '<body style="font-family:system-ui;max-width:640px;margin:64px auto;padding:24px;line-height:1.8">'
-            '<h1>공시 원문 연결 안내</h1><p>' + html.escape(str(error)) + '</p>'
-            '<p><strong>' + html.escape(company) + '</strong><br>' + html.escape(title) + '<br>'
-            + html.escape(f"{date} {time}") + '</p>'
-            '<p><button onclick="location.reload()">다시 시도</button> '
-            '<a href="https://kind.krx.co.kr/disclosure/details.do?method=searchDetailsMain" '
-            'rel="noopener noreferrer">KIND 상세검색 열기</a></p></body></html>', status_code=502,
-        )
 
 def normalize_disclosures(rows):
     rows = [row for row in rows if not is_placeholder_disclosure(row)]
