@@ -73,23 +73,32 @@ def upload_classified_rows_to_supabase(db_items, file_path=None, disclosure_date
         identity = tuple(row[field] for field in ("disclosure_date", "time", "company", "code", "title"))
         unique[identity] = row
     payload = list(unique.values())
-    for offset in range(0, len(payload), 500):
-        response = requests.post(
-            url, params={"on_conflict": "disclosure_date,time,company,code,title"},
-            headers=headers, json=payload[offset:offset + 500], timeout=30,
-        )
-        if response.status_code not in (200, 201, 204):
-            # 기존 행에 UPDATE 권한이 없으면 기존+신규 행의 일괄 upsert 전체가 실패할 수 있다.
-            try:
-                error = response.json()
-            except ValueError:
-                error = {}
-            code = error.get("code", "unknown") if isinstance(error, dict) else "unknown"
-            raise RuntimeError(
-                f"Supabase 적재 실패: HTTP {response.status_code}, code={code}. "
-                "RLS의 SELECT/INSERT 권한 및 충돌 대상 UNIQUE 제약조건을 확인하세요. "
-                "기존 행 갱신 모드는 서버 전용 쓰기 키가 필요합니다."
+    # PostgREST bulk insert requires identical keys within each request.
+    # Keep absent optional columns absent: filling source_url with null would
+    # erase a previously resolved URL when using merge-duplicates.
+    groups = {}
+    for row in payload:
+        groups.setdefault(tuple(sorted(row)), []).append(row)
+    for rows in groups.values():
+        for offset in range(0, len(rows), 500):
+            response = requests.post(
+                url, params={"on_conflict": "disclosure_date,time,company,code,title"},
+                headers=headers, json=rows[offset:offset + 500], timeout=30,
             )
+            if response.status_code not in (200, 201, 204):
+                try:
+                    error = response.json()
+                except ValueError:
+                    error = {}
+                code = error.get("code", "unknown") if isinstance(error, dict) else "unknown"
+                guidance = (
+                    "일괄 전송 JSON 형식과 각 행의 필드를 확인하세요."
+                    if code == "PGRST102" else
+                    "RLS의 SELECT/INSERT 권한 및 충돌 대상 UNIQUE 제약조건을 확인하세요."
+                )
+                raise RuntimeError(
+                    f"Supabase 적재 실패: HTTP {response.status_code}, code={code}. {guidance}"
+                )
     print(f"✅ Supabase 적재 완료: {disclosure_date}, {len(payload)}건")
     return len(payload)
 

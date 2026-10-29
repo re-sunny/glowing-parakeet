@@ -63,6 +63,39 @@ def test_upsert_permission_error_is_not_swallowed(monkeypatch, tmp_path, configu
         pipeline.upload_classified_rows_to_supabase([item()], snapshot)
 
 
+@pytest.mark.parametrize('use_service_key', [True, False])
+def test_mixed_source_links_are_accepted_without_erasing_existing_links(monkeypatch, configured_db, use_service_key):
+    if not use_service_key:
+        monkeypatch.delenv('SUPABASE_SERVICE_ROLE_KEY')
+    old_url = 'https://kind.krx.co.kr/common/disclsviewer.do?method=search&acptno=20261028000637'
+    new_url = 'https://kind.krx.co.kr/common/disclsviewer.do?method=search&acptno=20261028001215'
+    database = {item()['title']: {**item(), 'source_url': old_url}}
+    requests_seen = []
+
+    def post(url, *, headers, json, params, timeout):
+        requests_seen.append(json)
+        # PostgREST rejects a bulk body with heterogeneous object keys.
+        if len({tuple(sorted(row)) for row in json}) != 1:
+            return type('Response', (), {'status_code': 400, 'json': lambda self: {'code': 'PGRST102'}})()
+        assert len(json) <= 500
+        for row in json:
+            if row['title'] not in database:
+                database[row['title']] = dict(row)
+            elif use_service_key:
+                database[row['title']].update(row)
+        return type('Response', (), {'status_code': 201})()
+
+    monkeypatch.setattr(pipeline.requests, 'post', post)
+    linked = {**item('원문 연결 신규 공시', '20:02'), 'source_url': new_url}
+    missing = item('원문 미연결 신규 공시', '20:03')
+    assert pipeline.upload_classified_rows_to_supabase([linked, item(), missing], disclosure_date='2026-10-29') == 3
+    assert len(database) == 3
+    assert database[item()['title']]['source_url'] == old_url
+    assert database[linked['title']]['source_url'] == new_url
+    assert 'source_url' not in database[missing['title']]
+    assert len(requests_seen) == 2
+
+
 def test_insert_only_key_skips_existing_rows_without_update_permission(monkeypatch, tmp_path, configured_db):
     monkeypatch.delenv("SUPABASE_SERVICE_ROLE_KEY")
     snapshot = tmp_path / "snapshot.xls"
