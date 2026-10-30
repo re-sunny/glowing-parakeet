@@ -23,14 +23,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 공개 조회는 CDN에서 60초간 재사용한다. 수동 새로고침과 오류는 캐시하지 않는다.
+# 만료된 공개 응답도 즉시 반환하고 CDN이 뒤에서 갱신한다.
+# 수동 새로고침과 오류는 캐시하지 않는다.
 class QueryCacheMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request, call_next):
         response = await call_next(request)
         if (response.status_code == 200
                 and request.url.path in {"/api/dates", "/api/disclosures", "/api/bootstrap"}
                 and request.query_params.get("refresh") != "1"):
-            response.headers["Cache-Control"] = "public, max-age=0, s-maxage=60"
+            response.headers["Cache-Control"] = "public, max-age=0, s-maxage=60, stale-while-revalidate=86400"
         else:
             response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
         return response
@@ -51,6 +52,15 @@ supabase_headers = {
     "Content-Type": "application/json"
 }
 
+# requests.get은 매번 TLS 연결을 새로 만든다. 작업 스레드별 연결 풀을 재사용한다.
+_query_connections = threading.local()
+
+
+def database_get(url, **kwargs):
+    if not hasattr(_query_connections, "session"):
+        _query_connections.session = requests.Session()
+    return _query_connections.session.get(url, **kwargs)
+
 # ----------------- FastAPI API Routes -----------------
 
 def normalize_disclosures(rows):
@@ -67,7 +77,7 @@ def normalize_disclosures(rows):
 @app.get("/api/bootstrap")
 def get_bootstrap():
     """동일한 DB 스냅샷의 날짜 목록과 최신 공시를 한 번에 전달한다."""
-    response = requests.get(
+    response = database_get(
         f"{SUPABASE_URL}/rest/v1/rpc/disclosure_dashboard_bootstrap",
         headers=supabase_headers, timeout=15,
     )
@@ -80,7 +90,7 @@ def get_bootstrap():
     return data
 
 @app.get("/api/dates")
-async def get_dates():
+def get_dates():
     try:
         # DB에서 중복 제거·안내문 제외를 끝내 날짜만 전송한다.
         # 날짜가 1000개를 넘는 장기 아카이브도 Range로 이어서 읽는다.
@@ -90,7 +100,7 @@ async def get_dates():
         while True:
             headers = dict(supabase_headers)
             headers["Range"] = f"{page * 1000}-{(page + 1) * 1000 - 1}"
-            response = requests.get(url, headers=headers, timeout=15)
+            response = database_get(url, headers=headers, timeout=15)
             # 전체 행 수가 정확히 1000의 배수면 다음 범위는 416으로 끝날 수 있다.
             if page > 0 and response.status_code == 416 and response.json().get("code") == "PGRST103":
                 break
@@ -112,7 +122,7 @@ async def get_dates():
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/disclosures")
-async def get_disclosures(
+def get_disclosures(
     date: str = Query(None, description="조회할 날짜 (YYYY-MM-DD)"),
     query: str = Query(None, description="실시간 검색 쿼리"),
     ignoreDate: bool = Query(False, description="날짜 조건 여부 무시 여부 (전역 검색)"),
@@ -155,7 +165,7 @@ async def get_disclosures(
             params["order"] = "time.desc"
             params["limit"] = "1000"
 
-        response = requests.get(url, headers=supabase_headers, params=params, timeout=15)
+        response = database_get(url, headers=supabase_headers, params=params, timeout=15)
         if response.status_code != 200:
             raise HTTPException(status_code=500, detail="Supabase data query failed")
             

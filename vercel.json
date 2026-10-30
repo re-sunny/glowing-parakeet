@@ -1,4 +1,5 @@
 {
+    "regions": ["sin1"],
     "builds": [
         {
             "src": "run_server.py",

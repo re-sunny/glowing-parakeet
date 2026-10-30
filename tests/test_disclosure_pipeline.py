@@ -168,8 +168,8 @@ def test_old_database_rows_are_normalized_when_read(monkeypatch):
                 {**item("결과값이 없습니다."), "time": "결과값이 없습니다."},
             ]
 
-    monkeypatch.setattr(run_server.requests, "get", lambda *args, **kwargs: Response())
-    rows = asyncio.run(run_server.get_disclosures(date="2026-10-27", query=None, ignoreDate=False, exclude=False))
+    monkeypatch.setattr(run_server, "database_get", lambda *args, **kwargs: Response())
+    rows = run_server.get_disclosures(date="2026-10-27", query=None, ignoreDate=False, exclude=False)
     assert rows[0]["category"] == "others"
     assert len(rows) == 2
     assert rows[1]["company"] == "코스닥시장본부"
@@ -277,5 +277,5 @@ def test_date_archive_uses_database_aggregation(monkeypatch):
         assert url.endswith('/rest/v1/rpc/disclosure_archive_dates')
         return Response()
 
-    monkeypatch.setattr(run_server.requests, "get", get)
-    assert asyncio.run(run_server.get_dates()) == ["2026-10-26"]
+    monkeypatch.setattr(run_server, "database_get", get)
+    assert run_server.get_dates() == ["2026-10-26"]

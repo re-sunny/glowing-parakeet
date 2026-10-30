@@ -26,3 +26,24 @@ def test_only_successful_ordinary_queries_use_short_cdn_cache(path, params, stat
     policy = response.headers['Cache-Control']
     assert ('s-maxage=60' in policy) is cacheable
     assert ('no-store' in policy) is not cacheable
+    assert ('stale-while-revalidate=86400' in policy) is cacheable
+
+
+def test_database_connection_is_reused_in_one_worker(monkeypatch):
+    import threading
+    import run_server
+
+    sessions = []
+
+    class Session:
+        def __init__(self):
+            sessions.append(self)
+
+        def get(self, url, **kwargs):
+            return url
+
+    monkeypatch.setattr(run_server, '_query_connections', threading.local())
+    monkeypatch.setattr(run_server.requests, 'Session', Session)
+    assert run_server.database_get('first') == 'first'
+    assert run_server.database_get('second') == 'second'
+    assert len(sessions) == 1

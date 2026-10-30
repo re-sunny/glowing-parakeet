@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📈 KIND 기업 공시 리스크 히스토리 대시보드</title>
+    <link rel="preload" href="/api/bootstrap" as="fetch" crossorigin="anonymous">
     <style>
         :root {
             --bg-color: #0f172a;
@@ -844,6 +845,8 @@
             </div>
         </div>
 
+        <p id="data-load-status" role="status" aria-live="polite" style="font-size:12px;color:var(--text-secondary);"></p>
+
         <!-- 탭 네비게이션 및 테마 스위처 -->
         <div class="tabs-container">
             <div class="tabs-nav">
@@ -969,6 +972,46 @@
         let databaseDates = []; // DB에 존재하는 모든 유니크 공시 날짜 리스트
         let activeMonth = "";
         let activeDate = "";
+        const BOOTSTRAP_CACHE_KEY = 'nightdisclosure.bootstrap.v1';
+        const dateDataCache = new Map();
+        let dataLoadVersion = 0;
+
+        function validBootstrap(data) {
+            return data && Array.isArray(data.dates) && Array.isArray(data.disclosures)
+                && data.dates.every(date => /^\d{4}-\d{2}-\d{2}$/.test(date))
+                && (data.date === null || /^\d{4}-\d{2}-\d{2}$/.test(data.date))
+                && data.disclosures.every(row => row && typeof row === 'object');
+        }
+
+        function readBootstrapCache() {
+            try {
+                const cached = JSON.parse(localStorage.getItem(BOOTSTRAP_CACHE_KEY));
+                const age = Date.now() - cached.savedAt;
+                if (age >= 0 && age < 86400000 && validBootstrap(cached.data)) return cached.data;
+            } catch (_) { /* 비공개 모드·저장 용량 제한·깨진 캐시는 네트워크 조회로 처리한다. */ }
+            return null;
+        }
+
+        function saveBootstrapCache(data) {
+            try {
+                localStorage.setItem(BOOTSTRAP_CACHE_KEY, JSON.stringify({ savedAt: Date.now(), data }));
+            } catch (_) { /* 저장소가 없어도 조회는 정상 동작한다. */ }
+        }
+
+        function setDataLoadStatus(message) {
+            document.getElementById('data-load-status').textContent = message;
+        }
+
+        function applyBootstrapData(data) {
+            databaseDates = data.dates;
+            const targetDate = data.date || new Date().toLocaleDateString('sv-SE');
+            document.getElementById('disclosure-date').value = targetDate;
+            setupDateNavigation(targetDate);
+            allDisclosuresData = data.disclosures;
+            filteredDisclosuresData = [...allDisclosuresData];
+            dateDataCache.set(targetDate, data.disclosures);
+            onSearchInput();
+        }
 
         async function fetchAllDatabaseDates(refresh = false) {
             try {
@@ -1049,53 +1092,71 @@
         }
 
         async function initializeWithLatest(refresh = false) {
-            showLoading(true);
+            const version = ++dataLoadVersion;
+            const cached = !refresh && readBootstrapCache();
+            let showingStoredData = Boolean(cached);
+            if (cached) applyBootstrapData(cached);
+            showLoading(!cached);
+            setDataLoadStatus(cached ? '저장된 공시를 표시 중입니다. 최신 데이터를 확인하고 있습니다.' : '최신 공시를 불러오고 있습니다.');
             try {
                 const response = await fetch(refresh ? '/api/bootstrap?refresh=1' : '/api/bootstrap');
                 if (!response.ok) throw new Error('초기 조회 실패');
-                const data = await response.json();
-                databaseDates = data.dates;
-
-                let targetDate = data.date;
-                if (!targetDate) {
-                    // 데이터가 하나도 없는 경우 오늘 날짜 기본값 세팅
-                    const today = new Date();
-                    const yyyy = today.getFullYear();
-                    const mm = String(today.getMonth() + 1).padStart(2, '0');
-                    const dd = String(today.getDate()).padStart(2, '0');
-                    targetDate = `${yyyy}-${mm}-${dd}`;
+                let data = await response.json();
+                // CDN이 오래된 응답을 먼저 반환한 경우에도 최신 DB 결과를 뒤에서 확인한다.
+                if (!refresh && response.headers?.get('x-vercel-cache') === 'STALE') {
+                    if (validBootstrap(data) && version === dataLoadVersion) {
+                        applyBootstrapData(data);
+                        showingStoredData = true;
+                        showLoading(false);
+                        setDataLoadStatus('공시를 표시 중입니다. 최신 데이터를 확인하고 있습니다.');
+                    }
+                    const fresh = await fetch('/api/bootstrap?refresh=1');
+                    if (!fresh.ok) throw new Error('최신 조회 실패');
+                    data = await fresh.json();
                 }
-
-                document.getElementById('disclosure-date').value = targetDate;
-                setupDateNavigation(targetDate);
-                allDisclosuresData = data.disclosures;
-                filteredDisclosuresData = [...allDisclosuresData];
-                renderDashboard();
+                if (!validBootstrap(data)) throw new Error('초기 응답 형식 오류');
+                saveBootstrapCache(data);
+                if (version !== dataLoadVersion) return;
+                applyBootstrapData(data);
+                setDataLoadStatus(`${data.date || '선택 날짜'} 공시 · 조회 완료`);
             } catch (err) {
                 console.error("최신 날짜 확인 중 오류:", err);
-                alert("데이터베이스 정보를 읽어오지 못했습니다. 네트워크를 확인해주세요.");
+                if (version === dataLoadVersion) setDataLoadStatus(showingStoredData
+                    ? '저장된 공시를 표시 중입니다. 최신 데이터 확인에 실패했습니다. 최신 데이터 불러오기로 다시 시도하세요.'
+                    : '공시를 불러오지 못했습니다. 최신 데이터 불러오기로 다시 시도하세요.');
             } finally {
-                showLoading(false);
+                if (version === dataLoadVersion) showLoading(false);
             }
         }
 
         // 특정 날짜의 정보 조회
         async function loadDisclosuresForDate(dateStr, refresh = false) {
+            const version = ++dataLoadVersion;
+            if (!refresh && dateDataCache.has(dateStr)) {
+                allDisclosuresData = dateDataCache.get(dateStr);
+                filteredDisclosuresData = [...allDisclosuresData];
+                onSearchInput();
+                showLoading(false);
+                setDataLoadStatus(`${dateStr} 공시 · 이 방문에서 조회한 데이터`);
+                return;
+            }
             showLoading(true);
             try {
                 const response = await fetch(`/api/disclosures?date=${dateStr}${refresh ? '&refresh=1' : ''}`);
                 if (!response.ok) throw new Error("로드 실패");
                 const data = await response.json();
-
+                if (version !== dataLoadVersion) return;
+                dateDataCache.set(dateStr, data || []);
                 allDisclosuresData = data || [];
                 filteredDisclosuresData = [...allDisclosuresData];
 
                 renderDashboard();
+                setDataLoadStatus(`${dateStr} 공시 · 조회 완료`);
             } catch (err) {
                 console.error("공시 데이터 로드 오류:", err);
                 alert("해당 날짜의 데이터를 로드하는 중 오류가 발생했습니다.");
             } finally {
-                showLoading(false);
+                if (version === dataLoadVersion) showLoading(false);
             }
         }
 
@@ -1254,13 +1315,13 @@
                         const dateFormatted = item.disclosure_date ? item.disclosure_date.slice(5).replace('-', '.') + ' ' : '';
                         cardsHTML += `
                             <tr>
-                                <td class="time-cell">${dateFormatted}${item.time}</td>
+                                <td class="time-cell">${escapeHtml(dateFormatted)}${escapeHtml(item.time)}</td>
                                 <td>
-                                     <span class="company-name">${item.company}</span>
-                                     <span class="stock-code">(${item.code})</span>
+                                     <span class="company-name">${escapeHtml(item.company)}</span>
+                                     <span class="stock-code">(${escapeHtml(item.code)})</span>
                                 </td>
                                 <td>${renderDisclosureTitle(item)}</td>
-                                <td class="submitter-cell">${item.submitter}</td>
+                                <td class="submitter-cell">${escapeHtml(item.submitter)}</td>
                             </tr>
                         `;
                     });

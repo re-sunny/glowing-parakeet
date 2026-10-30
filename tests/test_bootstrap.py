@@ -18,7 +18,7 @@ def test_bootstrap_uses_one_db_call_and_keeps_existing_normalization(monkeypatch
             {'title': '상장폐지에 따른 매매거래정지', 'company': 'nan', 'submitter': '코스닥시장본부', 'code': '999980'},
         ]})
 
-    monkeypatch.setattr(run_server.requests, 'get', get)
+    monkeypatch.setattr(run_server, 'database_get', get)
     data = run_server.get_bootstrap()
     assert len(calls) == 1
     assert calls[0].endswith('/rpc/disclosure_dashboard_bootstrap')
@@ -30,12 +30,12 @@ def test_bootstrap_uses_one_db_call_and_keeps_existing_normalization(monkeypatch
 
 @pytest.mark.parametrize('data,status', [({}, 200), ([], 200), ({}, 500)])
 def test_bootstrap_rejects_invalid_or_failed_database_response(monkeypatch, data, status):
-    monkeypatch.setattr(run_server.requests, 'get', lambda *args, **kwargs: response(data, status))
+    monkeypatch.setattr(run_server, 'database_get', lambda *args, **kwargs: response(data, status))
     with pytest.raises(HTTPException):
         run_server.get_bootstrap()
 
 
 def test_empty_database_bootstrap_is_valid(monkeypatch):
     payload = {'dates': [], 'date': None, 'disclosures': []}
-    monkeypatch.setattr(run_server.requests, 'get', lambda *args, **kwargs: response(payload))
+    monkeypatch.setattr(run_server, 'database_get', lambda *args, **kwargs: response(payload))
     assert run_server.get_bootstrap() == payload

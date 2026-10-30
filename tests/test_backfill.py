@@ -96,8 +96,8 @@ def test_date_archive_pages_more_than_one_thousand_distinct_dates(monkeypatch):
                 for i in range(start, min(start + 1000, 1001))]
         return type('Response', (), {'status_code': 200, 'json': lambda self: data})()
 
-    monkeypatch.setattr(run_server.requests, 'get', get)
-    dates = asyncio.run(run_server.get_dates())
+    monkeypatch.setattr(run_server, 'database_get', get)
+    dates = run_server.get_dates()
     assert len(dates) == 1001
     assert dates[-1] == (dt.date(2026, 10, 26) - dt.timedelta(days=1000)).isoformat()
 
@@ -111,5 +111,5 @@ def test_date_archive_accepts_out_of_range_after_full_last_page(monkeypatch):
                 if first else {'code': 'PGRST103'})
         return type('Response', (), {'status_code': 200 if first else 416, 'json': lambda self: data})()
 
-    monkeypatch.setattr(run_server.requests, 'get', get)
-    assert asyncio.run(run_server.get_dates()) == ['2025-01-06']
+    monkeypatch.setattr(run_server, 'database_get', get)
+    assert run_server.get_dates() == ['2025-01-06']
