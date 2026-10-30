@@ -974,7 +974,73 @@
         let activeDate = "";
         const BOOTSTRAP_CACHE_KEY = 'nightdisclosure.bootstrap.v1';
         const dateDataCache = new Map();
+        const dateCacheTimes = new Map();
+        const pendingDateRequests = new Map();
+        const DATE_CACHE_KEY = 'nightdisclosure.dates.v1';
         let dataLoadVersion = 0;
+
+        function dateCacheIsFresh(date, savedAt) {
+            const today = new Date().toLocaleDateString('sv-SE');
+            const age = Date.now() - savedAt;
+            return age >= 0 && age < (date >= today ? 60000 : 86400000);
+        }
+
+        function readDateData(date) {
+            if (dateDataCache.has(date) && dateCacheIsFresh(date, dateCacheTimes.get(date))) {
+                return dateDataCache.get(date);
+            }
+            try {
+                const entries = JSON.parse(localStorage.getItem(DATE_CACHE_KEY)) || [];
+                const entry = entries.find(item => item.date === date && dateCacheIsFresh(date, item.savedAt));
+                if (entry && Array.isArray(entry.rows) && entry.rows.every(row => row && typeof row === 'object')) {
+                    dateDataCache.set(date, entry.rows);
+                    dateCacheTimes.set(date, entry.savedAt);
+                    return entry.rows;
+                }
+            } catch (_) { /* 손상된 저장소는 건너뛴다. */ }
+            return null;
+        }
+
+        function rememberDateData(date, rows) {
+            const savedAt = Date.now();
+            dateDataCache.set(date, rows);
+            dateCacheTimes.set(date, savedAt);
+            try {
+                const stored = JSON.parse(localStorage.getItem(DATE_CACHE_KEY)) || [];
+                const entries = [{date, rows, savedAt}, ...stored.filter(item => item.date !== date && dateCacheIsFresh(item.date, item.savedAt))].slice(0, 16);
+                localStorage.setItem(DATE_CACHE_KEY, JSON.stringify(entries));
+            } catch (_) { /* 저장소 제한이 있어도 메모리 캐시는 사용할 수 있다. */ }
+        }
+
+        function requestDateData(date, refresh = false) {
+            if (!refresh && pendingDateRequests.has(date)) return pendingDateRequests.get(date);
+            const request = (async () => {
+                const response = await fetch(`/api/disclosures?date=${encodeURIComponent(date)}${refresh ? '&refresh=1' : ''}`);
+                if (!response.ok) throw new Error('공시 조회 실패');
+                const rows = await response.json();
+                if (!Array.isArray(rows)) throw new Error('공시 응답 형식 오류');
+                rememberDateData(date, rows);
+                return rows;
+            })();
+            pendingDateRequests.set(date, request);
+            const clear = () => {
+                if (pendingDateRequests.get(date) === request) pendingDateRequests.delete(date);
+            };
+            request.then(clear, clear);
+            return request;
+        }
+
+        function prefetchDate(date) {
+            if (date && readDateData(date) === null) requestDateData(date).catch(() => {});
+        }
+
+        function setDateLoading(loading) {
+            const sections = document.getElementById('dashboard-sections');
+            sections.style.opacity = loading ? '0.45' : '';
+            sections.style.pointerEvents = loading ? 'none' : '';
+            sections.setAttribute('aria-busy', String(loading));
+            document.querySelectorAll('.copy-btn').forEach(button => { button.disabled = loading; });
+        }
 
         function validBootstrap(data) {
             return data && Array.isArray(data.dates) && Array.isArray(data.disclosures)
@@ -1009,7 +1075,7 @@
             setupDateNavigation(targetDate);
             allDisclosuresData = data.disclosures;
             filteredDisclosuresData = [...allDisclosuresData];
-            dateDataCache.set(targetDate, data.disclosures);
+            rememberDateData(targetDate, data.disclosures);
             onSearchInput();
         }
 
@@ -1055,6 +1121,8 @@
                 const btn = document.createElement('button');
                 btn.className = `month-btn ${m === activeMonth ? 'active' : ''}`;
                 btn.innerText = `${year}년 ${month}월`;
+                const firstDate = databaseDates.find(d => d.startsWith(m));
+                btn.onmouseenter = btn.onfocus = () => prefetchDate(firstDate);
                 btn.onclick = () => {
                     activeMonth = m;
                     const daysInMonth = databaseDates.filter(d => d.startsWith(m));
@@ -1081,6 +1149,7 @@
                 const btn = document.createElement('button');
                 btn.className = `day-btn ${d === activeDate ? 'active' : ''}`;
                 btn.innerText = `${parseInt(day)}일`;
+                btn.onmouseenter = btn.onfocus = () => prefetchDate(d);
                 btn.onclick = () => {
                     activeDate = d;
                     document.getElementById('disclosure-date').value = d;
@@ -1096,6 +1165,7 @@
             const cached = !refresh && readBootstrapCache();
             let showingStoredData = Boolean(cached);
             if (cached) applyBootstrapData(cached);
+            setDateLoading(false);
             showLoading(!cached);
             setDataLoadStatus(cached ? '저장된 공시를 표시 중입니다. 최신 데이터를 확인하고 있습니다.' : '최신 공시를 불러오고 있습니다.');
             try {
@@ -1132,31 +1202,38 @@
         // 특정 날짜의 정보 조회
         async function loadDisclosuresForDate(dateStr, refresh = false) {
             const version = ++dataLoadVersion;
-            if (!refresh && dateDataCache.has(dateStr)) {
-                allDisclosuresData = dateDataCache.get(dateStr);
+            const cached = !refresh ? readDateData(dateStr) : null;
+            if (cached !== null) {
+                allDisclosuresData = cached;
                 filteredDisclosuresData = [...allDisclosuresData];
                 onSearchInput();
+                setDateLoading(false);
                 showLoading(false);
-                setDataLoadStatus(`${dateStr} 공시 · 이 방문에서 조회한 데이터`);
+                setDataLoadStatus(`${dateStr} 공시 · 저장된 데이터`);
                 return;
             }
-            showLoading(true);
+            // 날짜 이동은 전체 화면을 가리지 않아 다른 월·날짜를 계속 선택할 수 있다.
+            showLoading(false);
+            setDateLoading(true);
+            setDataLoadStatus(`${dateStr} 공시를 불러오고 있습니다. 표는 직전 조회 결과입니다.`);
             try {
-                const response = await fetch(`/api/disclosures?date=${dateStr}${refresh ? '&refresh=1' : ''}`);
-                if (!response.ok) throw new Error("로드 실패");
-                const data = await response.json();
+                const data = await requestDateData(dateStr, refresh);
                 if (version !== dataLoadVersion) return;
-                dateDataCache.set(dateStr, data || []);
-                allDisclosuresData = data || [];
+                allDisclosuresData = data;
                 filteredDisclosuresData = [...allDisclosuresData];
 
-                renderDashboard();
+                onSearchInput();
                 setDataLoadStatus(`${dateStr} 공시 · 조회 완료`);
             } catch (err) {
                 console.error("공시 데이터 로드 오류:", err);
-                alert("해당 날짜의 데이터를 로드하는 중 오류가 발생했습니다.");
+                if (version === dataLoadVersion) {
+                    allDisclosuresData = [];
+                    filteredDisclosuresData = [];
+                    renderDashboard();
+                    setDataLoadStatus(`${dateStr} 조회에 실패했습니다. 날짜를 다시 눌러주세요.`);
+                }
             } finally {
-                if (version === dataLoadVersion) showLoading(false);
+                if (version === dataLoadVersion) setDateLoading(false);
             }
         }
 

@@ -17,9 +17,9 @@ const context = vm.createContext({
     localStorage: {getItem: key => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value)},
     window: {addEventListener() {}},
     document: {getElementById(id) {
-        if (!elements.has(id)) elements.set(id, {style: {}, value: '', checked: false});
+        if (!elements.has(id)) elements.set(id, {style: {}, value: '', checked: false, setAttribute(key, value) { this[key] = value; }});
         return elements.get(id);
-    }},
+    }, querySelectorAll() { return []; }},
     alert(message) { throw new Error(message); },
     async fetch(url) {
         requests.push(url);
@@ -87,5 +87,39 @@ context.renderDashboard = () => { renderCount++; };
     assert.equal(context.readBootstrapCache(), null);
     storage.set('nightdisclosure.bootstrap.v1', '{broken');
     assert.equal(context.readBootstrapCache(), null);
+
+    // 호버 선조회와 실제 클릭이 같은 요청을 공유하고 전체 화면을 막지 않는다.
+    requests.splice(0);
+    fetchOverride = () => new Promise(resolve => { resolveFetch = resolve; });
+    context.prefetchDate('2026-09-30');
+    const datePending = context.loadDisclosuresForDate('2026-09-30');
+    assert.deepEqual(requests.splice(0), ['/api/disclosures?date=2026-09-30']);
+    assert.equal(elements.get('loading').style.display, 'none');
+    assert.equal(elements.get('dashboard-sections')['aria-busy'], 'true');
+    resolveFetch({ok: true, json: async () => [{title: '9월 공시'}]});
+    await datePending;
+    assert.equal(elements.get('dashboard-sections')['aria-busy'], 'false');
+
+    // 페이지를 다시 열어 메모리가 비어도 이전에 조회한 날짜는 저장소에서 복원한다.
+    vm.runInContext('dateDataCache.clear(); dateCacheTimes.clear();', context);
+    await context.loadDisclosuresForDate('2026-09-30');
+    assert.deepEqual(requests.splice(0), []);
+    assert.equal(context.readDateData('2026-09-30')[0].title, '9월 공시');
+    assert.equal(context.dateCacheIsFresh('2020-01-01', Date.now() - 86400001), false);
+    const today = new Date().toLocaleDateString('sv-SE');
+    assert.equal(context.dateCacheIsFresh(today, Date.now() - 60001), false);
+
+    // 빠르게 날짜를 바꿨을 때 늦게 끝난 요청은 현재 표를 덮어쓰지 않는다.
+    const deferred = new Map();
+    fetchOverride = url => new Promise(resolve => deferred.set(url, resolve));
+    const firstDate = context.loadDisclosuresForDate('2026-08-31');
+    const secondDate = context.loadDisclosuresForDate('2026-07-31');
+    deferred.get('/api/disclosures?date=2026-07-31')({ok: true, json: async () => [{title: '7월 공시'}]});
+    await secondDate;
+    deferred.get('/api/disclosures?date=2026-08-31')({ok: true, json: async () => [{title: '8월 공시'}]});
+    await firstDate;
+    assert.equal(vm.runInContext('allDisclosuresData[0].title', context), '7월 공시');
+    assert.equal(context.readDateData('2026-08-31')[0].title, '8월 공시');
     console.log('PASS: initial load, forced refresh, immediate cached render, failed revalidation, date-selection race, stale CDN refresh, expired/broken storage');
+    console.log('PASS: shared prefetch, nonblocking date load, persistent date cache, cache expiry, rapid month changes');
 })().catch(error => { console.error(error); process.exitCode = 1; });
