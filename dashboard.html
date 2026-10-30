@@ -1365,11 +1365,9 @@
 
         // 외부 편집기에 붙여넣어도 유지되도록 스타일을 인라인으로 지정한다.
         function buildLinkedTableClipboard() {
-            const light = document.body.classList.contains('light-mode');
-            const palette = light
-                ? { bg: '#ffffff', head: '#f1f5f9', row: '#f8fafc', text: '#0f172a', muted: '#475569', border: '#cbd5e1', time: '#7c3aed' }
-                : { bg: '#1e293b', head: '#0f172a', row: '#222e40', text: '#f1f5f9', muted: '#cbd5e1', border: '#334155', time: '#a78bfa' };
-            const cellStyle = `padding:12px 16px;border-bottom:1px solid ${palette.border};text-align:left;vertical-align:middle;font-size:13px;line-height:1.6;`;
+            // 외부 편집기가 배경 스타일을 제거해도 읽을 수 있는 복사용 색상을 사용한다.
+            const palette = { bg: '#ffffff', head: '#f1f5f9', row: '#ffffff', text: '#111827', muted: '#334155', border: '#cbd5e1', time: '#334155' };
+            const cellStyle = `padding:12px 16px;border-bottom:1px solid ${palette.border};text-align:left;vertical-align:middle;font-size:13px;line-height:1.6;background-color:${palette.bg};color:${palette.text};`;
             const keys = currentActiveTab === 'all' ? Object.keys(CATEGORIES) : [currentActiveTab];
             const tables = [];
             const text = [];
@@ -1383,7 +1381,7 @@
                     const time = date + (item.time || '');
                     const url = /^https:\/\/kind\.krx\.co\.kr\/common\/disclsviewer\.do\?method=search&acptno=\d{14}$/.test(item.source_url ?? '') ? item.source_url : '';
                     const title = url
-                        ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" style="color:${palette.muted};text-decoration:underline;">${escapeHtml(item.title)} ↗</a>`
+                        ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" style="color:#1d4ed8;text-decoration:underline;">${escapeHtml(item.title)} ↗</a>`
                         : escapeHtml(item.title);
                     text.push([time, `${item.company ?? ''} (${item.code ?? ''})`, item.title ?? '', item.submitter ?? '', url].join('\t'));
                     return `<tr style="background-color:${index % 2 ? palette.row : palette.bg};color:${palette.text};">
@@ -1394,7 +1392,7 @@
                 }).join('');
                 tables.push(`<table width="100%" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;border:1px solid ${palette.border};background-color:${palette.bg};color:${palette.text};font-family:Arial,'Malgun Gothic',sans-serif;">
                     <thead><tr><th colspan="4" style="${cellStyle}padding:16px;border-left:5px solid #3b82f6;font-size:16px;background-color:${palette.bg};color:${palette.text};">${escapeHtml(heading)}</th></tr>
-                    <tr style="background-color:${palette.head};color:${palette.text};">${['날짜/시간', '회사명', '📢 주요 공시 내용', '제출인'].map(label => `<th style="${cellStyle}">${label}</th>`).join('')}</tr></thead>
+                    <tr style="background-color:${palette.head};color:${palette.text};">${['날짜/시간', '회사명', '📢 주요 공시 내용', '제출인'].map(label => `<th style="${cellStyle}background-color:${palette.head};font-weight:bold;">${label}</th>`).join('')}</tr></thead>
                     <tbody>${rows}</tbody></table>`);
                 text.push('');
             });
