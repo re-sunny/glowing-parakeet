@@ -21,6 +21,7 @@ reports/
 .vscode/
 .idea/
 .vercel
+public/
 .env
 .env.*
 !.env.example

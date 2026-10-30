@@ -973,6 +973,7 @@
         let activeMonth = "";
         let activeDate = "";
         const BOOTSTRAP_CACHE_KEY = 'nightdisclosure.bootstrap.v1';
+        const ARCHIVE_MANIFEST = /*__ARCHIVE_MANIFEST__*/ null;
         const dateDataCache = new Map();
         const dateCacheTimes = new Map();
         const pendingDateRequests = new Map();
@@ -991,7 +992,8 @@
             }
             try {
                 const entries = JSON.parse(localStorage.getItem(DATE_CACHE_KEY)) || [];
-                const entry = entries.find(item => item.date === date && dateCacheIsFresh(date, item.savedAt));
+                const entry = entries.find(item => item.date === date && dateCacheIsFresh(date, item.savedAt)
+                    && (!ARCHIVE_MANIFEST?.dates.includes(date) || item.archiveRevision === ARCHIVE_MANIFEST.generatedAt));
                 if (entry && Array.isArray(entry.rows) && entry.rows.every(row => row && typeof row === 'object')) {
                     dateDataCache.set(date, entry.rows);
                     dateCacheTimes.set(date, entry.savedAt);
@@ -1007,7 +1009,8 @@
             dateCacheTimes.set(date, savedAt);
             try {
                 const stored = JSON.parse(localStorage.getItem(DATE_CACHE_KEY)) || [];
-                const entries = [{date, rows, savedAt}, ...stored.filter(item => item.date !== date && dateCacheIsFresh(item.date, item.savedAt))].slice(0, 16);
+                const archiveRevision = ARCHIVE_MANIFEST?.dates.includes(date) ? ARCHIVE_MANIFEST.generatedAt : null;
+                const entries = [{date, rows, savedAt, archiveRevision}, ...stored.filter(item => item.date !== date && dateCacheIsFresh(item.date, item.savedAt))].slice(0, 16);
                 localStorage.setItem(DATE_CACHE_KEY, JSON.stringify(entries));
             } catch (_) { /* 저장소 제한이 있어도 메모리 캐시는 사용할 수 있다. */ }
         }
@@ -1015,9 +1018,24 @@
         function requestDateData(date, refresh = false) {
             if (!refresh && pendingDateRequests.has(date)) return pendingDateRequests.get(date);
             const request = (async () => {
-                const response = await fetch(`/api/disclosures?date=${encodeURIComponent(date)}${refresh ? '&refresh=1' : ''}`);
-                if (!response.ok) throw new Error('공시 조회 실패');
-                const rows = await response.json();
+                let rows;
+                if (!refresh && ARCHIVE_MANIFEST?.dates.includes(date)) {
+                    try {
+                        const response = await fetch(`/archive/dates/${date}.json`);
+                        if (!response.ok) throw new Error('공시 파일 조회 실패');
+                        const snapshot = await response.json();
+                        if (snapshot.version !== 1 || snapshot.date !== date || snapshot.generatedAt !== ARCHIVE_MANIFEST.generatedAt
+                            || !Array.isArray(snapshot.disclosures) || !snapshot.disclosures.every(row => row && row.disclosure_date === date)) {
+                            throw new Error('공시 파일 검증 실패');
+                        }
+                        rows = snapshot.disclosures;
+                    } catch (_) { /* 파일 누락·배포 전환 중에는 기존 DB 조회로 복구한다. */ }
+                }
+                if (rows === undefined) {
+                    const response = await fetch(`/api/disclosures?date=${encodeURIComponent(date)}${refresh ? '&refresh=1' : ''}`);
+                    if (!response.ok) throw new Error('공시 조회 실패');
+                    rows = await response.json();
+                }
                 if (!Array.isArray(rows)) throw new Error('공시 응답 형식 오류');
                 rememberDateData(date, rows);
                 return rows;

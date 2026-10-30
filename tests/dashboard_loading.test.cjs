@@ -120,6 +120,30 @@ context.renderDashboard = () => { renderCount++; };
     await firstDate;
     assert.equal(vm.runInContext('allDisclosuresData[0].title', context), '7월 공시');
     assert.equal(context.readDateData('2026-08-31')[0].title, '8월 공시');
+
+    // 첫 방문 날짜도 정적 파일을 사용하며, 파일 오류 시에는 DB로 복구한다.
+    const archiveContext = vm.createContext({console, Date, URLSearchParams,
+        localStorage: context.localStorage, window: {addEventListener() {}}, document: context.document,
+        fetch: async url => {
+            archiveRequests.push(url);
+            if (url.startsWith('/archive/')) return {ok: true, json: async () => ({version: 1, date: archiveWrongDate ? '2026-08-31' : '2026-09-30', generatedAt: 'test-build', disclosures: [{disclosure_date: '2026-09-30', title: '정적 공시'}]})};
+            return {ok: true, json: async () => [{disclosure_date: '2026-09-30', title: 'DB 공시'}]};
+        }});
+    const archiveRequests = [];
+    let archiveWrongDate = false;
+    vm.runInContext(source.replace('/*__ARCHIVE_MANIFEST__*/ null', JSON.stringify({version: 1, generatedAt: 'test-build', dates: ['2026-09-30']})), archiveContext);
+    const staticRows = await archiveContext.requestDateData('2026-09-30');
+    assert.equal(staticRows[0].title, '정적 공시');
+    assert.deepEqual(archiveRequests.splice(0), ['/archive/dates/2026-09-30.json']);
+    archiveWrongDate = true;
+    const fallbackRows = await archiveContext.requestDateData('2026-09-30');
+    assert.equal(fallbackRows[0].title, 'DB 공시');
+    assert.deepEqual(archiveRequests.splice(0), ['/archive/dates/2026-09-30.json', '/api/disclosures?date=2026-09-30']);
+    await archiveContext.requestDateData('2026-09-30', true);
+    assert.deepEqual(archiveRequests.splice(0), ['/api/disclosures?date=2026-09-30&refresh=1']);
+    await archiveContext.requestDateData('2026-10-30');
+    assert.deepEqual(archiveRequests.splice(0), ['/api/disclosures?date=2026-10-30']);
     console.log('PASS: initial load, forced refresh, immediate cached render, failed revalidation, date-selection race, stale CDN refresh, expired/broken storage');
     console.log('PASS: shared prefetch, nonblocking date load, persistent date cache, cache expiry, rapid month changes');
+    console.log('PASS: static archive first-date request, verified-date fallback, forced refresh, live-date API');
 })().catch(error => { console.error(error); process.exitCode = 1; });
