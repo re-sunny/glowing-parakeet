@@ -855,11 +855,14 @@
                 <button class="tab-btn" onclick="switchTab(event, 'short_selling')">📉 공매도</button>
                 <button class="tab-btn" onclick="switchTab(event, 'others')">📝 기타</button>
             </div>
-            <div class="controls-area" style="display: flex; gap: 8px;">
+            <div class="controls-area" style="display: flex; gap: 8px; flex-wrap: wrap;">
                 <button class="theme-toggle-btn" onclick="toggleTheme()">
                     <span id="theme-btn-icon">☀️</span> <span id="theme-btn-text">라이트 모드</span>
                 </button>
                 <button class="copy-btn" onclick="copyCurrentTab()">📋 이미지 복사</button>
+                <button class="copy-btn" id="copy-table-btn" onclick="copyLinkedTable()"
+                    title="표 디자인과 공시 링크를 함께 복사합니다. 붙여넣는 곳에 따라 서식이 달라질 수 있습니다.">🔗 표·링크 복사</button>
+                <span id="table-copy-status" role="status" aria-live="polite" style="flex-basis: 100%; font-size: 12px; color: var(--text-secondary);"></span>
             </div>
         </div>
 
@@ -1297,6 +1300,92 @@
                     }
                 }
             });
+        }
+
+        // 외부 편집기에 붙여넣어도 유지되도록 스타일을 인라인으로 지정한다.
+        function buildLinkedTableClipboard() {
+            const light = document.body.classList.contains('light-mode');
+            const palette = light
+                ? { bg: '#ffffff', head: '#f1f5f9', row: '#f8fafc', text: '#0f172a', muted: '#475569', border: '#cbd5e1', time: '#7c3aed' }
+                : { bg: '#1e293b', head: '#0f172a', row: '#222e40', text: '#f1f5f9', muted: '#cbd5e1', border: '#334155', time: '#a78bfa' };
+            const cellStyle = `padding:12px 16px;border-bottom:1px solid ${palette.border};text-align:left;vertical-align:middle;font-size:13px;line-height:1.6;`;
+            const keys = currentActiveTab === 'all' ? Object.keys(CATEGORIES) : [currentActiveTab];
+            const tables = [];
+            const text = [];
+            keys.forEach(key => {
+                const cat = CATEGORIES[key];
+                if (!cat || !cat.items.length) return;
+                const heading = `${cat.icon} ${cat.title} (${cat.items.length}건)`;
+                text.push(heading, '날짜/시간\t회사명\t주요 공시 내용\t제출인\t원문 링크');
+                const rows = cat.items.map((item, index) => {
+                    const date = item.disclosure_date ? item.disclosure_date.slice(5).replace('-', '.') + ' ' : '';
+                    const time = date + (item.time || '');
+                    const url = /^https:\/\/kind\.krx\.co\.kr\/common\/disclsviewer\.do\?method=search&acptno=\d{14}$/.test(item.source_url ?? '') ? item.source_url : '';
+                    const title = url
+                        ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" style="color:${palette.muted};text-decoration:underline;">${escapeHtml(item.title)} ↗</a>`
+                        : escapeHtml(item.title);
+                    text.push([time, `${item.company ?? ''} (${item.code ?? ''})`, item.title ?? '', item.submitter ?? '', url].join('\t'));
+                    return `<tr style="background-color:${index % 2 ? palette.row : palette.bg};color:${palette.text};">
+                        <td style="${cellStyle}color:${palette.time};font-weight:bold;white-space:nowrap;">${escapeHtml(time)}</td>
+                        <td style="${cellStyle}"><strong>${escapeHtml(item.company)}</strong> <span style="color:${palette.muted};">(${escapeHtml(item.code)})</span></td>
+                        <td style="${cellStyle}">${title}</td>
+                        <td style="${cellStyle}color:${palette.muted};">${escapeHtml(item.submitter)}</td></tr>`;
+                }).join('');
+                tables.push(`<table width="100%" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;border:1px solid ${palette.border};background-color:${palette.bg};color:${palette.text};font-family:Arial,'Malgun Gothic',sans-serif;">
+                    <thead><tr><th colspan="4" style="${cellStyle}padding:16px;border-left:5px solid #3b82f6;font-size:16px;background-color:${palette.bg};color:${palette.text};">${escapeHtml(heading)}</th></tr>
+                    <tr style="background-color:${palette.head};color:${palette.text};">${['날짜/시간', '회사명', '📢 주요 공시 내용', '제출인'].map(label => `<th style="${cellStyle}">${label}</th>`).join('')}</tr></thead>
+                    <tbody>${rows}</tbody></table>`);
+                text.push('');
+            });
+            return { html: tables.join('<p><br></p>'), text: text.join('\n') };
+        }
+
+        function copyLinkedTableFallback(payload) {
+            let copied = false;
+            const onCopy = event => {
+                if (!event.clipboardData) return;
+                event.clipboardData.setData('text/html', payload.html);
+                event.clipboardData.setData('text/plain', payload.text);
+                event.preventDefault();
+                copied = true;
+            };
+            document.addEventListener('copy', onCopy);
+            try {
+                return document.execCommand('copy') && copied;
+            } finally {
+                document.removeEventListener('copy', onCopy);
+            }
+        }
+
+        async function copyLinkedTable() {
+            const button = document.getElementById('copy-table-btn');
+            const status = document.getElementById('table-copy-status');
+            const payload = buildLinkedTableClipboard();
+            if (!payload.html) {
+                status.textContent = '현재 탭에 복사할 공시가 없습니다.';
+                return;
+            }
+            button.disabled = true;
+            status.textContent = '표와 링크를 복사하는 중…';
+            try {
+                let copied = false;
+                if (navigator.clipboard?.write && typeof ClipboardItem !== 'undefined') {
+                    try {
+                        await navigator.clipboard.write([new ClipboardItem({
+                            'text/html': new Blob([payload.html], { type: 'text/html' }),
+                            'text/plain': new Blob([payload.text], { type: 'text/plain' })
+                        })]);
+                        copied = true;
+                    } catch (_) { /* 제한된 브라우저에서는 기본 복사 이벤트로 재시도한다. */ }
+                }
+                if (!copied) copied = copyLinkedTableFallback(payload);
+                if (!copied) throw new Error('clipboard unavailable');
+                status.textContent = '표와 링크를 복사했습니다. 커뮤니티 편집기에 붙여넣으세요. 지원 여부에 따라 서식이 달라질 수 있습니다.';
+            } catch (_) {
+                status.textContent = '복사가 차단되었습니다. 브라우저의 클립보드 권한을 확인하고 다시 눌러주세요.';
+            } finally {
+                button.disabled = false;
+            }
         }
 
         // 캡쳐 및 이미지 복사
