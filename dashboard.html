@@ -1365,8 +1365,11 @@
 
         // 외부 편집기에 붙여넣어도 유지되도록 스타일을 인라인으로 지정한다.
         function buildLinkedTableClipboard() {
-            // 외부 편집기가 배경 스타일을 제거해도 읽을 수 있는 복사용 색상을 사용한다.
-            const palette = { bg: '#ffffff', head: '#f1f5f9', row: '#ffffff', text: '#111827', muted: '#334155', border: '#cbd5e1', time: '#334155' };
+            // 현재 화면 테마를 복사하고, 각 셀에도 색상을 지정해 상속 손실을 줄인다.
+            const light = document.body.classList.contains('light-mode');
+            const palette = light
+                ? { bg: '#ffffff', head: '#f1f5f9', row: '#f8fafc', text: '#111827', muted: '#334155', border: '#cbd5e1', time: '#6d28d9', link: '#1d4ed8' }
+                : { bg: '#1e293b', head: '#0f172a', row: '#222e40', text: '#f8fafc', muted: '#cbd5e1', border: '#334155', time: '#a78bfa', link: '#bfdbfe' };
             const cellStyle = `padding:12px 16px;border-bottom:1px solid ${palette.border};text-align:left;vertical-align:middle;font-size:13px;line-height:1.6;background-color:${palette.bg};color:${palette.text};`;
             const keys = currentActiveTab === 'all' ? Object.keys(CATEGORIES) : [currentActiveTab];
             const tables = [];
@@ -1377,18 +1380,19 @@
                 const heading = `${cat.icon} ${cat.title} (${cat.items.length}건)`;
                 text.push(heading, '날짜/시간\t회사명\t주요 공시 내용\t제출인\t원문 링크');
                 const rows = cat.items.map((item, index) => {
+                    const rowStyle = `${cellStyle}background-color:${index % 2 ? palette.row : palette.bg};`;
                     const date = item.disclosure_date ? item.disclosure_date.slice(5).replace('-', '.') + ' ' : '';
                     const time = date + (item.time || '');
                     const url = /^https:\/\/kind\.krx\.co\.kr\/common\/disclsviewer\.do\?method=search&acptno=\d{14}$/.test(item.source_url ?? '') ? item.source_url : '';
                     const title = url
-                        ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" style="color:#1d4ed8;text-decoration:underline;">${escapeHtml(item.title)} ↗</a>`
+                        ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" style="color:${palette.link};text-decoration:underline;">${escapeHtml(item.title)} ↗</a>`
                         : escapeHtml(item.title);
                     text.push([time, `${item.company ?? ''} (${item.code ?? ''})`, item.title ?? '', item.submitter ?? '', url].join('\t'));
                     return `<tr style="background-color:${index % 2 ? palette.row : palette.bg};color:${palette.text};">
-                        <td style="${cellStyle}color:${palette.time};font-weight:bold;white-space:nowrap;">${escapeHtml(time)}</td>
-                        <td style="${cellStyle}"><strong>${escapeHtml(item.company)}</strong> <span style="color:${palette.muted};">(${escapeHtml(item.code)})</span></td>
-                        <td style="${cellStyle}">${title}</td>
-                        <td style="${cellStyle}color:${palette.muted};">${escapeHtml(item.submitter)}</td></tr>`;
+                        <td style="${rowStyle}color:${palette.time};font-weight:bold;white-space:nowrap;">${escapeHtml(time)}</td>
+                        <td style="${rowStyle}"><strong>${escapeHtml(item.company)}</strong> <span style="color:${palette.muted};">(${escapeHtml(item.code)})</span></td>
+                        <td style="${rowStyle}">${title}</td>
+                        <td style="${rowStyle}color:${palette.muted};">${escapeHtml(item.submitter)}</td></tr>`;
                 }).join('');
                 tables.push(`<table width="100%" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;border:1px solid ${palette.border};background-color:${palette.bg};color:${palette.text};font-family:Arial,'Malgun Gothic',sans-serif;">
                     <thead><tr><th colspan="4" style="${cellStyle}padding:16px;border-left:5px solid #3b82f6;font-size:16px;background-color:${palette.bg};color:${palette.text};">${escapeHtml(heading)}</th></tr>
