@@ -29,7 +29,7 @@ class QueryCacheMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request, call_next):
         response = await call_next(request)
         if (response.status_code == 200
-                and request.url.path in {"/api/dates", "/api/disclosures", "/api/bootstrap"}
+                and request.url.path in {"/api/dates", "/api/disclosures", "/api/bootstrap", "/api/explore", "/api/collection-status"}
                 and request.query_params.get("refresh") != "1"):
             response.headers["Cache-Control"] = "public, max-age=0, s-maxage=60, stale-while-revalidate=86400"
         else:
@@ -174,6 +174,13 @@ def get_disclosures(
         raise HTTPException(status_code=500, detail=str(e))
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+from service_api import create_service_router
+app.include_router(create_service_router(database_get, SUPABASE_URL, supabase_headers, normalize_disclosures))
+
+@app.get('/service.js')
+def get_service_script():
+    return FileResponse(os.path.join(BASE_DIR, 'service.js'), media_type='application/javascript')
 
 # 루트 경로 진입 시 dashboard.html 반환
 @app.get("/", response_class=HTMLResponse)

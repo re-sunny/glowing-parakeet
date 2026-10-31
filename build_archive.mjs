@@ -76,6 +76,7 @@ async function build() {
     const marker = '/*__ARCHIVE_MANIFEST__*/ null';
     if (!html.includes(marker)) throw new Error('Archive manifest marker missing');
     await writeFile('public/dashboard.html', html.replace(marker, JSON.stringify(manifest)));
+    await writeFile('public/service.js', await readFile('service.js', 'utf8'));
     console.log(`Published ${manifest.dates.length} archived dates, ${Object.values(days).reduce((sum, day) => sum + day.length, 0)} public disclosures; today remains live.`);
 }
 

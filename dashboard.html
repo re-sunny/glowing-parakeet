@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📈 KIND 기업 공시 리스크 히스토리 대시보드</title>
+    <title>NightDisclosure · 저녁 공시와 종목 이력</title>
     <link rel="preload" href="/api/bootstrap" as="fetch" crossorigin="anonymous">
     <style>
         :root {
@@ -779,6 +779,43 @@
             color: var(--bg-color);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+        .service-toolbar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:12px 0; }
+        .service-btn { border:1px solid var(--border-color); background:var(--card-bg); color:var(--text-primary); border-radius:8px; padding:9px 12px; font:inherit; cursor:pointer; }
+        .service-btn:hover { border-color:#3b82f6; }
+        .service-btn:disabled { opacity:.45; cursor:default; }
+        .service-note { color:var(--text-secondary); font-size:13px; line-height:1.7; }
+        .service-status { margin:12px 0 18px; padding:12px 16px; border-left:3px solid #3b82f6; background:var(--card-bg); border-radius:8px; }
+        .service-star { border:0; background:transparent; color:var(--text-muted); padding:4px 6px; cursor:pointer; font-size:17px; }
+        .service-star[aria-pressed="true"] { color:#f59e0b; }
+        .history-link { background:none; border:0; padding:0; font:inherit; font-weight:800; color:var(--text-primary); cursor:pointer; text-align:left; text-decoration:underline; text-underline-offset:3px; }
+        .service-dialog { color:var(--text-primary); background:var(--card-bg); border:1px solid var(--border-color); border-radius:16px; width:min(840px,calc(100vw - 28px)); max-height:90dvh; padding:0; margin:auto; }
+        .service-dialog::backdrop { background:rgba(0,0,0,.65); }
+        .service-dialog-head { padding:20px 24px; border-bottom:1px solid var(--border-color); display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+        .service-dialog-head h2 { margin:0 0 8px; font-size:22px; }
+        .service-dialog-body { padding:20px 24px; }
+        .service-dialog .input-elem { min-width:0; }
+        .history-event { border-left:2px solid var(--border-color); padding:0 0 22px 16px; margin-left:6px; }
+        .history-event time { display:block; color:var(--time-color); font-size:13px; margin-bottom:8px; }
+        .history-event p { margin:6px 0; overflow-wrap:anywhere; line-height:1.7; }
+        .service-pager { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:16px 0; }
+        #month-select { display:none; }
+        #watchlist-items { display:flex; flex-wrap:wrap; gap:8px; }
+        .service-search-fields { display:flex; flex-wrap:wrap; gap:12px; align-items:center; width:100%; }
+        .service-dialog input[type="date"] { color-scheme:dark; }
+        body.light-mode .service-dialog input[type="date"] { color-scheme:light; }
+        :focus-visible { outline:3px solid #3b82f6; outline-offset:3px; }
+        [hidden] { display:none !important; }
+        @media(max-width:700px) {
+            .container { padding:14px; }
+            header h1 { font-size:25px !important; }
+            .controls-card { padding:14px; }
+            .controls-card .control-group { min-width:0 !important; width:100%; flex:1 0 100% !important; }
+            #month-list { display:none; }
+            #month-select { display:block; width:100%; }
+            .service-search-fields .input-elem { width:100%; }
+            .service-dialog-head,.service-dialog-body { padding:16px; }
+            .service-toolbar .service-btn { flex-grow:1; }
+        }
     </style>
 
     <!-- Supabase CDN -->
@@ -795,10 +832,22 @@
     <div class="container">
         <header>
             <div class="logo-section">
-                <h1>📈 KIND 기업 공시 리스크 히스토리 대시보드</h1>
-                <p>한국거래소 시장 경보 조치사항 및 공매도 과열 규제 종합 아카이브 (Supabase 연동)</p>
+                <h1>NightDisclosure</h1>
+                <p>저녁 공시를 확인하고, 종목별 이전 이력을 찾아보세요.</p>
             </div>
         </header>
+        <section class="service-status" aria-label="자료 수집 범위">
+            <div class="service-note">KIND · 20:00 이후 수집 공시 · 평일 20:15 1회 수집</div>
+            <div id="collection-status" class="service-note" role="status" aria-live="polite">수집 실행 기록을 확인하고 있습니다.</div>
+            <div class="service-note">수집 이후 등록된 공시는 포함되지 않을 수 있습니다. 공시 문서의 제목을 기준으로 분류합니다.</div>
+        </section>
+        <div class="service-toolbar">
+            <button class="service-btn" onclick="NightService.openWatchlist()">☆ 관심 종목</button>
+            <label class="service-note"><input type="checkbox" id="watch-only" onchange="onSearchInput()"> 관심 종목만</label>
+            <button class="service-btn" onclick="NightService.copyConditions()">🔗 현재 조건 공유</button>
+            <button class="service-btn" onclick="NightService.resetFilters()">조건 초기화</button>
+            <span id="service-feedback" class="service-note" role="status" aria-live="polite"></span>
+        </div>
 
         <!-- 필터 컨트롤 카드 -->
         <div class="controls-card">
@@ -807,19 +856,19 @@
                 <input type="date" id="disclosure-date" class="input-elem" onchange="onDateChanged()">
             </div>
             <div class="control-group" style="flex: 2; min-width: 320px;">
-                <span class="control-label">🔍 기업 실시간 필터링 (명칭 또는 종목코드)</span>
-                <div style="display: flex; gap: 12px; align-items: center; width: 100%;">
+                <span class="control-label">🔍 종목·코드·공시 제목·제출인 검색</span>
+                <div class="service-search-fields">
                     <input type="text" id="filter-search" class="input-elem" placeholder="검색어 입력..."
                         oninput="onSearchInput()">
                     <label
                         style="display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 750; color: var(--text-secondary); cursor: pointer; user-select: none; white-space: nowrap;">
                         <input type="checkbox" id="ignore-date-checkbox" onchange="onSearchInput()"
-                            style="width: 17px; height: 17px; cursor: pointer; accent-color: #2563eb;"> 날짜x
+                            style="width: 17px; height: 17px; cursor: pointer; accent-color: #2563eb;"> 전체 기간
                     </label>
                     <label
                         style="display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 750; color: var(--text-secondary); cursor: pointer; user-select: none; white-space: nowrap;">
                         <input type="checkbox" id="exclude-checkbox" onchange="onSearchInput()"
-                            style="width: 17px; height: 17px; cursor: pointer; accent-color: #f43f5e;"> 제외
+                            style="width: 17px; height: 17px; cursor: pointer; accent-color: #f43f5e;"> 검색어 제외
                     </label>
                 </div>
             </div>
@@ -833,6 +882,7 @@
             <div class="control-group"
                 style="flex: none; width: 100%; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 4px;">
                 <span class="control-label">📅 아카이브 월 선택</span>
+                <select id="month-select" class="input-elem" aria-label="아카이브 월 선택" onchange="NightService.selectMonth(this.value)"></select>
                 <div class="month-selector" id="month-list">
                     <!-- JS로 동적 생성 -->
                 </div>
@@ -871,11 +921,12 @@
 
         <!-- 실시간 요약 헤더 브리핑 -->
         <div class="system-banner">
-            <h2>✍️ 시스템 정량 분석 브리핑</h2>
+            <h2>공시 유형 <small id="counts-scope" class="service-note">현재 표시 자료 기준</small></h2>
             <div class="stats-summary" id="stats-area">
                 <!-- JS dynamic -->
             </div>
         </div>
+        <nav id="explore-pagination" class="service-pager" aria-label="검색 결과 페이지" hidden></nav>
 
         <!-- 종류별 공시 정보 카드리스트 -->
         <main class="dashboard-grid" id="dashboard-sections">
@@ -883,9 +934,31 @@
         </main>
 
         <footer>
-            본 보드는 Supabase 클라우드 데이터베이스와 실시간 동기화되어 조회 날짜별 KIND 기업 공시 내역을 표시합니다.
+            KIND 원문을 확인할 수 있는 공시 아카이브입니다. 관련 공시 건수는 현재 지정 상태·위험도·매매 추천을 뜻하지 않습니다.
         </footer>
     </div>
+    <dialog id="history-dialog" class="service-dialog" aria-labelledby="history-title">
+        <div class="service-dialog-head">
+            <div><h2 id="history-title">종목 이력</h2><div id="history-subtitle" class="service-note"></div></div>
+            <button class="service-btn" onclick="NightService.closeHistory()" aria-label="종목 이력 닫기">닫기</button>
+        </div>
+        <div class="service-dialog-body">
+            <p class="service-note">공시 목록에 기록된 종목코드 기준입니다. 제목에 우선주 등 다른 증권이 언급될 수 있으며, 현재 조치 상태를 확정하지 않습니다.</p>
+            <div class="service-toolbar">
+                <label class="service-note">시작일 <input type="date" id="history-from" class="input-elem" onchange="NightService.loadHistory(1)"></label>
+                <label class="service-note">종료일 <input type="date" id="history-to" class="input-elem" onchange="NightService.loadHistory(1)"></label>
+                <label class="service-note">유형 <select id="history-category" class="input-elem" onchange="NightService.loadHistory(1)"><option value="">전체 유형</option><option value="caution">투자주의·환기</option><option value="overheating">단기과열</option><option value="warning_risk_trading">경고·위험·매매거래</option><option value="short_selling">공매도</option><option value="others">기타</option></select></label>
+            </div>
+            <div class="service-toolbar"><button id="history-watch" class="service-btn" onclick="NightService.toggleHistoryWatch()">☆ 관심 종목 저장</button><button class="service-btn" onclick="NightService.copyHistoryLink()">🔗 이력 조건 공유</button></div>
+            <div id="history-status" class="service-note" role="status" aria-live="polite"></div>
+            <div id="history-events" style="margin-top:20px;"></div>
+            <nav id="history-pagination" class="service-pager" aria-label="종목 이력 페이지"></nav>
+        </div>
+    </dialog>
+    <dialog id="watchlist-dialog" class="service-dialog" aria-labelledby="watchlist-title">
+        <div class="service-dialog-head"><h2 id="watchlist-title">관심 종목</h2><button class="service-btn" onclick="document.getElementById('watchlist-dialog').close()">닫기</button></div>
+        <div class="service-dialog-body"><p class="service-note">이 브라우저에만 저장됩니다. 다른 기기와 동기화하지 않습니다. 종목명의 ☆를 눌러 저장할 수 있습니다.</p><div id="watchlist-items"></div><button class="service-btn" style="margin-top:20px;" onclick="NightService.clearWatchlist()">관심 종목 전체 해제</button></div>
+    </dialog>
 
     <!-- 이미지 수동 복사 모달 -->
     <div id="image-modal" class="modal-overlay" onclick="closeImageModal()">
@@ -1389,7 +1462,7 @@
                 if (cat.items.length === 0) {
                     cardsHTML += `
                         <div class="empty-state">
-                            ✓ 조건에 매칭되거나 등록된 특이사항 공시 내역이 없습니다. (안전)
+                            현재 조건에 표시할 공시가 없습니다. 수집 상태는 상단에서 확인하세요.
                         </div>
                     `;
                 } else {
@@ -1412,7 +1485,7 @@
                             <tr>
                                 <td class="time-cell">${escapeHtml(dateFormatted)}${escapeHtml(item.time)}</td>
                                 <td>
-                                     <span class="company-name">${escapeHtml(item.company)}</span>
+                                     ${window.NightService ? window.NightService.companyCell(item) : `<span class="company-name">${escapeHtml(item.company)}</span>`}
                                      <span class="stock-code">(${escapeHtml(item.code)})</span>
                                 </td>
                                 <td>${renderDisclosureTitle(item)}</td>
@@ -1648,6 +1721,7 @@
             copyBtn.innerHTML = "📋 이미지 복사";
         }
     </script>
+    <script src="/service.js"></script>
 </body>
 
 </html>

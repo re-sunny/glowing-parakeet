@@ -44,6 +44,9 @@ jobs:
           test -n "$SUPABASE_URL" || { echo "::error::SUPABASE_URL Secret이 필요합니다"; exit 1; }
           test -n "$SUPABASE_SERVICE_ROLE_KEY$SUPABASE_KEY" || { echo "::error::Supabase 쓰기 키 Secret이 필요합니다"; exit 1; }
 
+      - name: 수집 시작 상태 기록
+        run: python record_collection_status.py running
+
       - name: KIND 원문 접수번호 수집
         timeout-minutes: 3
         continue-on-error: true
@@ -52,3 +55,10 @@ jobs:
       - name: KIND 최신 공시 다운로드 및 Supabase 적재
         run: |
           python read_excel_auto.py --auto --no-report
+
+      - name: 저장 확인 및 완료 상태 기록
+        run: python record_collection_status.py succeeded
+
+      - name: 실패 상태 기록
+        if: failure()
+        run: python record_collection_status.py failed
